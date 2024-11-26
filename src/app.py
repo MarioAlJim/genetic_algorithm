@@ -3,8 +3,8 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def hello_world():
-    return render_template('config.html')
+def playground():
+    return render_template('playground.html')
 
 @app.route('/about')
 def about():
