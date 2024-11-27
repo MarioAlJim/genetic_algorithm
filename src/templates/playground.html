@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>BiTe - Playground</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-
+{% extends 'index.html' %} {% block body %}
 <header>
     <div class="header-title">
         <div class="title">BiTe Playground</div>
@@ -87,5 +78,4 @@
         <div class="graph"></div>
     </div>
 </main>
-</body>
-</html>
+{% endblock %}
