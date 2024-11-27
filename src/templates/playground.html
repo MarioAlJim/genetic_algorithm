@@ -5,58 +5,87 @@
     <title>BiTe - Playground</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <div>
-        <h1>Configuración del Algoritmo Genético</h1>
+
+<header>
+    <div class="header-title">
+        <div class="title">BiTe Playground</div>
     </div>
-    <div class="form">
-        <form action="/config" method="POST">
-            <div class="form-group">
-                <label for="population_size">Tamaño de población:</label>
-                <input type="number" id="population_size" name="population_size" step="10" min="0" max="100" required>
-            </div>
-
-            <div class="form-group">
-                <label for="generations">Número de generaciones:</label>
-                <input type="number" id="generations" name="generations" step="10" min="0" max="100" required>
-            </div>
-
-            <div class="form-group">
-                <label for="selection_type">Tipo de selección:</label>
-                <select id="selection_type" name="mutation_type" required>
-                    <option value="steady-state">Bit Flip</option>
-                    <option value="random">Intercambio</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="selection_rate">Tasa de selección:</label>
-                <input type="number" id="selection_rate" name="selection_rate" step="0.10" min="0" max="1" required>
-            </div>
-
-            <div class="form-group">
-                <label for="crossover_type">Tipo de cruce:</label>
-                <select id="crossover_type" name="crossover_type" required>
-                    <option value="one_point">Punto único</option>
-                    <option value="two_point">Dos puntos</option>
-                    <option value="uniform">Uniforme</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="mutation_type">Tipo de mutación:</label>
-                <select id="mutation_type" name="mutation_type" required>
-                    <option value="random-resetting">Bit Flip</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="mutation_rate">Probabilidad de mutación:</label>
-                <input type="number" id="mutation_rate" name="mutation_rate" step="0.10" min="0" max="1" required>
-            </div>
-
-            <button type="submit">Configurar</button>
-        </form>
+    <div class="header-row combobox-container">
+        <label for="combo-problem" class="label-header">Problema:</label>
+        <select id="combo-problem" class="combo-header">
+            <option value="">Problema de optimización del triangulo</option>
+        </select>
+        <label for="combo-algorithm" class="label-header">Algoritmo:</label>
+        <select id="combo-algorithm" class="combo-header">
+            <option value="">Algoritmo Genético</option>
+        </select>
     </div>
+    <div class="header-row button-container">
+        <button id="run-btn">Ejecutar</button>
+        <button id="stop-btn">Detener</button>
+        <button id="download-btn">Descargar Reporte</button>
+    </div>
+</header>
+
+<main>
+    <div class="left-panel">
+        <h3>Configuraciones</h3>
+        <div class="form">
+            <form action="/config" method="POST">
+                <div class="form-group">
+                    <label for="population_size" class="label-form">Tamaño de población:</label>
+                    <input type="number" id="population_size" name="population_size" step="10" min="0" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="generations" class="label-form">Número de generaciones:</label>
+                    <input type="number" id="generations" name="generations" step="10" min="0" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="selection_type" class="label-form">Tipo de selección:</label>
+                    <select id="selection_type" name="mutation_type" required>
+                        <option value="steady-state">Bit Flip</option>
+                        <option value="random">Intercambio</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selection_rate" class="label-form">Tasa de selección:</label>
+                    <input type="number" id="selection_rate" name="selection_rate" step="0.10" min="0" max="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="crossover_type" class="label-form">Tipo de cruce:</label>
+                    <select id="crossover_type" name="crossover_type" required>
+                        <option value="one_point">Punto único</option>
+                        <option value="two_point">Dos puntos</option>
+                        <option value="uniform">Uniforme</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mutation_type" class="label-form">Tipo de mutación:</label>
+                    <select id="mutation_type" name="mutation_type" required>
+                        <option value="random-resetting">Random resetting</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mutation_rate" class="label-form">Probabilidad de mutación:</label>
+                    <input type="number" id="mutation_rate" name="mutation_rate" step="0.10" min="0" max="1" required>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="right-panel">
+        <h3>Resultados de la ejecución</h3>
+        <div class="graph"></div>
+        <div class="graph"></div>
+        <div class="graph"></div>
+    </div>
+</main>
 </body>
 </html>
