@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>BiTe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Playground</a></li>
+            <li style="float:right"><a class="active" href="/about">Acerca de</a></li>
+        </ul>
+    </nav>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

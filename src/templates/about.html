@@ -1,56 +1,72 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>BiTe - Acerca de</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
-</head>
-<body>
-    <ul>
-        <li><a href="/">Playground</a></li>
-        <li style="float:right"><a class="active" href="/about">Acerca de</a></li>
-    </ul>
-    <div class="about-section">
-        <h1>ACERCA DE</h1>
-        <p>BiTe en su versión 1.0 busca otorgar un medio a los interesados en SBST para la experimentación con algoritmos bioinspirados canónicos en la generación de datos de prueba, permitiendo conocer su comportamiento y desempeño bajo ciertos parámetros sin la necesidad de implementarlos y configurarlos manualmente. Para la versión 1.0 de Bite se incluye un <b>algoritmo genético</b> aplicado al problema de <b>clasificación de triángulos</b>, al que se le pueden configurar sus parámetros y visualizar en tiempo real los resultados generados por el algoritmo.</p>
-        <p>Para el desarrollo de BiTe se realizó un mapeo sistemático de la literatura titulado <b>"Search-Based Software Testing Driven by Bioinspired Algorithms: A Systematic Literature Mapping"</b> y publicado en la conferencia <b>CONISOFT - 2024</b>. El objetivo del mapeo fue el de identificar los algoritmos bioinspirados canónicos que más se usaban en el área de pruebas de software basadas en búsqueda, con el fin de analizar sus elementos principales, parámetros sintonizables y métricas de desempeño. El DOI de artículo es <b>10.1109/CONISOFT63288.2024.00023</b>.</p>
-        <p>El repositorio de este proyecto lo puedes encontrar en GitHub en el siguiente <a href="https://github.com/MarioAlJim/genetic_algorithm">link</a>.</p>
-    </div>
+{% extends 'index.html' %}
+{% block body %}
+<div class="about-section">
+    <h1>ACERCA DE</h1>
+    <p>
+        BiTe en su versión 1.0 busca otorgar un medio a los interesados en SBST
+        para la experimentación con algoritmos bioinspirados canónicos en la
+        generación de datos de prueba, permitiendo conocer su comportamiento y
+        desempeño bajo ciertos parámetros sin la necesidad de implementarlos y
+        configurarlos manualmente. Para la versión 1.0 de Bite se incluye un
+        <b>algoritmo genético</b> aplicado al problema de
+        <b>clasificación de triángulos</b>, al que se le pueden configurar sus
+        parámetros y visualizar en tiempo real los resultados generados por el
+        algoritmo.
+    </p>
+    <p>
+        Para el desarrollo de BiTe se realizó un mapeo sistemático de la
+        literatura titulado
+        <b
+            >"Search-Based Software Testing Driven by Bioinspired Algorithms: A
+            Systematic Literature Mapping"</b
+        >
+        y publicado en la conferencia <b>CONISOFT - 2024</b>. El objetivo del
+        mapeo fue el de identificar los algoritmos bioinspirados canónicos que
+        más se usaban en el área de pruebas de software basadas en búsqueda, con
+        el fin de analizar sus elementos principales, parámetros sintonizables y
+        métricas de desempeño. El DOI de artículo es
+        <b>10.1109/CONISOFT63288.2024.00023</b>.
+    </p>
+    <p>
+        El repositorio de este proyecto lo puedes encontrar en GitHub en el
+        siguiente
+        <a href="https://github.com/MarioAlJim/genetic_algorithm">link</a>.
+    </p>
+</div>
 
-    <h1 class="title">Involucrados en el proyecto</h1>
-    <div class="row">
-        <div class="column">
-            <div class="team-member-card">
-                <div class="container">
-                    <h3>Joshua Eliud Hernández Suárez</h3>
-                    <p>jeliud.hsuarez@gmail.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="team-member-card">
-                <div class="container">
-                    <h3>Mario Alberto Jiménez Jiménez</h3>
-                    <p>mario.aljim@gmail.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="team-member-card">
-                <div class="container">
-                    <h3>Saúl Domínguez Isidro</h3>
-                    <p>sauldominguez@uv.mx</p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="team-member-card">
-                <div class="container">
-                    <h3>Jorge Octavio Ocharán Hernández</h3>
-                    <p>jocharan@uv.mx</p>
-                </div>
+<h1 class="title">Involucrados en el proyecto</h1>
+<div class="row">
+    <div class="column">
+        <div class="team-member-card">
+            <div class="container">
+                <h3>Joshua Eliud Hernández Suárez</h3>
+                <p>jeliud.hsuarez@gmail.com</p>
             </div>
         </div>
     </div>
-</body>
-</html>
+    <div class="column">
+        <div class="team-member-card">
+            <div class="container">
+                <h3>Mario Alberto Jiménez Jiménez</h3>
+                <p>mario.aljim@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="team-member-card">
+            <div class="container">
+                <h3>Saúl Domínguez Isidro</h3>
+                <p>sauldominguez@uv.mx</p>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="team-member-card">
+            <div class="container">
+                <h3>Jorge Octavio Ocharán Hernández</h3>
+                <p>jocharan@uv.mx</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
