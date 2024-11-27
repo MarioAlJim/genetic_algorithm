@@ -26,26 +26,26 @@
         <div class="form">
             <form action="/config" method="POST">
                 <div class="form-group">
-                    <label for="population_size" class="label-form">Tamaño de población:</label>
-                    <input type="number" id="population_size" name="population_size" step="10" min="0" max="100" required>
+                    <label for="population_size" class="label-form">Tamaño de la población:</label>
+                    <input type="number" id="population_size" name="population_size" step="10" min="0" max="100" value="30" required>
                 </div>
 
                 <div class="form-group">
                     <label for="generations" class="label-form">Número de generaciones:</label>
-                    <input type="number" id="generations" name="generations" step="10" min="0" max="100" required>
+                    <input type="number" id="generations" name="generations" step="10" min="0" max="100" value="50" required>
                 </div>
 
                 <div class="form-group">
                     <label for="selection_type" class="label-form">Tipo de selección:</label>
                     <select id="selection_type" name="mutation_type" required>
-                        <option value="steady-state">Bit Flip</option>
-                        <option value="random">Intercambio</option>
+                        <option value="random">Aleatoria</option>
+                        <option value="steady-state">Estado constante</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="selection_rate" class="label-form">Tasa de selección:</label>
-                    <input type="number" id="selection_rate" name="selection_rate" step="0.10" min="0" max="1" required>
+                    <label for="selection_rate" class="label-form">Probabilidad de selección:</label>
+                    <input type="number" id="selection_rate" name="selection_rate" step="0.10" min="0" max="1" value="0.5" required>
                 </div>
 
                 <div class="form-group">
@@ -60,13 +60,13 @@
                 <div class="form-group">
                     <label for="mutation_type" class="label-form">Tipo de mutación:</label>
                     <select id="mutation_type" name="mutation_type" required>
-                        <option value="random-resetting">Random resetting</option>
+                        <option value="random-resetting">Restablecimiento aleatorio</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="mutation_rate" class="label-form">Probabilidad de mutación:</label>
-                    <input type="number" id="mutation_rate" name="mutation_rate" step="0.10" min="0" max="1" required>
+                    <input type="number" id="mutation_rate" name="mutation_rate" step="0.10" min="0" max="1" value="0.5" required>
                 </div>
             </form>
         </div>
