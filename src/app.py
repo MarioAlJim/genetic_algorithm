@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask
+from routes.about_routes import about_blueprint
+from routes.playground_routes import playground_blueprint
 
-app = Flask(__name__)
+def create_app():
+    new_app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def playground():
-    return render_template('playground.html')
+    new_app.register_blueprint(about_blueprint)
+    new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+    return new_app
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app = create_app()
+    app.run(host='localhost', port=3000, debug=True)
