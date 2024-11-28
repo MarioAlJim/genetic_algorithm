@@ -1,3 +1,4 @@
+'''About routes'''
 from flask import Blueprint
 from flask import render_template
 
@@ -5,4 +6,5 @@ about_blueprint = Blueprint('about_blueprint', __name__, template_folder='templa
 
 @about_blueprint.route('/about', methods=['GET', 'POST'])
 def show_about():
+    '''Render about template'''
     return render_template('about.html')
