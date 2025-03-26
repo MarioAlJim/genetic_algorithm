@@ -1,12 +1,8 @@
-'''This file is for experimenting with the genetic algorithm
-
-Reference code: 
-https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-through-evolutionary-computing-f4e7d452084f
-'''
+"""This file is for defining the genetic algorithm"""
 import random
 
 class GeneticAlgorithm:
-    '''Class for the configuration and execution of the genetic algorithm
+    """Class for the configuration and execution of the genetic algorithm
 
     Configurable attributes:
     - chromo_len
@@ -18,7 +14,7 @@ class GeneticAlgorithm:
     - mutation_type
     - mutation_rate
     - current_pop
-    '''
+    """
     def __init__(self) -> None:
         self._chromo_len = 3
         self._pop_size = 10
@@ -32,12 +28,12 @@ class GeneticAlgorithm:
 
     @property
     def chromo_len(self) -> int:
-        '''Get chromosome length'''
+        """Get chromosome length"""
         return self._chromo_len
 
     @chromo_len.setter
     def chromo_len(self, chromo_len: int):
-        '''Set chromosome length'''
+        """Set chromosome length"""
         min_len = 1
         max_len = 9999
 
@@ -51,12 +47,12 @@ class GeneticAlgorithm:
 
     @property
     def pop_size(self) -> int:
-        '''Get population size'''
+        """Get population size"""
         return self._pop_size
 
     @pop_size.setter
     def pop_size(self, pop_size: int):
-        '''Set population size'''
+        """Set population size"""
         min_pop = 1
         max_pop = 9999
 
@@ -70,12 +66,12 @@ class GeneticAlgorithm:
 
     @property
     def num_generations(self) -> int:
-        '''Get number of generations'''
+        """Get number of generations"""
         return self._num_generations
 
     @num_generations.setter
     def num_generations(self, num_generations: int):
-        '''Set number of generations'''
+        """Set number of generations"""
         min_generations = 1
         max_generations = 9999
 
@@ -89,12 +85,12 @@ class GeneticAlgorithm:
 
     @property
     def selection_rate(self) -> float:
-        '''Get selection rate'''
+        """Get selection rate"""
         return self._selection_rate
 
     @selection_rate.setter
     def selection_rate(self, selection_rate: float):
-        '''Set selection rate'''
+        """Set selection rate"""
         if 0 <= selection_rate <= 1:
             self._selection_rate = selection_rate
         else:
@@ -102,12 +98,12 @@ class GeneticAlgorithm:
 
     @property
     def selection_type(self) -> str:
-        '''Get selection type'''
+        """Get selection type"""
         return self._selection_type
 
     @selection_type.setter
     def selection_type(self, selection_type: str):
-        '''Set selection type'''
+        """Set selection type"""
         selection_types = ['random', 'steady-state']
 
         if selection_type in selection_types:
@@ -117,12 +113,12 @@ class GeneticAlgorithm:
 
     @property
     def crossover_type(self) -> str:
-        '''Get crossover type'''
+        """Get crossover type"""
         return self._crossover_type
 
     @crossover_type.setter
     def crossover_type(self, crossover_type: str):
-        '''Set crossover type'''
+        """Set crossover type"""
         crossover_types = ['one-point', 'two-point', 'uniform']
 
         if crossover_type in crossover_types:
@@ -132,12 +128,12 @@ class GeneticAlgorithm:
 
     @property
     def mutation_rate(self) -> float:
-        '''Get mutation rate'''
+        """Get mutation rate"""
         return self._mutation_rate
 
     @mutation_rate.setter
     def mutation_rate(self, mutation_rate: float):
-        '''Set mutation rate'''
+        """Set mutation rate"""
         if 0 <= mutation_rate <= 1:
             self._mutation_rate = mutation_rate
         else:
@@ -145,12 +141,12 @@ class GeneticAlgorithm:
 
     @property
     def mutation_type(self) -> str:
-        '''Get mutation type'''
+        """Get mutation type"""
         return self._mutation_type
 
     @mutation_type.setter
     def mutation_type(self, mutation_type: str):
-        '''Set mutation type'''
+        """Set mutation type"""
         mutation_types = ['random-resetting']
 
         if mutation_type in mutation_types:
@@ -160,24 +156,24 @@ class GeneticAlgorithm:
 
     @property
     def current_pop(self) -> list:
-        '''Get current population'''
+        """Get current population"""
         return self._current_pop
 
     @current_pop.setter
     def current_pop(self, current_pop: list):
-        '''Set current population'''
+        """Set current population"""
         if 0 < len(current_pop):
             self._current_pop = current_pop
         else:
             raise ValueError('Current population must have individuals')
 
     def create_gen(self):
-        '''Creates a gen according with gen type'''
+        """Creates a gen according to gen type"""
         gen = random.randint(0,100)
         return gen
 
     def init_pop(self):
-        '''Initializes the population'''
+        """Initializes the population"""
         population = []
 
         for _ in range(self._pop_size):
@@ -189,7 +185,7 @@ class GeneticAlgorithm:
         return population
 
     def selection(self, new_pop):
-        '''Selects a percentage of the new population for the next generation'''
+        """Selects a percentage of the new population for the next generation"""
         selected_new_pop = []
 
         if self._selection_type == 'random':
@@ -204,12 +200,12 @@ class GeneticAlgorithm:
         return selected_new_pop
 
     def crossover(self, new_pop, current_pop):
-        '''Selects random parents according to the selected crossover
-        
+        """Selects random parents according to the selected crossover
+
         For reducing computational costs, we got three similar for loops.
-        This way we only need to validate the crossover type once and not 
+        This way we only need to validate the crossover type once and not
         n (population size) times.
-        '''
+        """
         offspring = []
 
         if self._crossover_type == 'one-point':
@@ -265,7 +261,7 @@ class GeneticAlgorithm:
         return offspring
 
     def mutate(self, offspring):
-        '''Mutates the offspring population'''
+        """Mutates the offspring population"""
         mutated_offspring = []
 
         if self._mutation_type == 'random-resetting':
@@ -278,7 +274,7 @@ class GeneticAlgorithm:
         return mutated_offspring
 
     def replace(self, new_pop, current_pop):
-        '''Replaces chromosomes if new gen chromosomes have better fitness score'''
+        """Replaces chromosomes if new gen chromosomes have better fitness score"""
         for _ in range(self._pop_size):
             if current_pop[_][1] > new_pop[_][1]:
                 # Replaces chromosome
