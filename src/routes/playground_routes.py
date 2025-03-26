@@ -1,4 +1,4 @@
-'''Playground routes'''
+"""Playground routes"""
 from flask import Blueprint
 from flask import render_template
 
@@ -6,5 +6,5 @@ playground_blueprint = Blueprint('playground_blueprint', __name__, template_fold
 
 @playground_blueprint.route('/ga')
 def show_ga_playground():
-    '''Render genetic algorithm playground'''
+    """Render genetic algorithm playground"""
     return render_template('playground_ga.html')

@@ -1,4 +1,4 @@
-'''This file is for defining the fitness functions.
+"""This file is for defining the fitness functions.
 
 1. Evaluates the chromosome.
 2. Returns a list with the chromosome and its fitness score.
@@ -6,9 +6,9 @@
     Chromosome input: [3,3,3]
     Expected solution input: Equilateral
     Fitness function output: [[3,3,3], 0]
-'''
+"""
 def classify_triangle(chromosome: list):
-    '''Classifies the triangle'''
+    """Classifies the triangle"""
     classification = None
     a = chromosome[0]
     b = chromosome[1]
@@ -32,7 +32,7 @@ def classify_triangle(chromosome: list):
     return classification
 
 def score_triangle_classification(chromosome: list, expected_solution):
-    '''Fitness function for triangle classification problem'''
+    """Fitness function for triangle classification problem"""
     difference = 0
 
     solution = classify_triangle(chromosome)
