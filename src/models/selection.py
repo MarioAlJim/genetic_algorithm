@@ -3,7 +3,7 @@ import random
 
 class Selection:
     """Selection class"""
-    def __init__(self, rate) -> None:
+    def __init__(self, rate: float) -> None:
         self._type = 'Selection'
         self._rate = rate
 
@@ -26,7 +26,7 @@ class Selection:
             raise ValueError('Selection rate must be between 0 and 1')
 
     def select(self, pop: list, pop_size: int) -> list:
-        """Defines the method structure"""
+        """Selection method"""
         raise NotImplementedError('Selection method should be implemented by child class')
 
 class RandomSelection(Selection):
@@ -34,7 +34,7 @@ class RandomSelection(Selection):
 
     Randomly selects population
     """
-    def __init__(self, rate) -> None:
+    def __init__(self, rate: float) -> None:
         super().__init__(rate)
         self._type = 'random'
 
@@ -46,7 +46,7 @@ class SteadyState(Selection):
 
     Sorts population by fitness score and then selects the new population
     """
-    def __init__(self, rate) -> None:
+    def __init__(self, rate: float) -> None:
         super().__init__(rate)
         self._type = 'steady-state'
 
