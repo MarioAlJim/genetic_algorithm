@@ -1,6 +1,7 @@
 """This file is for defining the genetic algorithm"""
 import random
 
+from src.models.crossover import UniformCrossover, OnePointCrossover, TwoPointCrossover
 from src.models.selection import *
 
 
@@ -22,7 +23,7 @@ class GeneticAlgorithm:
         self._pop_size = 10
         self._num_generations = 50
         self._selection = RandomSelection(0.5)
-        self._crossover_type = 'two-point'
+        self._crossover = UniformCrossover()
         self._mutation_type = 'random-resetting'
         self._mutation_rate = 0.3
         self._current_pop = []
@@ -121,17 +122,21 @@ class GeneticAlgorithm:
     @property
     def crossover_type(self) -> str:
         """Get crossover type"""
-        return self._crossover_type
+        return self._crossover.type
 
     @crossover_type.setter
     def crossover_type(self, crossover_type: str):
         """Set crossover type"""
         crossover_types = ['one-point', 'two-point', 'uniform']
+        crossover_classes = [OnePointCrossover, TwoPointCrossover, UniformCrossover]
 
-        if crossover_type in crossover_types:
-            self._crossover_type = crossover_type
-        else:
+        if crossover_type not in crossover_types:
             raise ValueError('Crossover type must be a valid value')
+
+        for i, cross_type in enumerate(crossover_types):
+            if crossover_type == cross_type:
+                self._crossover = crossover_classes[i]()
+                break
 
     @property
     def mutation_rate(self) -> float:
@@ -196,63 +201,16 @@ class GeneticAlgorithm:
         return self._selection.select(new_pop, self._pop_size)
 
     def crossover(self, new_pop, current_pop):
-        """Selects random parents according to the selected crossover
-
-        For reducing computational costs, we got three similar for loops.
-        This way we only need to validate the crossover type once and not
-        n (population size) times.
-        """
+        """Selects random parents according to the selected crossover"""
         offspring = []
 
-        if self._crossover_type == 'one-point':
-            for _ in range(self._pop_size):
-                # Gets the chromosome parents from the evaluated lists
-                parent1 = random.choice(new_pop)[0]
-                parent2 = random.choice(current_pop)[0]
+        for _ in range(self._pop_size):
+            # Gets the chromosome parents from the evaluated lists
+            parent1 = random.choice(new_pop)[0]
+            parent2 = random.choice(current_pop)[0]
 
-                # Creates children
-                point = random.randint(1, self._chromo_len-1)
-                child1 = parent1[:point] + parent2[point:]
-                child2 = parent2[:point] + parent1[point:]
-
-                # Randomly selects child
-                children = [child1, child2]
-                offspring.extend([random.choice(children)])
-
-        elif self._crossover_type == 'two-point':
-            for _ in range(self._pop_size):
-                # Gets the chromosome parents from the evaluated lists
-                parent1 = random.choice(new_pop)[0]
-                parent2 = random.choice(current_pop)[0]
-
-                # Creates children
-                point1 = random.randint(1, (self._chromo_len-2))
-                point2 = random.randint(point1+1, (self._chromo_len-1))
-                child1 = parent1[:point1] + parent2[point1:point2] + parent1[point2:]
-                child2 = parent2[:point1] + parent1[point1:point2] + parent2[point2:]
-
-                # Randomly selects child
-                children = [child1, child2]
-                offspring.extend([random.choice(children)])
-
-        elif self._crossover_type == 'uniform':
-            for _ in range(self._pop_size):
-                # Gets the chromosome parents from the evaluated lists
-                parent1 = random.choice(new_pop)[0]
-                parent2 = random.choice(current_pop)[0]
-                parents = [parent1, parent2]
-
-                # Creates children
-                child1 = []
-                child2 = []
-                for chromo in range(self._chromo_len):
-                    random.shuffle(parents)
-                    child1.append(parents[0][chromo])
-                    child2.append(parents[1][chromo])
-
-                # Randomly selects child
-                children = [child1, child2]
-                offspring.extend([random.choice(children)])
+            result = self._crossover.cross(self._chromo_len, parent1, parent2)
+            offspring.extend([random.choice(result)])
 
         return offspring
 
