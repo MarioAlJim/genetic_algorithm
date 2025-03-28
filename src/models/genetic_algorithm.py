@@ -1,6 +1,9 @@
 """This file is for defining the genetic algorithm"""
 import random
 
+from src.models.selection import *
+
+
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
 
@@ -8,8 +11,7 @@ class GeneticAlgorithm:
     - chromo_len
     - pop_size
     - num_generations
-    - selection_type
-    - selection_rate
+    - selection (type and rate)
     - crossover_type
     - mutation_type
     - mutation_rate
@@ -19,8 +21,7 @@ class GeneticAlgorithm:
         self._chromo_len = 3
         self._pop_size = 10
         self._num_generations = 50
-        self._selection_type = 'steady-state'
-        self._selection_rate = 0.5
+        self._selection = RandomSelection(0.5)
         self._crossover_type = 'two-point'
         self._mutation_type = 'random-resetting'
         self._mutation_rate = 0.3
@@ -86,30 +87,36 @@ class GeneticAlgorithm:
     @property
     def selection_rate(self) -> float:
         """Get selection rate"""
-        return self._selection_rate
+        return self._selection.rate
 
     @selection_rate.setter
     def selection_rate(self, selection_rate: float):
         """Set selection rate"""
         if 0 <= selection_rate <= 1:
-            self._selection_rate = selection_rate
+            self._selection.rate = selection_rate
         else:
             raise ValueError('Selection rate must be between 0 and 1')
 
     @property
     def selection_type(self) -> str:
         """Get selection type"""
-        return self._selection_type
+        return self._selection.type
 
     @selection_type.setter
     def selection_type(self, selection_type: str):
         """Set selection type"""
         selection_types = ['random', 'steady-state']
+        selection_classes = [RandomSelection, SteadyState]
 
-        if selection_type in selection_types:
-            self._selection_type = selection_type
-        else:
+        if selection_type not in selection_types:
             raise ValueError('Selection type must be a valid value')
+
+        rate = self._selection.rate
+
+        for i, sel_type in enumerate(selection_types):
+            if selection_type == sel_type:
+                self._selection = selection_classes[i](rate)
+                break
 
     @property
     def crossover_type(self) -> str:
@@ -186,18 +193,7 @@ class GeneticAlgorithm:
 
     def selection(self, new_pop):
         """Selects a percentage of the new population for the next generation"""
-        selected_new_pop = []
-
-        if self._selection_type == 'random':
-            # Randomly selects (selection_rate)% parents
-            selected_new_pop = random.sample(new_pop, int(self._selection_rate*self._pop_size))
-
-        elif self._selection_type == 'steady-state':
-            # Sorts population by fitness score and then selects the (selection_rate)%
-            sorted_new_pop = sorted(new_pop, key=lambda x: x[1])
-            selected_new_pop = sorted_new_pop[:int(self._selection_rate*self._pop_size)]
-
-        return selected_new_pop
+        return self._selection.select(new_pop, self._pop_size)
 
     def crossover(self, new_pop, current_pop):
         """Selects random parents according to the selected crossover
