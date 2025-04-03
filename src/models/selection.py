@@ -13,7 +13,7 @@ class Selection:
         return self._type
 
     @property
-    def rate(self):
+    def rate(self) -> float:
         """Get selection rate"""
         return self._rate
 

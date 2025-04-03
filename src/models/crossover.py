@@ -55,14 +55,14 @@ class UniformCrossover(Crossover):
     def __init__(self) -> None:
         self._type = 'uniform'
 
-    def cross(self, chromo_len: int, parent1, parent2) -> list:
+    def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         parents = [parent1, parent2]
 
         child1 = []
         child2 = []
-        for chromo in range(chromo_len):
+        for gen in range(chromo_len):
             random.shuffle(parents)
-            child1.append(parents[0][chromo])
-            child2.append(parents[1][chromo])
+            child1.append(parents[0][gen])
+            child2.append(parents[1][gen])
 
         return [child1, child2]

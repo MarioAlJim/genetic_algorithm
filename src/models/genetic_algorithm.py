@@ -1,9 +1,8 @@
 """This file is for defining the genetic algorithm"""
-import random
-
-from src.models.crossover import UniformCrossover, OnePointCrossover, TwoPointCrossover
+from src.models.fitness_evaluation import score_triangle_classification
+from src.models.mutation import RandomResetting
 from src.models.selection import *
-
+from src.models.crossover import *
 
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
@@ -12,8 +11,9 @@ class GeneticAlgorithm:
     - chromo_len
     - pop_size
     - num_generations
+    - expected_solution
     - selection (type and rate)
-    - crossover_type
+    - crossover (type)
     - mutation_type
     - mutation_rate
     - current_pop
@@ -22,10 +22,11 @@ class GeneticAlgorithm:
         self._chromo_len = 3
         self._pop_size = 10
         self._num_generations = 50
+        self._fitness_function = score_triangle_classification
+        self._expected_solution = 'scalene'
         self._selection = RandomSelection(0.5)
         self._crossover = UniformCrossover()
-        self._mutation_type = 'random-resetting'
-        self._mutation_rate = 0.3
+        self._mutation = RandomResetting(0.3)
         self._current_pop = []
 
     @property
@@ -86,6 +87,24 @@ class GeneticAlgorithm:
             )
 
     @property
+    def expected_solution(self) -> str:
+        """Get expected solution"""
+        return self._expected_solution
+
+    @expected_solution.setter
+    def expected_solution(self, expected_solution):
+        """Set expected solution"""
+        expected_solutions = []
+
+        if self._fitness_function == score_triangle_classification:
+            expected_solutions = ['scalene', 'equilateral', 'isosceles', 'invalid', 'out of range']
+
+        if expected_solution not in expected_solutions:
+            raise ValueError('Expected solution must be in', expected_solutions)
+
+        self._expected_solution = expected_solution
+
+    @property
     def selection_rate(self) -> float:
         """Get selection rate"""
         return self._selection.rate
@@ -141,30 +160,36 @@ class GeneticAlgorithm:
     @property
     def mutation_rate(self) -> float:
         """Get mutation rate"""
-        return self._mutation_rate
+        return self._mutation.rate
 
     @mutation_rate.setter
     def mutation_rate(self, mutation_rate: float):
         """Set mutation rate"""
         if 0 <= mutation_rate <= 1:
-            self._mutation_rate = mutation_rate
+            self._mutation.rate = mutation_rate
         else:
             raise ValueError('Mutation rate must be between 0 and 1')
 
     @property
     def mutation_type(self) -> str:
         """Get mutation type"""
-        return self._mutation_type
+        return self._mutation.type
 
     @mutation_type.setter
     def mutation_type(self, mutation_type: str):
         """Set mutation type"""
         mutation_types = ['random-resetting']
+        mutation_classes = [RandomResetting]
 
-        if mutation_type in mutation_types:
-            self._mutation_type = mutation_type
-        else:
+        if mutation_type not in mutation_types:
             raise ValueError('Mutation type must be a valid value')
+
+        rate = self._mutation.rate
+
+        for i, mut_type in enumerate(mutation_types):
+            if mutation_type == mut_type:
+                self._mutation = mutation_classes[i](rate)
+                break
 
     @property
     def current_pop(self) -> list:
@@ -174,17 +199,17 @@ class GeneticAlgorithm:
     @current_pop.setter
     def current_pop(self, current_pop: list):
         """Set current population"""
-        if 0 < len(current_pop):
+        if current_pop:
             self._current_pop = current_pop
         else:
             raise ValueError('Current population must have individuals')
 
-    def create_gen(self):
+    def create_gen(self) -> int:
         """Creates a gen according to gen type"""
         gen = random.randint(0,100)
         return gen
 
-    def init_pop(self):
+    def init_pop(self) -> list:
         """Initializes the population"""
         population = []
 
@@ -196,11 +221,21 @@ class GeneticAlgorithm:
 
         return population
 
-    def selection(self, new_pop):
+    def evaluate_pop(self, pop: list) -> list:
+        """Evaluates the population"""
+        evaluated_pop = []
+
+        for chromo in pop:
+            evaluated_chromo = self._fitness_function(chromo, self._expected_solution)
+            evaluated_pop.append(evaluated_chromo)
+
+        return evaluated_pop
+
+    def selection(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
         return self._selection.select(new_pop, self._pop_size)
 
-    def crossover(self, new_pop, current_pop):
+    def crossover(self, current_pop: list, new_pop: list) -> list:
         """Selects random parents according to the selected crossover"""
         offspring = []
 
@@ -209,23 +244,14 @@ class GeneticAlgorithm:
             parent1 = random.choice(new_pop)[0]
             parent2 = random.choice(current_pop)[0]
 
-            result = self._crossover.cross(self._chromo_len, parent1, parent2)
-            offspring.extend([random.choice(result)])
+            children = self._crossover.cross(self._chromo_len, parent1, parent2)
+            offspring.extend([random.choice(children)])
 
         return offspring
 
-    def mutate(self, offspring):
+    def mutate(self, offspring: list) -> list:
         """Mutates the offspring population"""
-        mutated_offspring = []
-
-        if self._mutation_type == 'random-resetting':
-            for child_chromo in offspring:
-                for i in range(self._chromo_len):
-                    if self._mutation_rate > random.random():
-                        child_chromo[i] = self.create_gen()
-                mutated_offspring.append(child_chromo)
-
-        return mutated_offspring
+        return self._mutation.mutate(offspring, self._chromo_len, self.create_gen)
 
     def replace(self, new_pop, current_pop):
         """Replaces chromosomes if new gen chromosomes have better fitness score"""
