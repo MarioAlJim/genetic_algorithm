@@ -14,8 +14,7 @@ class GeneticAlgorithm:
     - expected_solution
     - selection (type and rate)
     - crossover (type)
-    - mutation_type
-    - mutation_rate
+    - mutation (type and rate)
     - current_pop
     """
     def __init__(self) -> None:
