@@ -15,7 +15,7 @@ class Crossover:
         """Crossover method"""
         raise NotImplementedError('Crossover method should be implemented by child class')
 
-class OnePointCrossover(Crossover):
+class OnePoint(Crossover):
     """One point crossover class
 
     Exchanges the chromosome genes as from one point
@@ -31,7 +31,7 @@ class OnePointCrossover(Crossover):
 
         return [child1, child2]
 
-class TwoPointCrossover(Crossover):
+class TwoPoint(Crossover):
     """Two point crossover class
 
     Exchanges the chromosome genes as from two points
@@ -47,7 +47,7 @@ class TwoPointCrossover(Crossover):
 
         return [child1, child2]
 
-class UniformCrossover(Crossover):
+class Uniform(Crossover):
     """Uniform crossover class
 
     Exchanges the chromosome genes uniformly

@@ -251,7 +251,7 @@ class TestGeneticAlgorithm:
         """Verifies the output type"""
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
-        selected_pop = ga.selection(pop)
+        selected_pop = ga.select(pop)
         assert type(selected_pop) is list
 
     def test_selection_2(self):
@@ -259,7 +259,7 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
         evaluated_pop = ga.evaluate_pop(pop)
-        selected_pop = ga.selection(evaluated_pop)
+        selected_pop = ga.select(evaluated_pop)
         sel_pop_size = int(ga.selection_rate * ga.pop_size)
         assert len(selected_pop) == sel_pop_size
 
@@ -268,8 +268,8 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
         evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.selection(evaluated_pop)
-        cross_pop = ga.crossover(evaluated_pop, sel_pop)
+        sel_pop = ga.select(evaluated_pop)
+        cross_pop = ga.cross(evaluated_pop, sel_pop)
         assert type(cross_pop) is list
 
     def test_crossover_2(self):
@@ -277,8 +277,8 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
         evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.selection(evaluated_pop)
-        cross_pop = ga.crossover(evaluated_pop, sel_pop)
+        sel_pop = ga.select(evaluated_pop)
+        cross_pop = ga.cross(evaluated_pop, sel_pop)
         assert len(cross_pop) == ga.pop_size
 
     def test_mutate_1(self):
@@ -286,8 +286,8 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
         evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.selection(evaluated_pop)
-        cross_pop = ga.crossover(evaluated_pop, sel_pop)
+        sel_pop = ga.select(evaluated_pop)
+        cross_pop = ga.cross(evaluated_pop, sel_pop)
         mutated_pop = ga.mutate(cross_pop)
         assert type(mutated_pop) is list
 
@@ -296,7 +296,7 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
         evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.selection(evaluated_pop)
-        cross_pop = ga.crossover(evaluated_pop, sel_pop)
+        sel_pop = ga.select(evaluated_pop)
+        cross_pop = ga.cross(evaluated_pop, sel_pop)
         mutated_pop = ga.mutate(cross_pop)
         assert len(mutated_pop) == ga.pop_size

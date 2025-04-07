@@ -24,7 +24,7 @@ class GeneticAlgorithm:
         self._fitness_function = score_triangle_classification
         self._expected_solution = 'scalene'
         self._selection = RandomSelection(0.5)
-        self._crossover = UniformCrossover()
+        self._crossover = Uniform()
         self._mutation = RandomResetting(0.3)
         self._current_pop = []
 
@@ -146,7 +146,7 @@ class GeneticAlgorithm:
     def crossover_type(self, crossover_type: str):
         """Set crossover type"""
         crossover_types = ['one-point', 'two-point', 'uniform']
-        crossover_classes = [OnePointCrossover, TwoPointCrossover, UniformCrossover]
+        crossover_classes = [OnePoint, TwoPoint, Uniform]
 
         if crossover_type not in crossover_types:
             raise ValueError('Crossover type must be a valid value')
@@ -203,7 +203,7 @@ class GeneticAlgorithm:
         else:
             raise ValueError('Current population must have individuals')
 
-    def create_gen(self) -> int:
+    def create_gen(self):
         """Creates a gen according to gen type"""
         gen = random.randint(0,100)
         return gen
@@ -230,11 +230,11 @@ class GeneticAlgorithm:
 
         return evaluated_pop
 
-    def selection(self, new_pop: list) -> list:
+    def select(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
         return self._selection.select(new_pop, self._pop_size)
 
-    def crossover(self, current_pop: list, new_pop: list) -> list:
+    def cross(self, current_pop: list, new_pop: list) -> list:
         """Selects random parents according to the selected crossover"""
         offspring = []
 
