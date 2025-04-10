@@ -60,6 +60,19 @@ class TestGeneticAlgorithm:
         with pytest.raises(ValueError):
             ga.num_generations = 10000
 
+    def test_fitness_function_1(self):
+        """Valid input"""
+        fitness_function = 'triangle-classification'
+        ga = GeneticAlgorithm()
+        ga.fitness_function = fitness_function
+        assert ga.fitness_function == fitness_function
+
+    def test_fitness_function_2(self):
+        """Invalid input"""
+        ga = GeneticAlgorithm()
+        with pytest.raises(ValueError):
+            ga.fitness_function = 'invalid-function'
+
     def test_expected_solution_1(self):
         """Valid input"""
         expected_solution = 'scalene'
@@ -219,27 +232,27 @@ class TestGeneticAlgorithm:
         """Verifies the output chromosome len"""
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
-        assert len(pop[0]) == ga.chromo_len
+        assert len(pop[0][0]) == ga.chromo_len
 
     def test_evaluate_pop_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
-        initial_pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(initial_pop)
+        initial_pop = [[71, 3, 62], [84, 8, 45], [74, 93, 34]]
+        evaluated_pop = ga.evaluate(initial_pop)
         assert type(evaluated_pop) is list
 
     def test_evaluate_pop_2(self):
         """Verifies the output population len"""
         ga = GeneticAlgorithm()
-        initial_pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(initial_pop)
+        initial_pop = [[71, 3, 62], [84, 8, 45], [74, 93, 34]]
+        evaluated_pop = ga.evaluate(initial_pop)
         assert len(initial_pop) == len(evaluated_pop)
 
     def test_evaluate_pop_3(self):
         """Verifies the output evaluation type"""
         ga = GeneticAlgorithm()
-        initial_pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(initial_pop)
+        initial_pop = [[71, 3, 62], [84, 8, 45], [74, 93, 34]]
+        evaluated_pop = ga.evaluate(initial_pop)
         evaluations = []
 
         for eval_chromo in evaluated_pop:
@@ -250,53 +263,55 @@ class TestGeneticAlgorithm:
     def test_selection_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        selected_pop = ga.select(pop)
+        ga.init_pop()
+        selected_pop = ga.select(ga.current_pop)
         assert type(selected_pop) is list
 
     def test_selection_2(self):
         """Verifies the output population len"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(pop)
-        selected_pop = ga.select(evaluated_pop)
+        ga.init_pop()
+        selected_pop = ga.select(ga.current_pop)
         sel_pop_size = int(ga.selection_rate * ga.pop_size)
         assert len(selected_pop) == sel_pop_size
 
     def test_crossover_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.select(evaluated_pop)
-        cross_pop = ga.cross(evaluated_pop, sel_pop)
+        ga.init_pop()
+        sel_pop = ga.select(ga.current_pop)
+        cross_pop = ga.cross(sel_pop)
         assert type(cross_pop) is list
 
     def test_crossover_2(self):
         """Verifies the output population len"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.select(evaluated_pop)
-        cross_pop = ga.cross(evaluated_pop, sel_pop)
+        ga.init_pop()
+        sel_pop = ga.select(ga.current_pop)
+        cross_pop = ga.cross(sel_pop)
         assert len(cross_pop) == ga.pop_size
 
     def test_mutate_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.select(evaluated_pop)
-        cross_pop = ga.cross(evaluated_pop, sel_pop)
+        ga.init_pop()
+        sel_pop = ga.select(ga.current_pop)
+        cross_pop = ga.cross(sel_pop)
         mutated_pop = ga.mutate(cross_pop)
         assert type(mutated_pop) is list
 
     def test_mutate_2(self):
         """Verifies the output population len"""
         ga = GeneticAlgorithm()
-        pop = ga.init_pop()
-        evaluated_pop = ga.evaluate_pop(pop)
-        sel_pop = ga.select(evaluated_pop)
-        cross_pop = ga.cross(evaluated_pop, sel_pop)
+        ga.init_pop()
+        sel_pop = ga.select(ga.current_pop)
+        cross_pop = ga.cross(sel_pop)
         mutated_pop = ga.mutate(cross_pop)
         assert len(mutated_pop) == ga.pop_size
+
+    def test_execute_1(self):
+        """Verifies the output type"""
+        ga = GeneticAlgorithm()
+        ga.init_pop()
+        exec_report = ga.execute()
+        assert type(exec_report) is dict
