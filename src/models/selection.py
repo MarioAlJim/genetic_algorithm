@@ -1,5 +1,5 @@
 """This file is for defining the selection class and its child classes"""
-import random
+from random import sample
 
 class Selection:
     """Selection class"""
@@ -39,7 +39,7 @@ class RandomSelection(Selection):
         self._type = 'random'
 
     def select(self, pop: list, pop_size: int) -> list:
-        return random.sample(pop, int(self._rate * pop_size))
+        return sample(pop, int(self._rate * pop_size))
 
 class SteadyState(Selection):
     """Steady state selection class

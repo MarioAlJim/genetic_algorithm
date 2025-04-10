@@ -1,8 +1,10 @@
 """This file is for defining the genetic algorithm"""
-from src.models.evaluation import *
-from src.models.selection import *
-from src.models.crossover import *
-from src.models.mutation import *
+from random import choice
+from src.models.crossover import OnePoint, TwoPoint, Uniform
+from src.models.evaluation import TriangleClassification
+from src.models.gen import RealNumber
+from src.models.mutation import RandomResetting
+from src.models.selection import RandomSelection, SteadyState
 
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
@@ -19,6 +21,7 @@ class GeneticAlgorithm:
     - current_pop
     """
     def __init__(self) -> None:
+        self._gen = RealNumber()
         self._chromo_len = 3
         self._pop_size = 10
         self._num_generations = 50
@@ -28,6 +31,25 @@ class GeneticAlgorithm:
         self._crossover = Uniform()
         self._mutation = RandomResetting(0.3)
         self._current_pop = []
+
+    @property
+    def gen_type(self) -> str:
+        """Get gen type"""
+        return self._gen.type
+
+    @gen_type.setter
+    def gen_type(self, gen_type: str):
+        """Set gen type"""
+        gens = [
+            ['real-number', RealNumber],
+        ]
+
+        for name, gen in gens:
+            if gen_type == name:
+                self._gen = gen()
+                return
+
+        raise ValueError('Gen type must be a valid value')
 
     @property
     def chromo_len(self) -> int:
@@ -219,8 +241,7 @@ class GeneticAlgorithm:
 
     def create_gen(self):
         """Creates a gen according to gen type"""
-        gen = random.randint(0,100)
-        return gen
+        return self._gen.create()
 
     def init_pop(self) -> list:
         """Initializes the population"""
@@ -250,17 +271,17 @@ class GeneticAlgorithm:
         """Selects a percentage of the new population for the next generation"""
         return self._selection.select(new_pop, self.pop_size)
 
-    def cross(self, new_pop: list) -> list:
+    def cross(self, sel_pop: list) -> list:
         """Selects random parents according to the selected crossover"""
         offspring = []
 
         for _ in range(self.pop_size):
             # Gets the chromosome parents from the selected population
-            parent1 = random.choice(new_pop)[0]
-            parent2 = random.choice(new_pop)[0]
+            parent1 = choice(sel_pop)[0]
+            parent2 = choice(sel_pop)[0]
 
             children = self._crossover.cross(self.chromo_len, parent1, parent2)
-            offspring.extend([random.choice(children)])
+            offspring.extend([choice(children)])
 
         return offspring
 
@@ -277,6 +298,7 @@ class GeneticAlgorithm:
                     "size": self.pop_size,
                     "chromosomes": {
                         "length": self.chromo_len,
+                        "gen_type": self.gen_type,
                     },
                 },
                 "evaluation": {

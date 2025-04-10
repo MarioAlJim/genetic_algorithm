@@ -1,5 +1,5 @@
 """This file is for defining the crossover classes"""
-import random
+from random import randint, shuffle
 
 class Crossover:
     """Crossover class"""
@@ -26,7 +26,7 @@ class OnePoint(Crossover):
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         # Creates children
-        point = random.randint(1, chromo_len - 1)
+        point = randint(1, chromo_len - 1)
         child1 = parent1[:point] + parent2[point:]
         child2 = parent2[:point] + parent1[point:]
 
@@ -42,8 +42,8 @@ class TwoPoint(Crossover):
         self._type = 'two-point'
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
-        point1 = random.randint(1, (chromo_len - 2))
-        point2 = random.randint(point1 + 1, (chromo_len - 1))
+        point1 = randint(1, (chromo_len - 2))
+        point2 = randint(point1 + 1, (chromo_len - 1))
         child1 = parent1[:point1] + parent2[point1:point2] + parent1[point2:]
         child2 = parent2[:point1] + parent1[point1:point2] + parent2[point2:]
 
@@ -64,7 +64,7 @@ class Uniform(Crossover):
         child1 = []
         child2 = []
         for gen in range(chromo_len):
-            random.shuffle(parents)
+            shuffle(parents)
             child1.append(parents[0][gen])
             child2.append(parents[1][gen])
 

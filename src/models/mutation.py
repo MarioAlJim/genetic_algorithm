@@ -1,5 +1,5 @@
 """This file is for defining the mutation class and its child classes"""
-import random
+from random import random
 
 class Mutation:
     """Mutation class"""
@@ -42,7 +42,7 @@ class RandomResetting(Mutation):
         mutated_offspring = []
         for child in offspring:
             for i in range(chromo_len):
-                if self._rate > random.random():
+                if self._rate > random():
                     child[i] = create_gen()
             mutated_offspring.append(child)
 
