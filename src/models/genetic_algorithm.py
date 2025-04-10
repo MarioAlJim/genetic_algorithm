@@ -276,7 +276,6 @@ class GeneticAlgorithm:
                 "population": {
                     "size": self.pop_size,
                     "chromosomes": {
-                        # TODO: gen type
                         "length": self.chromo_len,
                     },
                 },
