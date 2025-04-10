@@ -3,6 +3,19 @@ import pytest
 from src.models.genetic_algorithm import GeneticAlgorithm
 
 class TestGeneticAlgorithm:
+    def test_gen_type_1(self):
+        """Valid input"""
+        gen_type = 'real-number'
+        ga = GeneticAlgorithm()
+        ga.gen_type = gen_type
+        assert ga.gen_type == gen_type
+
+    def test_gen_type_2(self):
+        """Invalid input"""
+        ga = GeneticAlgorithm()
+        with pytest.raises(ValueError):
+            ga.gen_type = 'invalid-gen-type'
+
     def test_chromo_len_1(self):
         """Valid input"""
         chromo_len = 4
@@ -213,8 +226,9 @@ class TestGeneticAlgorithm:
     def test_create_gen(self):
         """Verifies the output gen type"""
         ga = GeneticAlgorithm()
+        ga.gen_type = 'real-number'
         gen = ga.create_gen()
-        assert type(gen) is int
+        assert type(gen) is float
 
     def test_init_pop_1(self):
         """Verifies the output type"""
