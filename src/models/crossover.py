@@ -11,7 +11,7 @@ class Crossover:
         """Get crossover type"""
         return self._type
 
-    def cross(self, chromo_len: int, parent1, parent2) -> list:
+    def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         """Crossover method"""
         raise NotImplementedError('Crossover method should be implemented by child class')
 
@@ -21,9 +21,10 @@ class OnePoint(Crossover):
     Exchanges the chromosome genes as from one point
     """
     def __init__(self) -> None:
+        super().__init__()
         self._type = 'one-point'
 
-    def cross(self, chromo_len: int, parent1, parent2) -> list:
+    def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         # Creates children
         point = random.randint(1, chromo_len - 1)
         child1 = parent1[:point] + parent2[point:]
@@ -37,9 +38,10 @@ class TwoPoint(Crossover):
     Exchanges the chromosome genes as from two points
     """
     def __init__(self) -> None:
+        super().__init__()
         self._type = 'two-point'
 
-    def cross(self, chromo_len: int, parent1, parent2) -> list:
+    def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         point1 = random.randint(1, (chromo_len - 2))
         point2 = random.randint(point1 + 1, (chromo_len - 1))
         child1 = parent1[:point1] + parent2[point1:point2] + parent1[point2:]
@@ -53,6 +55,7 @@ class Uniform(Crossover):
     Exchanges the chromosome genes uniformly
     """
     def __init__(self) -> None:
+        super().__init__()
         self._type = 'uniform'
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:

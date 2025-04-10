@@ -1,8 +1,8 @@
 """This file is for defining the genetic algorithm"""
-from src.models.fitness_evaluation import score_triangle_classification
-from src.models.mutation import RandomResetting
+from src.models.evaluation import *
 from src.models.selection import *
 from src.models.crossover import *
+from src.models.mutation import *
 
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
@@ -11,6 +11,7 @@ class GeneticAlgorithm:
     - chromo_len
     - pop_size
     - num_generations
+    - fitness_function
     - expected_solution
     - selection (type and rate)
     - crossover (type)
@@ -21,7 +22,7 @@ class GeneticAlgorithm:
         self._chromo_len = 3
         self._pop_size = 10
         self._num_generations = 50
-        self._fitness_function = score_triangle_classification
+        self._fitness_function = TriangleClassification()
         self._expected_solution = 'scalene'
         self._selection = RandomSelection(0.5)
         self._crossover = Uniform()
@@ -86,6 +87,24 @@ class GeneticAlgorithm:
             )
 
     @property
+    def fitness_function(self) -> str:
+        return self._fitness_function.name
+
+    @fitness_function.setter
+    def fitness_function(self, fitness_function: str):
+        """Set fitness function"""
+        fitness_functions = [
+            ['triangle-classification', TriangleClassification],
+        ]
+
+        for name, evaluation in fitness_functions:
+            if fitness_function == name:
+                self._fitness_function = evaluation()
+                return
+
+        raise ValueError('Fitness function must be a valid value')
+
+    @property
     def expected_solution(self) -> str:
         """Get expected solution"""
         return self._expected_solution
@@ -93,13 +112,10 @@ class GeneticAlgorithm:
     @expected_solution.setter
     def expected_solution(self, expected_solution):
         """Set expected solution"""
-        expected_solutions = []
-
-        if self._fitness_function == score_triangle_classification:
-            expected_solutions = ['scalene', 'equilateral', 'isosceles', 'invalid', 'out of range']
+        expected_solutions = self._fitness_function.expected_solutions
 
         if expected_solution not in expected_solutions:
-            raise ValueError('Expected solution must be in', expected_solutions)
+            raise ValueError('Expected solution must be: ', expected_solutions)
 
         self._expected_solution = expected_solution
 
@@ -124,18 +140,17 @@ class GeneticAlgorithm:
     @selection_type.setter
     def selection_type(self, selection_type: str):
         """Set selection type"""
-        selection_types = ['random', 'steady-state']
-        selection_classes = [RandomSelection, SteadyState]
+        selections = [
+            ['random', RandomSelection],
+            ['steady-state', SteadyState],
+        ]
 
-        if selection_type not in selection_types:
-            raise ValueError('Selection type must be a valid value')
+        for name, selection in selections:
+            if selection_type == name:
+                self._selection = selection(self._selection.rate)
+                return
 
-        rate = self._selection.rate
-
-        for i, sel_type in enumerate(selection_types):
-            if selection_type == sel_type:
-                self._selection = selection_classes[i](rate)
-                break
+        raise ValueError('Selection type must be a valid value')
 
     @property
     def crossover_type(self) -> str:
@@ -145,16 +160,18 @@ class GeneticAlgorithm:
     @crossover_type.setter
     def crossover_type(self, crossover_type: str):
         """Set crossover type"""
-        crossover_types = ['one-point', 'two-point', 'uniform']
-        crossover_classes = [OnePoint, TwoPoint, Uniform]
+        crossovers = [
+            ['one-point', OnePoint],
+            ['two-point', TwoPoint],
+            ['uniform', Uniform],
+        ]
 
-        if crossover_type not in crossover_types:
-            raise ValueError('Crossover type must be a valid value')
+        for name, crossover in crossovers:
+            if crossover_type == name:
+                self._crossover = crossover()
+                return
 
-        for i, cross_type in enumerate(crossover_types):
-            if crossover_type == cross_type:
-                self._crossover = crossover_classes[i]()
-                break
+        raise ValueError('Crossover type must be a valid value')
 
     @property
     def mutation_rate(self) -> float:
@@ -177,18 +194,15 @@ class GeneticAlgorithm:
     @mutation_type.setter
     def mutation_type(self, mutation_type: str):
         """Set mutation type"""
-        mutation_types = ['random-resetting']
-        mutation_classes = [RandomResetting]
+        mutations = [
+            ['random-resetting', RandomResetting],
+        ]
 
-        if mutation_type not in mutation_types:
-            raise ValueError('Mutation type must be a valid value')
-
-        rate = self._mutation.rate
-
-        for i, mut_type in enumerate(mutation_types):
-            if mutation_type == mut_type:
-                self._mutation = mutation_classes[i](rate)
-                break
+        for name, mutation in mutations:
+            if mutation_type == name:
+                self._mutation = mutation(self._mutation.rate)
+                return
+        raise ValueError('Mutation type must be a valid value')
 
     @property
     def current_pop(self) -> list:
@@ -212,53 +226,99 @@ class GeneticAlgorithm:
         """Initializes the population"""
         population = []
 
-        for _ in range(self._pop_size):
+        for _ in range(self.pop_size):
             chromosome = []
-            for _ in range(self._chromo_len):
+            for _ in range(self.chromo_len):
                 chromosome.append(self.create_gen())
             population.append(chromosome)
 
-        return population
+        evaluated_pop = self.evaluate(population)
+        self.current_pop = evaluated_pop
+        return evaluated_pop
 
-    def evaluate_pop(self, pop: list) -> list:
+    def evaluate(self, pop: list) -> list:
         """Evaluates the population"""
         evaluated_pop = []
 
         for chromo in pop:
-            evaluated_chromo = self._fitness_function(chromo, self._expected_solution)
+            evaluated_chromo = self._fitness_function.score(chromo, self.expected_solution)
             evaluated_pop.append(evaluated_chromo)
 
         return evaluated_pop
 
     def select(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
-        return self._selection.select(new_pop, self._pop_size)
+        return self._selection.select(new_pop, self.pop_size)
 
-    def cross(self, current_pop: list, new_pop: list) -> list:
+    def cross(self, new_pop: list) -> list:
         """Selects random parents according to the selected crossover"""
         offspring = []
 
-        for _ in range(self._pop_size):
-            # Gets the chromosome parents from the evaluated lists
+        for _ in range(self.pop_size):
+            # Gets the chromosome parents from the selected population
             parent1 = random.choice(new_pop)[0]
-            parent2 = random.choice(current_pop)[0]
+            parent2 = random.choice(new_pop)[0]
 
-            children = self._crossover.cross(self._chromo_len, parent1, parent2)
+            children = self._crossover.cross(self.chromo_len, parent1, parent2)
             offspring.extend([random.choice(children)])
 
         return offspring
 
     def mutate(self, offspring: list) -> list:
         """Mutates the offspring population"""
-        return self._mutation.mutate(offspring, self._chromo_len, self.create_gen)
+        return self._mutation.mutate(offspring, self.chromo_len, self.create_gen)
 
-    def replace(self, new_pop, current_pop):
-        """Replaces chromosomes if new gen chromosomes have better fitness score"""
-        for _ in range(self._pop_size):
-            if current_pop[_][1] > new_pop[_][1]:
-                # Replaces chromosome
-                current_pop[_][0] = new_pop[_][0]
-                # Replaces fitness score
-                current_pop[_][1] = new_pop[_][1]
+    def execute(self) -> dict:
+        """Executes the genetic algorithm"""
+        conf = {
+            "Configuration": {
+                "generations": self.num_generations,
+                "population": {
+                    "size": self.pop_size,
+                    "chromosomes": {
+                        # TODO: gen type
+                        "length": self.chromo_len,
+                    },
+                },
+                "evaluation": {
+                    "type": self.fitness_function,
+                    "expected_solution": self.expected_solution,
+                },
+                "selection": {
+                    "type": self.selection_type,
+                    "rate": self.selection_rate,
+                },
+                "crossover": {
+                    "type": self.crossover_type,
+                },
+                "mutation": {
+                    "type": self.mutation_type,
+                    "rate": self.mutation_rate,
+                }
+            }
+        }
 
-        return current_pop
+        exec_report = {}
+        self.init_pop()
+        current_generation = 1
+
+        while current_generation <= self.num_generations:
+            selected_pop = self.select(self.current_pop)
+            offspring = self.cross(selected_pop)
+            mutated_offspring = self.mutate(offspring)
+            new_pop = self.evaluate(mutated_offspring)
+
+            exec_report.update({
+                "generation_" + str(current_generation): {
+                    "initial_population": self.current_pop,
+                    "selected": selected_pop,
+                    "crossovered": offspring,
+                    "mutated": mutated_offspring,
+                    "evaluated": new_pop,
+                }
+            })
+
+            self.current_pop = new_pop
+            current_generation += 1
+
+        return conf | exec_report

@@ -51,6 +51,6 @@ class SteadyState(Selection):
         self._type = 'steady-state'
 
     def select(self, pop: list, pop_size: int) -> list:
-        sorted_pop = sorted(pop, key=lambda x: x[1])
+        sorted_pop = sorted(pop, key=lambda x: x[1], reverse=True)
         selected_pop = sorted_pop[:int(self._rate * pop_size)]
         return selected_pop
