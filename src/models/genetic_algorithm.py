@@ -5,11 +5,13 @@ from src.models.evaluation import TriangleClassification
 from src.models.gen import RealNumber
 from src.models.mutation import RandomResetting
 from src.models.selection import RandomSelection, SteadyState
+from time import sleep
 
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
 
     Configurable attributes:
+    - gen_type
     - chromo_len
     - pop_size
     - num_generations
@@ -289,7 +291,7 @@ class GeneticAlgorithm:
         """Mutates the offspring population"""
         return self._mutation.mutate(offspring, self.chromo_len, self.create_gen)
 
-    def execute(self) -> dict:
+    def execute(self, exec_data: dict, conf: dict) -> None:
         """Executes the genetic algorithm"""
         conf = {
             "Configuration": {
@@ -319,7 +321,6 @@ class GeneticAlgorithm:
             }
         }
 
-        exec_report = {}
         self.init_pop()
         current_generation = 1
 
@@ -329,7 +330,7 @@ class GeneticAlgorithm:
             mutated_offspring = self.mutate(offspring)
             new_pop = self.evaluate(mutated_offspring)
 
-            exec_report.update({
+            generation = {
                 "generation_" + str(current_generation): {
                     "initial_population": self.current_pop,
                     "selected": selected_pop,
@@ -337,9 +338,9 @@ class GeneticAlgorithm:
                     "mutated": mutated_offspring,
                     "evaluated": new_pop,
                 }
-            })
+            }
+            exec_data.update(generation)
 
+            sleep(0.5)
             self.current_pop = new_pop
             current_generation += 1
-
-        return conf | exec_report
