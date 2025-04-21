@@ -1,3 +1,6 @@
+from threading import Thread
+from time import sleep
+
 import pytest
 
 from src.models.genetic_algorithm import GeneticAlgorithm
@@ -326,6 +329,24 @@ class TestGeneticAlgorithm:
     def test_execute_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
+        ga.num_generations = 4
         ga.init_pop()
-        exec_report = ga.execute()
-        assert type(exec_report) is dict
+        conf = {}
+        exec_data = {}
+        ga.execute(exec_data, conf)
+        assert type(conf) is dict and type(exec_data) is dict
+
+    def test_execute_2(self):
+        """Verifies the output population"""
+        ga = GeneticAlgorithm()
+        ga.num_generations = 10
+        ga.init_pop()
+        generation_data = {}
+        report = {}
+        execution = Thread(target=ga.execute, args=(generation_data,report,))
+        execution.start()
+        while execution.is_alive():
+            sleep(0.5)
+        execution.join()
+        print(report)
+        assert False
