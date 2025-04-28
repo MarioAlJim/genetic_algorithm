@@ -1,33 +1,49 @@
 """This file is for defining the genetic algorithm"""
 from random import choice
+
+from src.models.algorithm import Algorithm
 from src.models.ga.crossover import OnePoint, TwoPoint, Uniform
-from src.models.evaluation import TriangleClassification
 from src.models.ga.gen import RealNumber
 from src.models.ga.mutation import RandomResetting
 from src.models.ga.selection import RandomSelection, SteadyState
 
-class GeneticAlgorithm:
+class GeneticAlgorithm(Algorithm):
     """Class for the configuration and execution of the genetic algorithm
 
     Configurable attributes:
-    - gen_type
-    - chromo_len
-    - pop_size
-    - num_generations
-    - fitness_function
-    - expected_solution
-    - selection (type and rate)
-    - crossover (type)
-    - mutation (type and rate)
-    - current_pop
+    - gen type
+    - chromo length
+    - population size
+    - number of generations
+    - selection type and rate
+    - crossover type
+    - mutation type and rate
+    - current population
+    - evaluation (fitness function)
+    - expected solution
     """
     def __init__(self) -> None:
+        super().__init__()
+        self._name = 'genetic-algorithm'
+        self._gens = [
+            ['real-number', RealNumber],
+        ]
+        self._selections = [
+            ['random', RandomSelection],
+            ['steady-state', SteadyState],
+        ]
+        self._crossovers = [
+            ['one-point', OnePoint],
+            ['two-point', TwoPoint],
+            ['uniform', Uniform],
+        ]
+        self._mutations = [
+            ['random-resetting', RandomResetting],
+        ]
         self._gen = RealNumber()
         self._chromo_len = 3
         self._pop_size = 10
         self._num_generations = 50
-        self._fitness_function = TriangleClassification()
-        self._expected_solution = 'scalene'
         self._selection = RandomSelection(0.5)
         self._crossover = Uniform()
         self._mutation = RandomResetting(0.3)
@@ -41,16 +57,12 @@ class GeneticAlgorithm:
     @gen_type.setter
     def gen_type(self, gen_type: str):
         """Set gen type"""
-        gens = [
-            ['real-number', RealNumber],
-        ]
-
-        for name, gen in gens:
+        for name, gen in self._gens:
             if gen_type == name:
                 self._gen = gen()
                 return
 
-        raise ValueError('Gen type must be a valid value')
+        raise ValueError('Gen type must be a valid value: ', self._gens)
 
     @property
     def chromo_len(self) -> int:
@@ -110,39 +122,6 @@ class GeneticAlgorithm:
             )
 
     @property
-    def fitness_function(self) -> str:
-        return self._fitness_function.name
-
-    @fitness_function.setter
-    def fitness_function(self, fitness_function: str):
-        """Set fitness function"""
-        fitness_functions = [
-            ['triangle-classification', TriangleClassification],
-        ]
-
-        for name, evaluation in fitness_functions:
-            if fitness_function == name:
-                self._fitness_function = evaluation()
-                return
-
-        raise ValueError('Fitness function must be a valid value')
-
-    @property
-    def expected_solution(self) -> str:
-        """Get expected solution"""
-        return self._expected_solution
-
-    @expected_solution.setter
-    def expected_solution(self, expected_solution):
-        """Set expected solution"""
-        expected_solutions = self._fitness_function.expected_solutions
-
-        if expected_solution not in expected_solutions:
-            raise ValueError('Expected solution must be: ', expected_solutions)
-
-        self._expected_solution = expected_solution
-
-    @property
     def selection_rate(self) -> float:
         """Get selection rate"""
         return self._selection.rate
@@ -163,17 +142,12 @@ class GeneticAlgorithm:
     @selection_type.setter
     def selection_type(self, selection_type: str):
         """Set selection type"""
-        selections = [
-            ['random', RandomSelection],
-            ['steady-state', SteadyState],
-        ]
-
-        for name, selection in selections:
+        for name, selection in self._selections:
             if selection_type == name:
                 self._selection = selection(self._selection.rate)
                 return
 
-        raise ValueError('Selection type must be a valid value')
+        raise ValueError('Selection type must be a valid value: ', self._selections)
 
     @property
     def crossover_type(self) -> str:
@@ -183,18 +157,12 @@ class GeneticAlgorithm:
     @crossover_type.setter
     def crossover_type(self, crossover_type: str):
         """Set crossover type"""
-        crossovers = [
-            ['one-point', OnePoint],
-            ['two-point', TwoPoint],
-            ['uniform', Uniform],
-        ]
-
-        for name, crossover in crossovers:
+        for name, crossover in self._crossovers:
             if crossover_type == name:
                 self._crossover = crossover()
                 return
 
-        raise ValueError('Crossover type must be a valid value')
+        raise ValueError('Crossover type must be a valid value: ', self._crossovers)
 
     @property
     def mutation_rate(self) -> float:
@@ -217,15 +185,11 @@ class GeneticAlgorithm:
     @mutation_type.setter
     def mutation_type(self, mutation_type: str):
         """Set mutation type"""
-        mutations = [
-            ['random-resetting', RandomResetting],
-        ]
-
-        for name, mutation in mutations:
+        for name, mutation in self._mutations:
             if mutation_type == name:
                 self._mutation = mutation(self._mutation.rate)
                 return
-        raise ValueError('Mutation type must be a valid value')
+        raise ValueError('Mutation type must be a valid value: ', self._mutations)
 
     @property
     def current_pop(self) -> list:
@@ -263,7 +227,7 @@ class GeneticAlgorithm:
         evaluated_pop = []
 
         for chromo in pop:
-            evaluated_chromo = self._fitness_function.score(chromo, self.expected_solution)
+            evaluated_chromo = self._evaluation.score(chromo, self.expected_solution)
             evaluated_pop.append(evaluated_chromo)
 
         return evaluated_pop
@@ -323,7 +287,7 @@ class GeneticAlgorithm:
             current_generation += 1
 
         config = {
-            "Evaluation type": [self.fitness_function],
+            "Evaluation type": [self.evaluation],
             "Expected solution": [self.expected_solution],
             "Generations": [self.num_generations],
             "Population size": [self.pop_size],

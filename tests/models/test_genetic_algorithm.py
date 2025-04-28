@@ -77,14 +77,14 @@ class TestGeneticAlgorithm:
         """Valid input"""
         fitness_function = 'triangle-classification'
         ga = GeneticAlgorithm()
-        ga.fitness_function = fitness_function
-        assert ga.fitness_function == fitness_function
+        ga.evaluation = fitness_function
+        assert ga.evaluation == fitness_function
 
     def test_fitness_function_2(self):
         """Invalid input"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.fitness_function = 'invalid-function'
+            ga.evaluation = 'invalid-function'
 
     def test_expected_solution_1(self):
         """Valid input"""
