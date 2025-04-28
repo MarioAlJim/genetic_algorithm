@@ -1,11 +1,8 @@
-from threading import Thread
-from time import sleep
-
 import pytest
-
-from src.models.genetic_algorithm import GeneticAlgorithm
+from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
 class TestGeneticAlgorithm:
+    """Test class for the GeneticAlgorithm class."""
     def test_gen_type_1(self):
         """Valid input"""
         gen_type = 'real-number'
@@ -231,13 +228,13 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         ga.gen_type = 'real-number'
         gen = ga.create_gen()
-        assert type(gen) is float
+        assert isinstance(gen, float)
 
     def test_init_pop_1(self):
         """Verifies the output type"""
         ga = GeneticAlgorithm()
         pop = ga.init_pop()
-        assert type(pop) is list
+        assert isinstance(pop, list)
 
     def test_init_pop_2(self):
         """Verifies the output population len"""
@@ -256,7 +253,7 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         initial_pop = [[71, 3, 62], [84, 8, 45], [74, 93, 34]]
         evaluated_pop = ga.evaluate(initial_pop)
-        assert type(evaluated_pop) is list
+        assert isinstance(evaluated_pop, list)
 
     def test_evaluate_pop_2(self):
         """Verifies the output population len"""
@@ -282,7 +279,7 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         ga.init_pop()
         selected_pop = ga.select(ga.current_pop)
-        assert type(selected_pop) is list
+        assert isinstance(selected_pop, list)
 
     def test_selection_2(self):
         """Verifies the output population len"""
@@ -298,7 +295,7 @@ class TestGeneticAlgorithm:
         ga.init_pop()
         sel_pop = ga.select(ga.current_pop)
         cross_pop = ga.cross(sel_pop)
-        assert type(cross_pop) is list
+        assert isinstance(cross_pop, list)
 
     def test_crossover_2(self):
         """Verifies the output population len"""
@@ -315,7 +312,7 @@ class TestGeneticAlgorithm:
         sel_pop = ga.select(ga.current_pop)
         cross_pop = ga.cross(sel_pop)
         mutated_pop = ga.mutate(cross_pop)
-        assert type(mutated_pop) is list
+        assert isinstance(mutated_pop, list)
 
     def test_mutate_2(self):
         """Verifies the output population len"""
@@ -331,22 +328,5 @@ class TestGeneticAlgorithm:
         ga = GeneticAlgorithm()
         ga.num_generations = 4
         ga.init_pop()
-        conf = {}
-        exec_data = {}
-        ga.execute(exec_data, conf)
-        assert type(conf) is dict and type(exec_data) is dict
-
-    def test_execute_2(self):
-        """Verifies the output population"""
-        ga = GeneticAlgorithm()
-        ga.num_generations = 10
-        ga.init_pop()
-        generation_data = {}
-        report = {}
-        execution = Thread(target=ga.execute, args=(generation_data,report,))
-        execution.start()
-        while execution.is_alive():
-            sleep(0.5)
-        execution.join()
-        print(report)
-        assert False
+        report = ga.execute()
+        assert isinstance(report, tuple)

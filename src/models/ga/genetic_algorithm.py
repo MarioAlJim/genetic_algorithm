@@ -1,11 +1,10 @@
 """This file is for defining the genetic algorithm"""
 from random import choice
-from src.models.crossover import OnePoint, TwoPoint, Uniform
+from src.models.ga.crossover import OnePoint, TwoPoint, Uniform
 from src.models.evaluation import TriangleClassification
-from src.models.gen import RealNumber
-from src.models.mutation import RandomResetting
-from src.models.selection import RandomSelection, SteadyState
-from time import sleep
+from src.models.ga.gen import RealNumber
+from src.models.ga.mutation import RandomResetting
+from src.models.ga.selection import RandomSelection, SteadyState
 
 class GeneticAlgorithm:
     """Class for the configuration and execution of the genetic algorithm
@@ -291,38 +290,16 @@ class GeneticAlgorithm:
         """Mutates the offspring population"""
         return self._mutation.mutate(offspring, self.chromo_len, self.create_gen)
 
-    def execute(self, exec_data: dict, conf: dict) -> None:
+    def execute(self) -> tuple:
         """Executes the genetic algorithm"""
-        conf = {
-            "Configuration": {
-                "generations": self.num_generations,
-                "population": {
-                    "size": self.pop_size,
-                    "chromosomes": {
-                        "length": self.chromo_len,
-                        "gen_type": self.gen_type,
-                    },
-                },
-                "evaluation": {
-                    "type": self.fitness_function,
-                    "expected_solution": self.expected_solution,
-                },
-                "selection": {
-                    "type": self.selection_type,
-                    "rate": self.selection_rate,
-                },
-                "crossover": {
-                    "type": self.crossover_type,
-                },
-                "mutation": {
-                    "type": self.mutation_type,
-                    "rate": self.mutation_rate,
-                }
-            }
-        }
-
         self.init_pop()
         current_generation = 1
+        generations = []
+        initial_pops = []
+        selected_pops = []
+        crossover_pops = []
+        mutated_pops = []
+        evaluated_pops = []
 
         while current_generation <= self.num_generations:
             selected_pop = self.select(self.current_pop)
@@ -330,17 +307,41 @@ class GeneticAlgorithm:
             mutated_offspring = self.mutate(offspring)
             new_pop = self.evaluate(mutated_offspring)
 
-            generation = {
-                "generation_" + str(current_generation): {
-                    "initial_population": self.current_pop,
-                    "selected": selected_pop,
-                    "crossovered": offspring,
-                    "mutated": mutated_offspring,
-                    "evaluated": new_pop,
-                }
-            }
-            exec_data.update(generation)
+            generations.append(current_generation)
+            cp = '\n'.join([str(element) for element in self.current_pop])
+            initial_pops.append(cp)
+            sp = '\n'.join([str(element) for element in selected_pop])
+            selected_pops.append(sp)
+            os = '\n'.join([str(element) for element in offspring])
+            crossover_pops.append(os)
+            mos = '\n'.join([str(element) for element in mutated_offspring])
+            mutated_pops.append(mos)
+            np = '\n'.join([str(element) for element in new_pop])
+            evaluated_pops.append(np)
 
-            sleep(0.5)
             self.current_pop = new_pop
             current_generation += 1
+
+        config = {
+            "Evaluation type": [self.fitness_function],
+            "Expected solution": [self.expected_solution],
+            "Generations": [self.num_generations],
+            "Population size": [self.pop_size],
+            "Chromosome length": [self.chromo_len],
+            "Gen type": [self.gen_type],
+            "Selection type": [self.selection_type],
+            "Selection rate": [self.selection_rate],
+            "Crossover type": [self.crossover_type],
+            "Mutation type": [self.mutation_type],
+            "Mutation rate": [self.mutation_rate],
+        }
+        exec_data = {
+            "Generation": generations,
+            "Initial population": initial_pops,
+            "Selected population": selected_pops,
+            "Crossover population": crossover_pops,
+            "Mutated population": mutated_pops,
+            "Evaluated population": evaluated_pops,
+        }
+
+        return config, exec_data
