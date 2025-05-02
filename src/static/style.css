@@ -11,12 +11,6 @@ header {
     border-bottom: 3px solid #ccc;
 }
 
-.header-row {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 5px;
-}
 
 .header-title {
     display: flex;
@@ -38,6 +32,7 @@ header {
     width: auto;
     padding: 5px;
     margin-right: 10px;
+    display: flex;
 }
 
 .button-container button {
@@ -73,23 +68,42 @@ main {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-form {
+.form-background {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
     background-color: #f1f1f1;
     padding: 20px;
-    max-width: 600px;
 }
 
 .form-group {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 7px;
+}
+
+.form-control {
+    width: 100%;
+    height: auto;
 }
 
 .label-form {
-    width: 50%;
+    width: 100%;
+    height: auto;
 }
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box {
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    background-color: lightgray;
+    border: 1px solid #000;
+}
+
 
 input, select {
     width: 45%;
@@ -97,8 +111,8 @@ input, select {
 }
 
 button {
-    width: 100%;
     padding: 10px;
+    margin: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
