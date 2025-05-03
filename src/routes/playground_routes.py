@@ -51,8 +51,15 @@ def execute_ga_algorithm():
     controller = PlaygroundController()
     controller.set_algorithm_parameters(conf)
     config, exec_data = controller.start_execution()
+
     generated_tests = exec_data["Evaluated population"]
-    result = controller.evaluate_coverage(generated_tests)
+    coverage = controller.evaluate_coverage(generated_tests)
+
+    result = {
+        "config": config,
+        "exec_data": exec_data,
+        "coverage_evaluation": coverage
+    }
 
     return jsonify(result)
 

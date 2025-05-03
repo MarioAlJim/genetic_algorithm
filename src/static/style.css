@@ -1,16 +1,20 @@
+/* RESET Y BASE */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    background-color: #ffffff;
+    color: #333;
 }
 
+/* CABECERA */
 header {
     border-bottom: 3px solid #ccc;
 }
-
 
 .header-title {
     display: flex;
@@ -28,107 +32,7 @@ header {
     color: #ffffff;
 }
 
-.combobox-container, .combo-header, .label-header {
-    width: auto;
-    padding: 5px;
-    margin-right: 10px;
-    display: flex;
-}
-
-.button-container button {
-    width: auto;
-    margin: 0 10px;
-    padding: 8px 16px;
-}
-
-main {
-    display: flex;
-    flex: 1;
-}
-
-.left-panel {
-    flex: 1;
-    padding: 20px;
-    background-color: white;
-    border-right: 1px solid #ccc;
-}
-
-.right-panel {
-    flex: 2;
-    padding: 20px;
-    background-color: white;
-    border-right: 1px solid #ccc;
-}
-
-.graph {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    height: 200px;
-    background-color: #c4c4c4;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.form-background {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-    background-color: #f1f1f1;
-    padding: 20px;
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin: 7px;
-}
-
-.form-control {
-    width: 100%;
-    height: auto;
-}
-
-.label-form {
-    width: 100%;
-    height: auto;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.box {
-    width: 50%;
-    padding: 10px;
-    text-align: center;
-    background-color: lightgray;
-    border: 1px solid #000;
-}
-
-
-input, select {
-    width: 45%;
-    padding: 5px;
-}
-
-button {
-    padding: 10px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* visited link */
-a:visited {
-    color: white;
-}
-
+/* NAVBAR */
 ul {
     list-style-type: none;
     margin: 0;
@@ -149,7 +53,6 @@ li a {
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
     background-color: #111;
 }
@@ -158,11 +61,129 @@ li a:hover {
     background-color: #04AA6D;
 }
 
+/* PANEL PRINCIPAL */
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left-panel,
+.right-panel {
+    flex: 1 1 100%;
+    padding: 20px;
+    background-color: white;
+}
+
+.left-panel {
+    border-right: 1px solid #ccc;
+}
+
+@media screen and (min-width: 768px) {
+    .left-panel {
+        flex: 1;
+    }
+    .right-panel {
+        flex: 2;
+    }
+}
+
+/* SECCIONES */
+.combobox-container,
+.combo-header,
+.label-header {
+    width: auto;
+    padding: 5px;
+    margin-right: 10px;
+    display: flex;
+}
+
+.button-container button {
+    width: auto;
+    margin: 0 10px;
+    padding: 8px 16px;
+}
+
 .centered-title {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* FORMULARIO */
+.form-background {
+    background-color: #f1f1f1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 7px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.label-form,
+.form-control {
+    width: 100%;
+}
+
+/* ENTRADAS */
+input,
+select {
+    width: 45%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* BOTONES */
+button {
+    padding: 10px 16px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* TABLAS */
+.config-table,
+.exec-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    display: block;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/* GRAFICA */
+.graph {
+    width: 100%;
+    max-width: 900px;
+    height: 200px;
+    margin: 20px 0;
+    background-color: #c4c4c4;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* SECCIÓN INFORMATIVA */
 .about-section {
     padding: 50px;
     text-align: center;
@@ -170,33 +191,151 @@ li a:hover {
     color: white;
 }
 
-/* Float four columns side by side */
+/* COLUMNA DE EQUIPO */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
 .column {
-    float: left;
-    width: 25%;
+    flex: 1 1 25%;
+    min-width: 200px;
     padding: 0 10px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Style the counter cards */
 .team-member-card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    background-color: #f1f1f1;
     padding: 16px;
     text-align: center;
-    background-color: #f1f1f1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 6px;
 }
 
-/* Responsive columns - one column layout (vertical) on small screens */
+/* OTROS */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.box {
+    flex: 1 1 45%;
+    padding: 10px;
+    text-align: center;
+    background-color: lightgray;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+/* RESPONSIVE */
 @media screen and (max-width: 600px) {
     .column {
-        width: 100%;
-        display: block;
+        flex: 1 1 100%;
         margin-bottom: 20px;
+    }
+
+    .config-table,
+    .exec-table {
+        font-size: 0.85rem;
+    }
+
+    input,
+    select {
+        width: 100%;
+    }
+
+    .graph {
+        height: auto;
+    }
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tabs-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn:hover {
+    background-color: #3e8e41;
+}
+
+.tabs-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.config-table, .exec-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.graph {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+}
+
+/* Contenedor superior con la tabla de configuración y el gráfico */
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Contenedor de la tabla de configuración */
+.config-table-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Contenedor del gráfico */
+.coverage-chart-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Contenedor de la tabla de ejecución (debajo de los anteriores) */
+.exec-table-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Asegurar que en pantallas pequeñas los elementos se apilen */
+@media screen and (max-width: 768px) {
+    .top-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .config-table-container, .coverage-chart-container {
+        width: 100%;
     }
 }
