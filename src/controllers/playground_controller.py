@@ -1,7 +1,6 @@
 """Controller for the playground"""
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
 from pandas import DataFrame
+import pdfkit
 
 class PlaygroundController:
     """Controller for the playground"""
@@ -28,21 +27,39 @@ class PlaygroundController:
 
     def create_report(self, report_data: tuple) -> None:
         """Creates a report from the given data"""
-        config = DataFrame(report_data[0])
+        config = DataFrame(report_data[0]).transpose()
         exec_data = DataFrame(report_data[1])
 
-        with PdfPages('playground_report.pdf') as pdf:
-            fig, ax = plt.subplots()
-            ax.axis('off')
-            ax.set_title('Execution report')
-            table = ax.table(
-                cellText=exec_data.values,
-                colLabels=exec_data.columns,
-                loc='center',
-                cellLoc='left',
-            )
-            table.auto_set_font_size(False)
-            table.set_fontsize(3)
-            fig.tight_layout()
-            plt.show()
-            #pdf.savefig()
+        config_html = config.to_html(
+            header=False,
+            justify='justify-all',
+        )
+        exec_data_html = exec_data.to_html(
+            index=False,
+            justify='justify-all',
+        )
+
+        html_content = (
+            '<!DOCTYPE html>'
+            '<html>'
+            '<head>'
+            '<meta charset="UTF-8">'
+            '<title>Report</title>'
+            '</head>'
+            '<body>'
+            '<h1>Execution Report</h1>'
+            '<h2>Configuration</h2>'
+            f'{config_html}'
+            '<h2>Execution Data</h2>'
+            f'{exec_data_html}'
+            '<h2>Execution Graph</h2>'
+            '</body>'
+            '</html>'
+        )
+
+        pdfkit_conf = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+        pdfkit.from_string(
+            input=html_content,
+            output_path='playground_report.pdf',
+            configuration=pdfkit_conf,
+        )

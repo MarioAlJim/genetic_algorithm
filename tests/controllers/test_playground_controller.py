@@ -6,7 +6,7 @@ class TestPlaygroundController:
         """Test create_report method"""
         controller = PlaygroundController()
         ga = GeneticAlgorithm()
-        ga.num_generations = 1
+        ga.num_generations = 10
         ga.init_pop()
         report = ga.execute()
         controller.create_report(report)
