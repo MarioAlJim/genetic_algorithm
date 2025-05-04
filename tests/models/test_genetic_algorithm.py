@@ -1,3 +1,4 @@
+"""Test suite for the GeneticAlgorithm class."""
 import pytest
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
