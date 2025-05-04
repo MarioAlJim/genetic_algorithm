@@ -272,16 +272,11 @@ class GeneticAlgorithm(Algorithm):
             new_pop = self.evaluate(mutated_offspring)
 
             generations.append(current_generation)
-            cp = '\n'.join([str(element) for element in self.current_pop])
-            initial_pops.append(cp)
-            sp = '\n'.join([str(element) for element in selected_pop])
-            selected_pops.append(sp)
-            os = '\n'.join([str(element) for element in offspring])
-            crossover_pops.append(os)
-            mos = '\n'.join([str(element) for element in mutated_offspring])
-            mutated_pops.append(mos)
-            np = '\n'.join([str(element) for element in new_pop])
-            evaluated_pops.append(np)
+            initial_pops.append(self.current_pop)
+            selected_pops.append(selected_pop)
+            crossover_pops.append(offspring)
+            mutated_pops.append(mutated_offspring)
+            evaluated_pops.append(new_pop)
 
             self.current_pop = new_pop
             current_generation += 1
@@ -289,6 +284,7 @@ class GeneticAlgorithm(Algorithm):
         config = {
             "Evaluation type": [self.evaluation],
             "Expected solution": [self.expected_solution],
+            "Algorithm": [self.name],
             "Generations": [self.num_generations],
             "Population size": [self.pop_size],
             "Chromosome length": [self.chromo_len],
