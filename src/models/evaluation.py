@@ -1,6 +1,4 @@
 """This file is for defining the evaluations."""
-from fontTools.misc.classifyTools import classify
-
 
 class Evaluation:
     """Evaluation class"""
