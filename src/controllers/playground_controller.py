@@ -1,10 +1,9 @@
 """Controller for the playground"""
 import os
-
 import pdfkit
 from flask import render_template_string, Flask
 
-from src.controllers.coverage_evaluator import get_coverage
+from src.controllers.coverage_evaluator import CoverageEvaluator
 from src.models.evaluation import TriangleClassification
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
@@ -44,7 +43,7 @@ class PlaygroundController:
             inputs = [entry[0] for entry in gen]
             fitness_values = [entry[1] for entry in gen]
 
-            coverage_result = get_coverage(triangle_classification.classify_triangle, inputs)
+            coverage_result = CoverageEvaluator.get_coverage(triangle_classification.classify_triangle, inputs)
             average_fitness_value = sum(fitness_values) / len(fitness_values)
 
             evaluation_result.append({

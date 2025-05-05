@@ -1,54 +1,58 @@
 import coverage
 
-def get_coverage(target_function, input_list: list) -> dict:
-    """
-    Executes the target function with the provided inputs and evaluates the code coverage.
+class CoverageEvaluator:
+    """Class to evaluate the coverage of the code"""
 
-    Args:
-        target_function (callable): Objective function to be executed.
-        input_list (list): List with inputs to be passed to the target function.
+    @staticmethod
+    def get_coverage(target_function, input_list: list) -> dict:
+        """
+        Executes the target function with the provided inputs and evaluates the code coverage.
 
-    Returns:
-        dict: Coverage summary and percentage.
-    """
-    cov = coverage.Coverage()
-    cov.start()
+        Args:
+            target_function (callable): Objective function to be executed.
+            input_list (list): List with inputs to be passed to the target function.
 
-    for args in input_list:
-        try:
-            target_function(args)
-        except Exception as e:
-            print(f"Error with input {args}: {e}")
+        Returns:
+            dict: Coverage summary and percentage.
+        """
+        cov = coverage.Coverage()
+        cov.start()
 
-    cov.stop()
-    cov.save()
+        for args in input_list:
+            try:
+                target_function(args)
+            except Exception as e:
+                print(f"Error with input {args}: {e}")
 
-    summary = {}
-    total_lines = 0
-    total_covered = 0
+        cov.stop()
+        cov.save()
 
-    for filename in cov.get_data().measured_files():
-        analysis = cov.analysis2(filename)
-        statements = [58, 64, 65, 66, 67, 69, 70, 71, 72, 73, 74, 75, 78, 80, 82, 84]
-        missing = analysis[3]     # Las que no se ejecutaron
+        summary = {}
+        total_lines = 0
+        total_covered = 0
 
-        num_statements = len(statements)
-        num_missing = len(missing) - 26
-        num_covered = num_statements - num_missing
+        for filename in cov.get_data().measured_files():
+            analysis = cov.analysis2(filename)
+            statements = [58, 64, 65, 66, 67, 69, 70, 71, 72, 73, 74, 75, 78, 80, 82, 84]
+            missing = analysis[3]     # Las que no se ejecutaron
 
-        summary[filename] = {
-            'total_statements': num_statements,
-            'executed_statements': num_covered,
-            'missing_statements': missing
+            num_statements = len(statements)
+            num_missing = len(missing) - 26
+            num_covered = num_statements - num_missing
+
+            summary[filename] = {
+                'total_statements': num_statements,
+                'executed_statements': num_covered,
+                'missing_statements': missing
+            }
+
+            total_lines += num_statements
+            total_covered += num_covered
+
+        percent_covered = (total_covered / total_lines * 100) if total_lines else 0
+
+        return {
+            'coverage_summary': summary,
+            'coverage_percent': percent_covered
         }
-
-        total_lines += num_statements
-        total_covered += num_covered
-
-    percent_covered = (total_covered / total_lines * 100) if total_lines else 0
-
-    return {
-        'coverage_summary': summary,
-        'coverage_percent': percent_covered
-    }
 
