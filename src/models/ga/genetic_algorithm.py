@@ -92,7 +92,7 @@ class GeneticAlgorithm(Algorithm):
     def pop_size(self, pop_size: int):
         """Set population size"""
         min_pop = 1
-        max_pop = 9999
+        max_pop = 10
 
         if min_pop <= pop_size <= max_pop:
             self._pop_size = pop_size
@@ -111,7 +111,7 @@ class GeneticAlgorithm(Algorithm):
     def num_generations(self, num_generations: int):
         """Set number of generations"""
         min_generations = 1
-        max_generations = 9999
+        max_generations = 10
 
         if min_generations <= num_generations <= max_generations:
             self._num_generations = num_generations
