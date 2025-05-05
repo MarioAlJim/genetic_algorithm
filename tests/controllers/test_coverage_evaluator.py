@@ -1,60 +1,136 @@
-from src.problems.triangle_classifier import classify_triangle
+from src.models.evaluation import TriangleClassification
 from src.controllers.coverage_evaluator import get_coverage
 import pytest
 
-# ----------- Dummy dataset for coverage ----------------
-@pytest.fixture
-def triangle_inputs():
-    return [
-        (3, 3, 3),   # Equilateral
-        (3, 3, 2),   # Isosceles
-        (3, 4, 5),   # Scalene
-        (1, 2, 3),   # Not a triangle (inequality)
-        (0, 1, 1),   # Not a triangle (invalid sides)
-    ]
+triangle_evaluator = TriangleClassification()
 
-# ----------- Basic test ----------------
-def test_coverage_output_structure(triangle_inputs):
-    result = get_coverage(classify_triangle, triangle_inputs)
+class TestCoverageEvaluator:
+    """Test class for coverage evaluator."""
 
-    # Validación de estructura
-    assert isinstance(result, dict)
-    assert "coverage_summary" in result
-    assert "coverage_percent" in result
+    @pytest.fixture
+    def triangle_inputs(self):
+        """Fixture for triangle inputs."""
+        return [
+            [3, 3, 3],   # Equilateral
+            [3, 4, 5],   # Scalene
+            [2, 2, 3],   # Isosceles
+            [1, 2, 3],   # Not a triangle
+            [0, 0, 0],   # Invalid
+            [10, 10, 20], # Out of range
+        ]
 
-    summary = result["coverage_summary"]
-    assert isinstance(summary, dict)
-    assert len(summary) > 0  # Al menos un archivo debe haberse medido
+    def test_coverage_output_structure(self, triangle_inputs):
+        """Test the structure of the coverage output."""
+        result = get_coverage(triangle_evaluator.classify_triangle, triangle_inputs)
 
-    # Comprobamos campos esperados en cada archivo
-    for file_summary in summary.values():
-        assert "total_statements" in file_summary
-        assert "executed_statements" in file_summary
-        assert "missing_statements" in file_summary
+        assert isinstance(result, dict)
+        assert "coverage_summary" in result
+        assert "coverage_percent" in result
 
-        assert file_summary["total_statements"] >= file_summary["executed_statements"]
+        summary = result["coverage_summary"]
+        assert isinstance(summary, dict)
+        assert len(summary) > 0
 
-    # La cobertura debe estar entre 0 y 100
-    assert 0 <= result["coverage_percent"] <= 100
+        for file_summary in summary.values():
+            assert "total_statements" in file_summary
+            assert "executed_statements" in file_summary
+            assert "missing_statements" in file_summary
+            assert file_summary["total_statements"] >= file_summary["executed_statements"]
 
+        assert 0 <= result["coverage_percent"] <= 100
 
-# ----------- Test con población incompleta ----------------
-def test_partial_coverage_detection():
-    # Solo un caso ejecutado, no cubrirá todo
-    inputs = [
-        (3, 3, 3),   # Solo equilateral
-    ]
+    def test_get_coverage_advanced(self):
+        """Test the coverage evaluation with a more complex dataset."""
+        inputs = [
+            [12, 12, 12],     # Equilateral
+            [1, 2, 3],     # Not a triangle
+            [3, 4, 5],     # Scalene
+            [2, 2, 3],     # Isosceles
+            [0, 0, 0],     # Invalid
+            [10, 10, 20],  # Out of range
+            [1, 1, 2],     # Not a triangle
+            [5, 5, 5],     # Equilateral
+            [7, 8, 9],     # Scalene
+            [4, 4, 6],     # Isosceles
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        print(result)
+        assert result["coverage_percent"] == 100
 
-    result = get_coverage(classify_triangle, inputs)
+    def test_get_coverage_empty(self):
+        """Test the coverage evaluation with an empty dataset."""
+        inputs = []
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 0
 
-    assert result["coverage_percent"] == 40
+    def test_get_coverage_invalid_input(self):
+        """Test the coverage evaluation with invalid input."""
+        inputs = [
+            [3, 3, 'a'],   # Invalid input
+            [None, None, None],  # Invalid input
+            [1, 2],  # Not enough sides
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 37.5
 
+    def test_get_coverage_large_dataset(self):
+        """Test the coverage evaluation with a large dataset."""
+        inputs = [[i, i, i] for i in range(20)]  # Equilateral triangles
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 75
 
-def test_get_coverage_advanced():
-    # Aquí puedes definir las entradas para probar
-    inputs = [
-        (12, 12, 12),     # Equilateral
-        (1, 2, 3),     # Not a triangle
-    ]
-    result = get_coverage(classify_triangle, inputs)
-    assert result["coverage_percent"] == 50
+    def test_partial_coverage_detection_1(self):
+        """Test the coverage detection with a partial population."""
+        inputs = [
+            [3, 3, 3],  # Solo equilateral
+            [3, 4, 5],  # Scalene
+            [2, 2, 3],  # Isosceles
+            [0, 0, 0],  # Out of range
+            [10, 10, 20],  # Invalid
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 100
+
+    def test_partial_coverage_detection_2(self):
+        """Test the coverage detection with a partial population."""
+        inputs = [
+            [3, 3, 3],  # Solo equilateral
+            [2, 2, 3],  # Isosceles
+            [0, 0, 0],  # Out of range
+            [10, 10, 20],  # Invalid
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 93.75
+
+    def test_partial_coverage_detection_3(self):
+        """Test the coverage detection with a partial population."""
+        inputs = [
+            [3, 3, 3],  # Solo equilateral
+            [3, 4, 5],  # Scalene
+            [2, 2, 3],  # Isosceles
+            [10, 10, 20],  # Invalid
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 93.75
+
+    def test_partial_coverage_detection_4(self):
+        """Test the coverage detection with a partial population."""
+        inputs = [
+            [3, 3, 3],  # Solo equilateral
+            [3, 4, 5],  # Scalene
+            [2, 2, 3],  # Isosceles
+            [10, 10, 20],  # Invalid
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 93.75
+
+    def test_partial_coverage_detection_5(self):
+        """Test the coverage detection with a partial population."""
+        inputs = [
+            [3, 4, 5],  # Scalene
+            [2, 2, 3],  # Isosceles
+            [0, 0, 0],  # Out of range
+            [10, 10, 20],  # Invalid
+        ]
+        result = get_coverage(triangle_evaluator.classify_triangle, inputs)
+        assert result["coverage_percent"] == 93.75

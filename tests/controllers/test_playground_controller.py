@@ -57,3 +57,28 @@ class TestPlaygroundController:
         print("Resultado de la evaluación de cobertura:", result)
         assert result is not None
 
+    def test_create_report_2(self):
+        """Test create_report method"""
+        content = [
+            {
+                'iteration': 1,
+                'config_html': '<p>Configuración 1</p>',
+                'exec_data_html': '<p>Datos de ejecución 1</p>',
+                'graph': 'data:image/png;base64,XYZ...'
+            },
+            {
+                'iteration': 2,
+                'config_html': '<p>Configuración 2</p>',
+                'exec_data_html': '<p>Datos de ejecución 2</p>',
+                'graph': 'data:image/png;base64,ABC...'
+            }
+        ]
+
+        controller = PlaygroundController()
+        ga = GeneticAlgorithm()
+        ga.num_generations = 5
+        ga.init_pop()
+
+        controller.create_report((content, 56))
+        assert True
+
