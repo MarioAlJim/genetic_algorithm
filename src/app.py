@@ -5,7 +5,6 @@ from flask import Flask, redirect, url_for
 # Local application imports
 from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
-from src.controllers.playground_controller import PlaygroundController
 
 def create_app() -> Flask:
     """Create and set up the app"""
