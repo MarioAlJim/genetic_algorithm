@@ -1,4 +1,7 @@
 """This file is for defining the evaluations."""
+from fontTools.misc.classifyTools import classify
+
+
 class Evaluation:
     """Evaluation class"""
     def __init__(self) -> None:
@@ -41,7 +44,24 @@ class TriangleClassification(Evaluation):
         Output: [[3,3,3], 0]
         """
         # Classify the triangle
-        classification = None
+        classification = self.classify_triangle(data)
+
+        # Score the chromosome
+        score = 0
+
+        if classification == expected_solution:
+            score = 1
+
+        return [data, score]
+
+    @staticmethod
+    def classify_triangle(data: list) -> str:
+        """
+        Classify the triangle based on the given data
+        Input: [a, b, c]
+        Output: 'scalene', 'equilateral', 'isosceles', 'invalid', 'out of range'
+        """
+        classification = "out of range"
         a = data[0]
         b = data[1]
         c = data[2]
@@ -61,10 +81,4 @@ class TriangleClassification(Evaluation):
         else:
             classification = 'out of range'
 
-        # Score the chromosome
-        score = 0
-
-        if classification == expected_solution:
-            score = 1
-
-        return [data, score]
+        return classification

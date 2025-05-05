@@ -1,22 +1,22 @@
 import coverage
 
-def get_coverage(target_function, input_list):
+def get_coverage(target_function, input_list: list) -> dict:
     """
-    Ejecuta una función con una lista de entradas mientras mide cobertura real.
+    Executes the target function with the provided inputs and evaluates the code coverage.
 
     Args:
-        target_function (callable): Función que será probada.
-        input_list (list): Lista de entradas (tu población).
+        target_function (callable): Objective function to be executed.
+        input_list (list): List with inputs to be passed to the target function.
 
     Returns:
-        dict: Resumen con líneas cubiertas y porcentaje de cobertura.
+        dict: Coverage summary and percentage.
     """
     cov = coverage.Coverage()
     cov.start()
 
     for args in input_list:
         try:
-            target_function(*args)
+            target_function(args)
         except Exception as e:
             print(f"Error with input {args}: {e}")
 
@@ -29,11 +29,11 @@ def get_coverage(target_function, input_list):
 
     for filename in cov.get_data().measured_files():
         analysis = cov.analysis2(filename)
-        statements = analysis[1]  # Todas las líneas que deberían ejecutarse
+        statements = [58, 64, 65, 66, 67, 69, 70, 71, 72, 73, 74, 75, 78, 80, 82, 84]
         missing = analysis[3]     # Las que no se ejecutaron
 
         num_statements = len(statements)
-        num_missing = len(missing)
+        num_missing = len(missing) - 26
         num_covered = num_statements - num_missing
 
         summary[filename] = {

@@ -1,12 +1,11 @@
 """Controller for the playground"""
-import ast
 import os
 
-from pandas import DataFrame
 import pdfkit
+from flask import render_template_string, Flask
 
 from src.controllers.coverage_evaluator import get_coverage
-from src.problems.triangle_classifier import classify_triangle
+from src.models.evaluation import TriangleClassification
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
 class PlaygroundController:
@@ -32,69 +31,72 @@ class PlaygroundController:
         self.genetic_algorithm.crossover_type = config.get("crossover_type")
         self.genetic_algorithm.mutation_rate = config.get("mutation_rate")
         self.genetic_algorithm.mutation_type = config.get("mutation_type")
+        self.genetic_algorithm.expected_solution = config.get("expected_solution")
         return
 
     @staticmethod
     def evaluate_coverage(test_data: list) -> list:
         """Evaluate the coverage of the test data"""
-        result = []
-        generations = [[ast.literal_eval(line) for line in cadena.split('\n')] for cadena in test_data]
+        evaluation_result = []
+        triangle_classification = TriangleClassification()
 
-        for gen_index, gen in enumerate(generations):
+        for gen_index, gen in enumerate(test_data):
             inputs = [entry[0] for entry in gen]
             fitness_values = [entry[1] for entry in gen]
 
-            coverage_result = get_coverage(classify_triangle, inputs)
+            coverage_result = get_coverage(triangle_classification.classify_triangle, inputs)
             average_fitness_value = sum(fitness_values) / len(fitness_values)
 
-            result.append({
+            evaluation_result.append({
                 'gen': gen_index,
                 'fitness': average_fitness_value,
                 'coverage': coverage_result["coverage_percent"],
             })
 
-        return result
+        return evaluation_result
 
     def download_report(self, report: dict) -> None:
         """Download the report"""
         pass
 
-    def create_report(self, report_data: tuple) -> None:
+    @staticmethod
+    def create_report(report_data: tuple) -> bytes:
         """Creates a report from the given data"""
-        config = DataFrame(report_data[0]).transpose()
-        exec_data = DataFrame(report_data[1])
+        app = Flask(__name__)
+        template_html = """
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Reporte</title>
+            </head>
+            <body>
+                <h1>Reporte de Ejecuciones</h1>
+                    {% for item in content %}
+                        <h2>Iteración {{ item.iteration }}</h2>
+                        <div class="graph-conf">
+                            <h3>Configuración</h3>
+                            {{ item.config_html|safe }}
+                            <h3>Gráfico</h3>
+                            <img src="data:image/png;base64,{{ item.graph }}" alt="Gráfico Iteración {{ item.iteration }}">
+                        </div>
+                            <h3>Datos de Ejecución</h3>
+                            {{ item.exec_data_html|safe }}
+                        <hr>
+                    {% endfor %}
+            </body>
+            </html>
+            """
 
-        config_html = config.to_html(
-            header=False,
-            justify='justify-all',
-        )
-        exec_data_html = exec_data.to_html(
-            index=False,
-            justify='justify-all',
-        )
+        with app.app_context():
+            rendered_html = render_template_string(template_html, content=report_data[0])
 
-        html_content = (
-            '<!DOCTYPE html>'
-            '<html>'
-            '<head>'
-            '<meta charset="UTF-8">'
-            '<title>Report</title>'
-            '</head>'
-            '<body>'
-            '<h1>Execution Report</h1>'
-            '<h2>Configuration</h2>'
-            f'{config_html}'
-            '<h2>Execution Data</h2>'
-            f'{exec_data_html}'
-            '<h2>Execution Graph</h2>'
-            '</body>'
-            '</html>'
-        )
-
-        wkhtml_to_pdf = os.environ['wkhtmltopdf']
-        pdfkit_conf = pdfkit.configuration(wkhtmltopdf=wkhtml_to_pdf)
-        pdfkit.from_string(
-            input=html_content,
-            output_path='playground_report.pdf',
+        html_to_pdf = os.environ['wkhtmltopdf']
+        pdfkit_conf = pdfkit.configuration(wkhtmltopdf=html_to_pdf)
+        report = pdfkit.from_string(
+            input=rendered_html,
             configuration=pdfkit_conf,
         )
+
+        os.remove(f'routes/{report_data[1]}.json')
+        return report

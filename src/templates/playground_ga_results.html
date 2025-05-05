@@ -21,13 +21,13 @@
             </form>
         </div>
         <div class="button-container">
-            <button id="download-btn" disabled>Descargar Reporte</button>
+            <button id="download-btn" onclick="downloadReport()">Descargar Reporte</button>
         </div>
     </div>
 </header>
 
 <main>
-    <div class="left-panel">
+        <div class="left-panel">
         <div id="configFormContainer" style="display: none;">
             <h3>Configuraciones</h3>
             <div class="form-background">
@@ -76,8 +76,23 @@
             </div>
         </div>
     </div>
-    <div class="right-panel">
 
+    <div class="right-panel">
+        <h3>Resultados de la ejecución</h3>
+        <div>
+            {% for item in content %}
+                <h2>Iteración {{ item.iteration }}</h2>
+                <div class="graph-conf">
+                    <h3>Configuración</h3>
+                    {{ item.config_html|safe }}
+                    <h3>Gráfico</h3>
+                    <img src="data:image/png;base64,{{ item.graph }}" alt="Gráfico Iteración {{ item.iteration }}">
+                </div>
+                    <h3>Datos de Ejecución</h3>
+                    {{ item.exec_data_html|safe }}
+                <hr>
+            {% endfor %}
+        </div>
     </div>
 </main>
 
