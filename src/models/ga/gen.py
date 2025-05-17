@@ -1,4 +1,4 @@
-"""File for gen class abd its children"""
+"""File for gen class and its children"""
 from random import uniform
 
 class Gen:
