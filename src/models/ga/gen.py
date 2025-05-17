@@ -1,3 +1,4 @@
+"""File for gen class abd its children"""
 from random import uniform
 
 class Gen:
@@ -7,6 +8,7 @@ class Gen:
 
     @property
     def type(self) -> str:
+        """Get gen type"""
         return self._type
 
     def create(self):
@@ -23,10 +25,12 @@ class RealNumber(Gen):
 
     @property
     def min_value(self) -> float:
+        """Get min value"""
         return self._min_value
 
     @min_value.setter
     def min_value(self, value: float) -> None:
+        """Set min value"""
         if value < self._max_value:
             self._min_value = value
         else:
@@ -34,10 +38,12 @@ class RealNumber(Gen):
 
     @property
     def max_value(self) -> float:
+        """Get max value"""
         return self._max_value
 
     @max_value.setter
     def max_value(self, value: float) -> None:
+        """Set max value"""
         if value > self._min_value:
             self._max_value = value
         else:
@@ -45,4 +51,4 @@ class RealNumber(Gen):
 
     def create(self):
         """Create real number gen"""
-        return uniform(self.min_value, self.max_value)
+        return round(uniform(self.min_value, self.max_value), 2)
