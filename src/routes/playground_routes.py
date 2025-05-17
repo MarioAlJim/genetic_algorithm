@@ -11,7 +11,7 @@ from flask import render_template, session, redirect, send_file
 from pandas import DataFrame
 
 from src.controllers.playground_controller import PlaygroundController
-from src.models.evaluation import TriangleClassification
+from src.models.evaluations.triangle_classification import TriangleClassification
 from src.templates.config_forms.problem_algorithm_form import ProblemAlgorithmForm
 from src.templates.config_forms.ga_configurations_form import GAConfigurationsForm
 
