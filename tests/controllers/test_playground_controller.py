@@ -7,7 +7,6 @@ class TestPlaygroundController:
         controller = PlaygroundController()
         ga = GeneticAlgorithm()
         ga.num_generations = 10
-        ga.init_pop()
         report = ga.execute()
         controller.create_report(report)
         assert True
@@ -43,7 +42,6 @@ class TestPlaygroundController:
         controller = PlaygroundController()
         controller.genetic_algorithm.pop_size = 4
         controller.genetic_algorithm.num_generations = 2
-        controller.genetic_algorithm.init_pop()
         result = controller.start_execution()
         print(result)
         assert result is not None
@@ -77,8 +75,6 @@ class TestPlaygroundController:
         controller = PlaygroundController()
         ga = GeneticAlgorithm()
         ga.num_generations = 5
-        ga.init_pop()
 
         controller.create_report((content, 56))
         assert True
-
