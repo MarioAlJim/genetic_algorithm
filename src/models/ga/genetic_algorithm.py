@@ -12,15 +12,17 @@ class GeneticAlgorithm(Algorithm):
 
     Configurable attributes:
     - gen type
-    - chromo length
     - population size
     - number of generations
     - selection type and rate
     - crossover type
     - mutation type and rate
-    - current population
     - evaluation (fitness function)
-    - expected solution
+    - elitism rate
+
+    Other attributes:
+    - current population
+    - chromosome length
     """
     def __init__(self) -> None:
         super().__init__()
@@ -40,14 +42,15 @@ class GeneticAlgorithm(Algorithm):
         self._mutations = [
             ['random-resetting', RandomResetting],
         ]
+        self._chromo_len = self._evaluation.inputs * self._evaluation.branches
+        self._current_pop = []
         self._gen = RealNumber()
-        self._chromo_len = 3
         self._pop_size = 10
-        self._num_generations = 50
+        self._num_generations = 10
         self._selection = RandomSelection(0.5)
         self._crossover = Uniform()
-        self._mutation = RandomResetting(0.3)
-        self._current_pop = []
+        self._mutation = RandomResetting(0.5)
+        self._elitism_rate = 0.1
 
     @property
     def gen_type(self) -> str:
@@ -69,20 +72,6 @@ class GeneticAlgorithm(Algorithm):
         """Get chromosome length"""
         return self._chromo_len
 
-    @chromo_len.setter
-    def chromo_len(self, chromo_len: int):
-        """Set chromosome length"""
-        min_len = 1
-        max_len = 9999
-
-        if min_len <= chromo_len <= max_len:
-            self._chromo_len = chromo_len
-        else:
-            raise ValueError(
-                'Chromosome length must be between',
-                min_len,'and',max_len
-            )
-
     @property
     def pop_size(self) -> int:
         """Get population size"""
@@ -94,11 +83,12 @@ class GeneticAlgorithm(Algorithm):
         min_pop = 1
         max_pop = 10
 
-        if min_pop <= pop_size <= max_pop:
+        if (isinstance(pop_size, int) and
+                min_pop <= pop_size <= max_pop):
             self._pop_size = pop_size
         else:
             raise ValueError(
-                'Population must be between',
+                'Population must be an int between',
                 min_pop,'and',max_pop
             )
 
@@ -113,11 +103,12 @@ class GeneticAlgorithm(Algorithm):
         min_generations = 1
         max_generations = 10
 
-        if min_generations <= num_generations <= max_generations:
+        if (isinstance(num_generations, int) and
+                min_generations <= num_generations <= max_generations):
             self._num_generations = num_generations
         else:
             raise ValueError(
-                'Number of generations must be between',
+                'Number of generations must be an int between',
                 min_generations,'and',max_generations
             )
 
@@ -129,10 +120,12 @@ class GeneticAlgorithm(Algorithm):
     @selection_rate.setter
     def selection_rate(self, selection_rate: float):
         """Set selection rate"""
-        if 0 <= selection_rate <= 1:
+
+        if (isinstance(selection_rate, float) and
+                0 <= selection_rate <= 1):
             self._selection.rate = selection_rate
         else:
-            raise ValueError('Selection rate must be between 0 and 1')
+            raise ValueError('Selection rate must be a float between 0.0 and 1.0')
 
     @property
     def selection_type(self) -> str:
@@ -172,10 +165,11 @@ class GeneticAlgorithm(Algorithm):
     @mutation_rate.setter
     def mutation_rate(self, mutation_rate: float):
         """Set mutation rate"""
-        if 0 <= mutation_rate <= 1:
+        if (isinstance(mutation_rate, float) and
+                0 <= mutation_rate <= 1):
             self._mutation.rate = mutation_rate
         else:
-            raise ValueError('Mutation rate must be between 0 and 1')
+            raise ValueError('Mutation rate must be a float between 0.0 and 1.0')
 
     @property
     def mutation_type(self) -> str:
@@ -196,67 +190,76 @@ class GeneticAlgorithm(Algorithm):
         """Get current population"""
         return self._current_pop
 
-    @current_pop.setter
-    def current_pop(self, current_pop: list):
-        """Set current population"""
-        if current_pop:
-            self._current_pop = current_pop
-        else:
-            raise ValueError('Current population must have individuals')
+    @property
+    def elitism_rate(self) -> float:
+        """Get elitism rate"""
+        return self._elitism_rate
 
-    def create_gen(self):
+    @elitism_rate.setter
+    def elitism_rate(self, elitism_rate: float):
+        """Set elitism rate"""
+        if (isinstance(elitism_rate, float) and
+                0 <= elitism_rate <= 1):
+            self._elitism_rate = elitism_rate
+        else:
+            raise ValueError('Elitism rate must be a float between 0.0 and 1.0')
+
+    def _create_gen(self):
         """Creates a gen according to gen type"""
         return self._gen.create()
 
-    def init_pop(self) -> list:
+    def _init_pop(self) -> list:
         """Initializes the population"""
         population = []
 
         for _ in range(self.pop_size):
             chromosome = []
             for _ in range(self.chromo_len):
-                chromosome.append(self.create_gen())
+                chromosome.append(self._create_gen())
             population.append(chromosome)
 
-        evaluated_pop = self.evaluate(population)
-        self.current_pop = evaluated_pop
+        evaluated_pop = self._evaluate(population)
+        self._current_pop = evaluated_pop
         return evaluated_pop
 
-    def evaluate(self, pop: list) -> list:
+    def _evaluate(self, pop: list) -> list:
         """Evaluates the population"""
         evaluated_pop = []
 
         for chromo in pop:
-            evaluated_chromo = self._evaluation.score(chromo, self.expected_solution)
+            evaluated_chromo = self._evaluation.score(chromo)
             evaluated_pop.append(evaluated_chromo)
 
         return evaluated_pop
 
-    def select(self, new_pop: list) -> list:
+    def _select(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
-        return self._selection.select(new_pop, self.pop_size)
+        sel_size = int(self.selection_rate * self.pop_size)
+        full_sample =  self._selection.select(new_pop, 1 if sel_size == 0 else sel_size)
+        return [evaluated_chromo[0] for evaluated_chromo in full_sample]
 
-    def cross(self, sel_pop: list) -> list:
+    def _cross(self, sel_pop: list) -> list:
         """Selects random parents according to the selected crossover"""
         offspring = []
 
         for _ in range(self.pop_size):
             # Gets the chromosome parents from the selected population
-            parent1 = choice(sel_pop)[0]
-            parent2 = choice(sel_pop)[0]
+            parent1 = choice(sel_pop)
+            parent2 = choice(sel_pop)
 
             children = self._crossover.cross(self.chromo_len, parent1, parent2)
             offspring.extend([choice(children)])
 
         return offspring
 
-    def mutate(self, offspring: list) -> list:
+    def _mutate(self, offspring: list) -> list:
         """Mutates the offspring population"""
-        return self._mutation.mutate(offspring, self.chromo_len, self.create_gen)
+        return self._mutation.mutate(offspring, self.chromo_len, self._create_gen)
 
     def execute(self) -> tuple:
         """Executes the genetic algorithm"""
-        self.init_pop()
+        self._chromo_len = self._evaluation.inputs * self._evaluation.branches
+        self._init_pop()
         current_generation = 1
         generations = []
         initial_pops = []
@@ -266,10 +269,21 @@ class GeneticAlgorithm(Algorithm):
         evaluated_pops = []
 
         while current_generation <= self.num_generations:
-            selected_pop = self.select(self.current_pop)
-            offspring = self.cross(selected_pop)
-            mutated_offspring = self.mutate(offspring)
-            new_pop = self.evaluate(mutated_offspring)
+            sorted_pop = sorted(self.current_pop, key=lambda x: x[1], reverse=True)
+            evaluated_elite = sorted_pop[:int(self.elitism_rate * self.pop_size)]
+            elite = [evaluated_chromo[0] for evaluated_chromo in evaluated_elite]
+            elite_size = len(elite)
+
+            selected_pop = self._select(self.current_pop)
+            selected_pop = elite + selected_pop[elite_size:]
+
+            offspring = self._cross(selected_pop)
+            offspring = elite + offspring[elite_size:]
+
+            mutated_offspring = self._mutate(offspring)
+            mutated_offspring = elite + mutated_offspring[elite_size:]
+
+            new_pop = self._evaluate(mutated_offspring)
 
             generations.append(current_generation)
             initial_pops.append(self.current_pop)
@@ -278,12 +292,11 @@ class GeneticAlgorithm(Algorithm):
             mutated_pops.append(mutated_offspring)
             evaluated_pops.append(new_pop)
 
-            self.current_pop = new_pop
+            self._current_pop = new_pop
             current_generation += 1
 
         config = {
             "Evaluation type": [self.evaluation],
-            "Expected solution": [self.expected_solution],
             "Algorithm": [self.name],
             "Generations": [self.num_generations],
             "Population size": [self.pop_size],
@@ -294,6 +307,7 @@ class GeneticAlgorithm(Algorithm):
             "Crossover type": [self.crossover_type],
             "Mutation type": [self.mutation_type],
             "Mutation rate": [self.mutation_rate],
+            "Elitism rate": [self.elitism_rate],
         }
         exec_data = {
             "Generation": generations,
