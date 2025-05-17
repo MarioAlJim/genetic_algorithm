@@ -14,13 +14,13 @@ class TriangleClassification(Evaluation):
 
     def score(self, suite: list) -> list:
         """Evaluates the code coverage of the suite"""
-        score = self._get_coverage(self.classify_triangle, suite)
+        score = self._get_coverage(self._classify_triangle, suite)
 
         return [suite, score]
 
     # no cover: stop
     @staticmethod
-    def classify_triangle(data: list) -> str:
+    def _classify_triangle(data: list) -> str:
         """Classifies the triangle based on the given lengths"""
         classification = "out of range"
         a = data[0]
