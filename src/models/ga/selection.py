@@ -20,12 +20,12 @@ class Selection:
     @rate.setter
     def rate(self, rate: float) -> None:
         """Set selection rate"""
-        if 0 <= rate <= 1:
+        if 0.1 <= rate <= 1:
             self._rate = rate
         else:
-            raise ValueError('Selection rate must be between 0 and 1')
+            raise ValueError('Selection rate must be between 0.1 and 1')
 
-    def select(self, pop: list, pop_size: int) -> list:
+    def select(self, pop: list, sel_size: int) -> list:
         """Selection method"""
         raise NotImplementedError('Selection method should be implemented by child class')
 
@@ -38,8 +38,8 @@ class RandomSelection(Selection):
         super().__init__(rate)
         self._type = 'random'
 
-    def select(self, pop: list, pop_size: int) -> list:
-        return sample(pop, int(self._rate * pop_size))
+    def select(self, pop: list, sel_size: int) -> list:
+        return sample(pop, sel_size)
 
 class SteadyState(Selection):
     """Steady state selection class
@@ -50,7 +50,6 @@ class SteadyState(Selection):
         super().__init__(rate)
         self._type = 'steady-state'
 
-    def select(self, pop: list, pop_size: int) -> list:
+    def select(self, pop: list, sel_size: int) -> list:
         sorted_pop = sorted(pop, key=lambda x: x[1], reverse=True)
-        selected_pop = sorted_pop[:int(self._rate * pop_size)]
-        return selected_pop
+        return sorted_pop[:sel_size]
