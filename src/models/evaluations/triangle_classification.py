@@ -11,6 +11,7 @@ class TriangleClassification(Evaluation):
         self._name = 'triangle-classification'
         self._branches = 5
         self._inputs = 3
+        self._input_type = 'real-number'
 
     def score(self, suite: list) -> list:
         """Evaluates the code coverage of the suite"""

@@ -11,7 +11,6 @@ class GeneticAlgorithm(Algorithm):
     """Class for the configuration and execution of the genetic algorithm
 
     Configurable attributes:
-    - gen type
     - population size
     - number of generations
     - selection type and rate
@@ -21,30 +20,16 @@ class GeneticAlgorithm(Algorithm):
     - elitism rate
 
     Other attributes:
+    - gen type
     - current population
     - chromosome length
     """
     def __init__(self) -> None:
         super().__init__()
         self._name = 'genetic-algorithm'
-        self._gens = [
-            ['real-number', RealNumber],
-        ]
-        self._selections = [
-            ['random', RandomSelection],
-            ['steady-state', SteadyState],
-        ]
-        self._crossovers = [
-            ['one-point', OnePoint],
-            ['two-point', TwoPoint],
-            ['uniform', Uniform],
-        ]
-        self._mutations = [
-            ['random-resetting', RandomResetting],
-        ]
+        self._gen = RealNumber()
         self._chromo_len = self._evaluation.inputs * self._evaluation.branches
         self._current_pop = []
-        self._gen = RealNumber()
         self._pop_size = 10
         self._num_generations = 10
         self._selection = RandomSelection(0.5)
@@ -53,24 +38,52 @@ class GeneticAlgorithm(Algorithm):
         self._elitism_rate = 0.1
 
     @property
-    def gen_type(self) -> str:
-        """Get gen type"""
-        return self._gen.type
+    def evaluation(self) -> str:
+        """Get evaluation"""
+        return self._evaluation.name
 
-    @gen_type.setter
-    def gen_type(self, gen_type: str):
+    @evaluation.setter
+    def evaluation(self, evaluation) -> None:
+        """Set evaluation
+
+        Based on the evaluation, it sets also the gen type and chromosome length
+        """
+        for name, eval_class in self._evaluations:
+            if name == evaluation:
+                self._evaluation = eval_class()
+                self._set_gen_type(self._evaluation.input_type)
+                self._chromo_len = self._evaluation.inputs * self._evaluation.branches
+                return
+
+        raise ValueError('Evaluation must be a valid value: ', self._evaluations)
+
+    def _set_gen_type(self, gen_type: str) -> None:
         """Set gen type"""
-        for name, gen in self._gens:
+        gens = [
+            ['real-number', RealNumber],
+        ]
+
+        for name, gen in gens:
             if gen_type == name:
                 self._gen = gen()
                 return
 
-        raise ValueError('Gen type must be a valid value: ', self._gens)
+        raise ValueError('Gen type must be a valid value: ', gens)
+
+    @property
+    def gen_type(self) -> str:
+        """Get gen type"""
+        return self._gen.type
 
     @property
     def chromo_len(self) -> int:
         """Get chromosome length"""
         return self._chromo_len
+
+    @property
+    def current_pop(self) -> list:
+        """Get current population"""
+        return self._current_pop
 
     @property
     def pop_size(self) -> int:
@@ -135,12 +148,17 @@ class GeneticAlgorithm(Algorithm):
     @selection_type.setter
     def selection_type(self, selection_type: str):
         """Set selection type"""
-        for name, selection in self._selections:
+        selections = [
+            ['random', RandomSelection],
+            ['steady-state', SteadyState],
+        ]
+
+        for name, selection in selections:
             if selection_type == name:
                 self._selection = selection(self._selection.rate)
                 return
 
-        raise ValueError('Selection type must be a valid value: ', self._selections)
+        raise ValueError('Selection type must be a valid value: ', selections)
 
     @property
     def crossover_type(self) -> str:
@@ -150,12 +168,18 @@ class GeneticAlgorithm(Algorithm):
     @crossover_type.setter
     def crossover_type(self, crossover_type: str):
         """Set crossover type"""
-        for name, crossover in self._crossovers:
+        crossovers = [
+            ['one-point', OnePoint],
+            ['two-point', TwoPoint],
+            ['uniform', Uniform],
+        ]
+
+        for name, crossover in crossovers:
             if crossover_type == name:
                 self._crossover = crossover()
                 return
 
-        raise ValueError('Crossover type must be a valid value: ', self._crossovers)
+        raise ValueError('Crossover type must be a valid value: ', crossovers)
 
     @property
     def mutation_rate(self) -> float:
@@ -179,16 +203,15 @@ class GeneticAlgorithm(Algorithm):
     @mutation_type.setter
     def mutation_type(self, mutation_type: str):
         """Set mutation type"""
-        for name, mutation in self._mutations:
+        mutations = [
+            ['random-resetting', RandomResetting],
+        ]
+
+        for name, mutation in mutations:
             if mutation_type == name:
                 self._mutation = mutation(self._mutation.rate)
                 return
-        raise ValueError('Mutation type must be a valid value: ', self._mutations)
-
-    @property
-    def current_pop(self) -> list:
-        """Get current population"""
-        return self._current_pop
+        raise ValueError('Mutation type must be a valid value: ', mutations)
 
     @property
     def elitism_rate(self) -> float:
@@ -232,6 +255,12 @@ class GeneticAlgorithm(Algorithm):
 
         return evaluated_pop
 
+    def _get_elite(self) -> list:
+        """Gets the elite population"""
+        sorted_pop = sorted(self.current_pop, key=lambda x: x[1], reverse=True)
+        evaluated_elite = sorted_pop[:int(self.elitism_rate * self.pop_size)]
+        return [evaluated_chromo[0] for evaluated_chromo in evaluated_elite]
+
     def _select(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
         sel_size = int(self.selection_rate * self.pop_size)
@@ -257,10 +286,11 @@ class GeneticAlgorithm(Algorithm):
         return self._mutation.mutate(offspring, self.chromo_len, self._create_gen)
 
     def execute(self) -> tuple:
-        """Executes the genetic algorithm"""
-        self._chromo_len = self._evaluation.inputs * self._evaluation.branches
+        """Executes the genetic algorithm.
+
+        Returns a tuple: config, exec_data
+        """
         self._init_pop()
-        current_generation = 1
         generations = []
         initial_pops = []
         selected_pops = []
@@ -268,24 +298,18 @@ class GeneticAlgorithm(Algorithm):
         mutated_pops = []
         evaluated_pops = []
 
-        while current_generation <= self.num_generations:
-            sorted_pop = sorted(self.current_pop, key=lambda x: x[1], reverse=True)
-            evaluated_elite = sorted_pop[:int(self.elitism_rate * self.pop_size)]
-            elite = [evaluated_chromo[0] for evaluated_chromo in evaluated_elite]
+        for current_generation in range(self.num_generations):
+            elite = self._get_elite()
             elite_size = len(elite)
-
             selected_pop = self._select(self.current_pop)
             selected_pop = elite + selected_pop[elite_size:]
-
             offspring = self._cross(selected_pop)
             offspring = elite + offspring[elite_size:]
-
             mutated_offspring = self._mutate(offspring)
             mutated_offspring = elite + mutated_offspring[elite_size:]
-
             new_pop = self._evaluate(mutated_offspring)
 
-            generations.append(current_generation)
+            generations.append(current_generation+1)
             initial_pops.append(self.current_pop)
             selected_pops.append(selected_pop)
             crossover_pops.append(offspring)
@@ -293,7 +317,6 @@ class GeneticAlgorithm(Algorithm):
             evaluated_pops.append(new_pop)
 
             self._current_pop = new_pop
-            current_generation += 1
 
         config = {
             "Evaluation type": [self.evaluation],
@@ -317,5 +340,4 @@ class GeneticAlgorithm(Algorithm):
             "Mutated population": mutated_pops,
             "Evaluated population": evaluated_pops,
         }
-
         return config, exec_data
