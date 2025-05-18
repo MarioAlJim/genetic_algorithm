@@ -50,6 +50,7 @@ class Evaluation:
 
             coverage_percent = round(statements_run * 100 / executable_statements, 2)
 
+        cov.erase()
         return coverage_percent
 
     def score(self, suite: list) -> list:
