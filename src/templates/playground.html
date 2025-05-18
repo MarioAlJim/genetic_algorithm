@@ -1,0 +1,70 @@
+{% extends 'index.html' %} {% block body %}
+
+<header>
+    <div class="header-title">
+        <div class="title">BiTe Playground</div>
+    </div>
+    <div class="initial-form">
+        <form method="POST" class="initial-form-left">
+            {{ initial_config.hidden_tag() }}
+            <label for="problem" class="label-header">Problema:</label>
+            {{ initial_config.problem(class="combo-header") }}
+
+            <label for="algorithm" class="label-header">Algoritmo:</label>
+            {{ initial_config.algorithm(class="combo-header") }}
+            <div>
+                {{ initial_config.execute_button(class="button")}}
+            </div>
+        </form>
+        <div class="initial-form-right ">
+            <div>
+                {% if allow_download %}
+                    <button id="download-btn" onclick="downloadReport()">Descargar Reporte</button>
+                {% else %}
+                    <button id="download-btn" disabled>Descargar Reporte</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="left-panel">
+        <div id="configFormContainer">
+            <h3>Configuraciones</h3>
+            <div class="form-background">
+                {% if config_form %}
+                    {% include config_form + "_template.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        {% if content %}
+        <h2>Resultados de la ejecución</h2>
+        <div>
+            {% for item in content %}
+                <div class="initial-form">
+                    <h3>Configuración</h3>
+                    {{ item.config_html|safe }}
+                    <h3>Gráfico</h3>
+                    <img src="data:image/png;base64,{{ item.graphic }}" alt="Gráfico Iteración {{ item.iteration }}">
+                </div>
+                    <h3>Datos de Ejecución</h3>
+                    {{ item.exec_data_html|safe }}
+                <hr>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="content">
+                <h3>Resultados</h3>
+                <div class="content-background">
+                    <p>Ejecute el algoritmo para poder visualizar los resultados.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock %}
