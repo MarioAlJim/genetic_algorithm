@@ -165,6 +165,7 @@ select {
 
 /* BUTTONS */
 button {
+    width: auto;
     padding: 10px;
     margin: 5px;
     background-color: #4CAF50;
@@ -174,7 +175,6 @@ button {
     cursor: pointer;
     transition: background 0.2s ease-in-out;
 }
-
 
 button:disabled {
     background-color: #9E9E9E;
@@ -184,6 +184,7 @@ button:disabled {
 }
 
 .button  {
+    width: auto;
     padding: 10px;
     margin: 5px;
     background-color: #4CAF50;
@@ -194,14 +195,20 @@ button:disabled {
     transition: background 0.2s ease-in-out;
 }
 
-.graph-conf {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 button:hover {
     background-color: #45a049;
+}
+
+.centered-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
 }
 
 /* TABLES */
@@ -217,20 +224,13 @@ button:hover {
 }
 
 th, td {
-    padding: 10px;
     border: 1px solid #ccc;
 }
 
-.centered-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.about-section {
-    padding: 50px;
-    text-align: center;
-    background-color: #474e5d;
-    color: white;
+.graph-conf {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Float four columns side by side */
