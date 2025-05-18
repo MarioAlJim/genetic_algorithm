@@ -8,6 +8,7 @@ class Evaluation:
         self._name = 'Evaluation'
         self._branches = 0
         self._inputs = 0
+        self._input_type = 'Not defined'
 
     @property
     def name(self) -> str:
@@ -23,6 +24,11 @@ class Evaluation:
     def inputs(self) -> int:
         """Get number of inputs"""
         return self._inputs
+
+    @property
+    def input_type(self) -> str:
+        """Get input type"""
+        return self._input_type
 
     def _get_coverage(self, target_function, suite: list) -> float:
         """Measures the code coverage of the target function given a suite of inputs."""
@@ -44,6 +50,7 @@ class Evaluation:
 
             coverage_percent = round(statements_run * 100 / executable_statements, 2)
 
+        cov.erase()
         return coverage_percent
 
     def score(self, suite: list) -> list:
