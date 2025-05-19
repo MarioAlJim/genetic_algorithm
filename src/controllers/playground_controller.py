@@ -45,7 +45,7 @@ class PlaygroundController:
         """Generate the execution report"""
         config = DataFrame(config)
         exec_data = DataFrame(exec_data)
-        config_html = config.transpose().to_html()
+        config_html = config.transpose().to_html(header=False)
         exec_data_html = exec_data.to_html(index=False, justify="center")
         num_generations = exec_data["Generation"]
         data_generations = exec_data["Evaluated population"]
