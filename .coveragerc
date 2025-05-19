@@ -1,6 +1,6 @@
 [run]
 include =
-    src/models/evaluations/*
+    */src/models/evaluations/*
 
 [report]
 exclude_also =
