@@ -35,9 +35,9 @@ class Evaluation:
         coverage_percent = 0
         config_file = os.environ['COVERAGE_CONFIG']
         cov = coverage.Coverage(config_file=config_file)
+        it = iter(suite)
 
         with cov.collect():
-            it = iter(suite)
             # Use zip to group the inputs from the suite and pass them to the target function
             for args in zip(*[it] * self.inputs):
                 target_function(args)
