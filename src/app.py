@@ -35,4 +35,4 @@ def create_app() -> Flask:
 if __name__ == '__main__':
     clean_temp_files("routes", [".json"])
     app = create_app()
-    app.run(host='192.168.1.103', port=3000, debug=True)
+    app.run(host='localhost', port=3000, debug=True)

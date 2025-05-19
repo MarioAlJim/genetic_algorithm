@@ -14,13 +14,14 @@ class TestPlaygroundController:
     def test_set_algorithm_parameters(self):
         """Test set_algorithm_parameters method"""
         controller = PlaygroundController()
-        population_size = 10
+        population_size = 2
         generations = 5
         selection_type = "random"
         selection_rate = 0.5
         crossover_type = "one-point"
         mutation_type = "random-resetting"
         mutation_rate = 0.3
+        elitism_rate = 0.3
 
         conf = {
             "population_size": population_size,
@@ -29,7 +30,8 @@ class TestPlaygroundController:
             "selection_rate": selection_rate,
             "crossover_type": crossover_type,
             "mutation_type": mutation_type,
-            "mutation_rate": mutation_rate
+            "mutation_rate": mutation_rate,
+            "elitism_rate": elitism_rate,
         }
 
         controller.set_algorithm_parameters(conf)

@@ -22,13 +22,13 @@ class GAConfigurationsForm(FlaskForm):
         ('random-resetting', 'Restablecimiento aleatorio')], validators=[DataRequired()])
     mutation_rate = SelectField(
         "Probabilidad de mutación",
-        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(1, 11)],
+        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
         default="0.5"
     )
     elitism_rate = SelectField(
         "Probabilidad de elitismo",
-        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(1, 11)],
+        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
         default="0.5"
     )
