@@ -326,11 +326,11 @@ class GeneticAlgorithm(Algorithm):
             "Chromosome length": [self.chromo_len],
             "Gen type": [self.gen_type],
             "Selection type": [self.selection_type],
-            "Selection rate": [self.selection_rate],
+            "Selection rate": [f"{int(self.selection_rate * 100)}%"],
             "Crossover type": [self.crossover_type],
             "Mutation type": [self.mutation_type],
-            "Mutation rate": [self.mutation_rate],
-            "Elitism rate": [self.elitism_rate],
+            "Mutation rate": [f"{int(self.mutation_rate * 100)}%"],
+            "Elitism rate": [f"{int(self.elitism_rate * 100)}%"],
         }
         exec_data = {
             "Generation": generations,
