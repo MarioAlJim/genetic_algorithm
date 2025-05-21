@@ -28,7 +28,7 @@ class PlaygroundController:
         self.genetic_algorithm.mutation_rate = config.get("mutation_rate")
         self.genetic_algorithm.mutation_type = config.get("mutation_type")
         self.genetic_algorithm.expected_solution = config.get("expected_solution")
-        self.genetic_algorithm.elitism_rate = config.get("elitism_rate")
+        self.genetic_algorithm.elite_pop_rate = config.get("elitism_rate")
         return
 
     def start_execution(self, exec_id: str) -> list:
