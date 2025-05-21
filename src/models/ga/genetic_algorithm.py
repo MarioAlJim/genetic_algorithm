@@ -21,7 +21,6 @@ class GeneticAlgorithm(Algorithm):
 
     Other attributes:
     - gen type
-    - current population
     - chromosome length
     """
     def __init__(self) -> None:
@@ -29,13 +28,15 @@ class GeneticAlgorithm(Algorithm):
         self._name = 'genetic-algorithm'
         self._gen = RealNumber()
         self._chromo_len = self._evaluation.inputs * self._evaluation.branches
-        self._current_pop = []
         self._pop_size = 10
         self._num_generations = 10
         self._selection = RandomSelection(0.5)
         self._crossover = Uniform()
         self._mutation = RandomResetting(0.5)
-        self._elitism_rate = 0.1
+        self._elite_pop_rate = 0.1
+
+        self._current_pop = []
+        self._elite_pop = []
 
     @property
     def evaluation(self) -> str:
@@ -79,11 +80,6 @@ class GeneticAlgorithm(Algorithm):
     def chromo_len(self) -> int:
         """Get chromosome length"""
         return self._chromo_len
-
-    @property
-    def current_pop(self) -> list:
-        """Get current population"""
-        return self._current_pop
 
     @property
     def pop_size(self) -> int:
@@ -214,16 +210,16 @@ class GeneticAlgorithm(Algorithm):
         raise ValueError('Mutation type must be a valid value: ', mutations)
 
     @property
-    def elitism_rate(self) -> float:
-        """Get elitism rate"""
-        return self._elitism_rate
+    def elite_pop_rate(self) -> float:
+        """Get percentage of elite population"""
+        return self._elite_pop_rate
 
-    @elitism_rate.setter
-    def elitism_rate(self, elitism_rate: float):
-        """Set elitism rate"""
-        if (isinstance(elitism_rate, float) and
-                0 <= elitism_rate <= 1):
-            self._elitism_rate = elitism_rate
+    @elite_pop_rate.setter
+    def elite_pop_rate(self, elite_pop_rate: float):
+        """Set percentage of elite population"""
+        if (isinstance(elite_pop_rate, float) and
+                0 <= elite_pop_rate <= 1):
+            self._elite_pop_rate = elite_pop_rate
         else:
             raise ValueError('Elitism rate must be a float between 0.0 and 1.0')
 
@@ -255,11 +251,13 @@ class GeneticAlgorithm(Algorithm):
 
         return evaluated_pop
 
-    def _get_elite(self) -> list:
+    def _init_elite(self) -> list:
         """Gets the elite population"""
-        sorted_pop = sorted(self.current_pop, key=lambda x: x[1], reverse=True)
-        evaluated_elite = sorted_pop[:int(self.elitism_rate * self.pop_size)]
-        return [evaluated_chromo[0] for evaluated_chromo in evaluated_elite]
+        sorted_pop = sorted(self._current_pop, key=lambda x: x[1], reverse=True)
+        evaluated_elite = sorted_pop[:int(self.elite_pop_rate * self.pop_size)]
+        elite = [evaluated_chromo[0] for evaluated_chromo in evaluated_elite]
+        self._elite_pop = elite
+        return elite
 
     def _select(self, new_pop: list) -> list:
         """Selects a percentage of the new population for the next generation"""
@@ -271,7 +269,7 @@ class GeneticAlgorithm(Algorithm):
         """Selects random parents according to the selected crossover"""
         offspring = []
 
-        for _ in range(self.pop_size):
+        for _ in range(self.pop_size - len(self._elite_pop)):
             # Gets the chromosome parents from the selected population
             parent1 = choice(sel_pop)
             parent2 = choice(sel_pop)
@@ -283,7 +281,8 @@ class GeneticAlgorithm(Algorithm):
 
     def _mutate(self, offspring: list) -> list:
         """Mutates the offspring population"""
-        return self._mutation.mutate(offspring, self.chromo_len, self._create_gen)
+        mutated_offspring = self._mutation.mutate(offspring, self.chromo_len, self._create_gen)
+        return mutated_offspring
 
     def execute(self) -> tuple:
         """Executes the genetic algorithm.
@@ -299,22 +298,18 @@ class GeneticAlgorithm(Algorithm):
         evaluated_pops = []
 
         for current_generation in range(self.num_generations):
-            elite = self._get_elite()
-            elite_size = len(elite)
-            selected_pop = self._select(self.current_pop)
-            selected_pop = elite + selected_pop[elite_size:]
+            self._init_elite()
+            selected_pop = self._select(self._current_pop)
             offspring = self._cross(selected_pop)
-            offspring = elite + offspring[elite_size:]
             mutated_offspring = self._mutate(offspring)
-            mutated_offspring = elite + mutated_offspring[elite_size:]
-            new_pop = self._evaluate(mutated_offspring)
+            new_pop = self._evaluate(self._elite_pop + mutated_offspring)
 
             generations.append(current_generation+1)
-            initial_pops.append(self.current_pop)
+            initial_pops.append(sorted(self._current_pop, key=lambda x: x[1], reverse=True))
             selected_pops.append(selected_pop)
             crossover_pops.append(offspring)
             mutated_pops.append(mutated_offspring)
-            evaluated_pops.append(new_pop)
+            evaluated_pops.append(sorted(new_pop, key=lambda x: x[1], reverse=True))
 
             self._current_pop = new_pop
 
@@ -330,7 +325,7 @@ class GeneticAlgorithm(Algorithm):
             "Crossover type": [self.crossover_type],
             "Mutation type": [self.mutation_type],
             "Mutation rate": [f"{int(self.mutation_rate * 100)}%"],
-            "Elitism rate": [f"{int(self.elitism_rate * 100)}%"],
+            "Elite population rate": [f"{int(self.elite_pop_rate * 100)}%"],
         }
         exec_data = {
             "Generation": generations,
