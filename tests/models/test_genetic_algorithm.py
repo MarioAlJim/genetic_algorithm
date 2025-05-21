@@ -193,33 +193,33 @@ class TestGeneticAlgorithm:
         """Valid input: Value greater or equal to 0.0"""
         elitism_rate = 0.0
         ga = GeneticAlgorithm()
-        ga.elitism_rate = elitism_rate
-        assert ga.elitism_rate == elitism_rate
+        ga.elite_pop_rate = elitism_rate
+        assert ga.elite_pop_rate == elitism_rate
 
     def test_elitism_rate_2(self):
         """Valid input: Value less or equal to 1.0"""
         elitism_rate = 1.0
         ga = GeneticAlgorithm()
-        ga.elitism_rate = elitism_rate
-        assert ga.elitism_rate == elitism_rate
+        ga.elite_pop_rate = elitism_rate
+        assert ga.elite_pop_rate == elitism_rate
 
     def test_elitism_rate_3(self):
         """Invalid input: Value less than 0.0"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.elitism_rate = -0.1
+            ga.elite_pop_rate = -0.1
 
     def test_elitism_rate_4(self):
         """Invalid input: Value greater than 1.0"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.elitism_rate = 1.1
+            ga.elite_pop_rate = 1.1
 
     def test_elitism_rate_5(self):
         """Invalid input: Value not a float"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.elitism_rate = 1
+            ga.elite_pop_rate = 1
 
     def test_execute_1(self):
         """Graph 1
@@ -235,7 +235,7 @@ class TestGeneticAlgorithm:
         crossover_type = 'uniform'
         mutation_type = 'random-resetting'
         mutation_rate = 0.4
-        elitism_rate = 0.1
+        elite_pop_rate = 0.1
 
         ga.num_generations = num_generations
         ga.pop_size = pop_size
@@ -244,18 +244,18 @@ class TestGeneticAlgorithm:
         ga.crossover_type = crossover_type
         ga.mutation_type = mutation_type
         ga.mutation_rate = mutation_rate
-        ga.elitism_rate = elitism_rate
+        ga.elite_pop_rate = elite_pop_rate
         config, _ = ga.execute()
 
         assert (
             config["Generations"] == [num_generations]
             and config["Population size"] == [pop_size]
             and config["Selection type"] == [selection_type]
-            and config["Selection rate"] == [selection_rate]
+            and config["Selection rate"] == [f"{int(selection_rate * 100)}%"]
             and config["Crossover type"] == [crossover_type]
             and config["Mutation type"] == [mutation_type]
-            and config["Mutation rate"] == [mutation_rate]
-            and config["Elitism rate"] == [elitism_rate]
+            and config["Mutation rate"] == [f"{int(mutation_rate * 100)}%"]
+            and config["Elite population rate"] == [f"{int(elite_pop_rate * 100)}%"]
         )
 
     def test_execute_2(self):
@@ -269,24 +269,24 @@ class TestGeneticAlgorithm:
         selection_type = 'random'
         crossover_type = 'uniform'
         mutation_type = 'random-resetting'
-        elitism_rate = 0.0
+        elite_pop_rate = 0.0
 
         ga.pop_size = pop_size
         ga.selection_type = selection_type
         ga.crossover_type = crossover_type
         ga.mutation_type = mutation_type
-        ga.elitism_rate = elitism_rate
+        ga.elite_pop_rate = elite_pop_rate
         config, _ = ga.execute()
 
         assert (
             config["Generations"] == [ga.num_generations]
             and config["Population size"] == [pop_size]
             and config["Selection type"] == [selection_type]
-            and config["Selection rate"] == [ga.selection_rate]
+            and config["Selection rate"] == [f"{int(ga.selection_rate * 100)}%"]
             and config["Crossover type"] == [crossover_type]
             and config["Mutation type"] == [mutation_type]
-            and config["Mutation rate"] == [ga.mutation_rate]
-            and config["Elitism rate"] == [elitism_rate]
+            and config["Mutation rate"] == [f"{int(ga.mutation_rate * 100)}%"]
+            and config["Elite population rate"] == [f"{int(elite_pop_rate * 100)}%"]
         )
 
     def test_execute_3(self):
@@ -302,9 +302,9 @@ class TestGeneticAlgorithm:
             config["Generations"] == [ga.num_generations]
             and config["Population size"] == [ga.pop_size]
             and config["Selection type"] == [ga.selection_type]
-            and config["Selection rate"] == [ga.selection_rate]
+            and config["Selection rate"] == [f"{int(ga.selection_rate * 100)}%"]
             and config["Crossover type"] == [ga.crossover_type]
             and config["Mutation type"] == [ga.mutation_type]
-            and config["Mutation rate"] == [ga.mutation_rate]
-            and config["Elitism rate"] == [ga.elitism_rate]
+            and config["Mutation rate"] == [f"{int(ga.mutation_rate * 100)}%"]
+            and config["Elite population rate"] == [f"{int(ga.elite_pop_rate * 100)}%"]
         )
