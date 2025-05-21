@@ -189,33 +189,33 @@ class TestGeneticAlgorithm:
         with pytest.raises(ValueError):
             ga.mutation_type = 1
 
-    def test_elitism_rate_1(self):
+    def test_elite_pop_rate_1(self):
         """Valid input: Value greater or equal to 0.0"""
         elitism_rate = 0.0
         ga = GeneticAlgorithm()
         ga.elite_pop_rate = elitism_rate
         assert ga.elite_pop_rate == elitism_rate
 
-    def test_elitism_rate_2(self):
+    def test_elite_pop_rate_2(self):
         """Valid input: Value less or equal to 1.0"""
         elitism_rate = 1.0
         ga = GeneticAlgorithm()
         ga.elite_pop_rate = elitism_rate
         assert ga.elite_pop_rate == elitism_rate
 
-    def test_elitism_rate_3(self):
+    def test_elite_pop_rate_3(self):
         """Invalid input: Value less than 0.0"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
             ga.elite_pop_rate = -0.1
 
-    def test_elitism_rate_4(self):
+    def test_elite_pop_rate_4(self):
         """Invalid input: Value greater than 1.0"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
             ga.elite_pop_rate = 1.1
 
-    def test_elitism_rate_5(self):
+    def test_elite_pop_rate_5(self):
         """Invalid input: Value not a float"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
