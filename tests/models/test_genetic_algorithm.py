@@ -4,6 +4,31 @@ from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
 class TestGeneticAlgorithm:
     """Test class for the GeneticAlgorithm class."""
+    def test_evaluation_1(self):
+        """Valid input: Implemented evaluation"""
+        evaluation = 'triangle-classification'
+        ga = GeneticAlgorithm()
+        ga.evaluation = evaluation
+        assert (
+            ga.evaluation == evaluation
+            and ga.gen_type == 'real-number'
+            and ga.chromo_len == 15
+        )
+
+    def test_evaluation_2(self):
+        """Invalid input: Not implemented evaluation"""
+        evaluation = 'pythagorean-problem'
+        ga = GeneticAlgorithm()
+        with pytest.raises(ValueError):
+            ga.evaluation = evaluation
+
+    def test_evaluation_3(self):
+        """Invalid input: Not a string"""
+        evaluation = 1
+        ga = GeneticAlgorithm()
+        with pytest.raises(ValueError):
+            ga.evaluation = evaluation
+
     def test_pop_size_1(self):
         """Valid input: Integer greater or equal to 1"""
         pop_size = 1
