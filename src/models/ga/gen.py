@@ -49,6 +49,6 @@ class RealNumber(Gen):
         else:
             raise ValueError('Max value must be greater than min value')
 
-    def create(self):
+    def create(self) -> float:
         """Create real number gen"""
         return round(uniform(self.min_value, self.max_value), 2)
