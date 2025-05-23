@@ -52,16 +52,16 @@ class PlaygroundController:
         fitness = []
         for generation in data_generations:
             fitness.append([chromo_fitness[1] for chromo_fitness in generation])
-        fitness = [sum(pop) / len(pop) for pop in fitness]
+        average_fitness = [sum(pop) / len(pop) for pop in fitness]
 
-        plt.plot(num_generations, fitness, marker='o', linestyle='-', label='Fitness', color='red')
-        plt.yticks(fitness)
+        plt.plot(num_generations, average_fitness, marker='x', linestyle='-', label='Fitness', color='red')
+        plt.title("Fitness por generation")
+        plt.yticks(average_fitness)
         plt.xticks(num_generations)
         plt.xlabel("Generación")
         plt.ylabel("Fitness")
         plt.legend()
         plt.grid(True)
-
         buf = io.BytesIO()
         plt.savefig(buf, format='png')
         buf.seek(0)

@@ -13,7 +13,7 @@
             <label for="algorithm" class="label-header">Algoritmo:</label>
             {{ initial_config.algorithm(class="combo-header") }}
             <div>
-                {{ initial_config.execute_button(class="button")}}
+                {{ initial_config.initial_config_button(class="button")}}
             </div>
         </form>
         <div class="initial-form-right ">
@@ -21,7 +21,7 @@
                 {% if allow_download %}
                     <button id="download-btn" onclick="downloadReport()">Descargar Reporte</button>
                 {% else %}
-                    <button id="download-btn" disabled>Descargar Reporte</button>
+                    <button disabled>Descargar Reporte</button>
                 {% endif %}
             </div>
         </div>
@@ -45,7 +45,7 @@
         <h2>Resultados de la ejecución</h2>
         <div>
             {% for item in content %}
-                <div class="initial-form">
+                <div class="initial-form"  id="div-results">
                     <h3>Configuración</h3>
                     {{ item.config_html|safe }}
                     <h3>Gráfico</h3>
