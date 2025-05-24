@@ -1,0 +1,322 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-24 01:55-0600\n"
+"PO-Revision-Date: 2025-05-24 01:55-0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: controllers/playground_controller.py:74
+msgid "Best fitness per generation"
+msgstr "Mejor aptitud por generación"
+
+#: controllers/playground_controller.py:76
+msgid "Average fitness per generation"
+msgstr "Aptitud promedio por generación"
+
+#: controllers/playground_controller.py:77
+msgid "Max fitness value (100)"
+msgstr "Valor máximo de aptitud (100)"
+
+#: controllers/playground_controller.py:83
+msgid "Fitness per generation"
+msgstr "Aptitud por generación"
+
+#: controllers/playground_controller.py:84
+#: controllers/playground_controller.py:101 models/ga/genetic_algorithm.py:332
+msgid "Generation"
+msgstr "Generación"
+
+#: controllers/playground_controller.py:85
+#: controllers/playground_controller.py:102
+msgid "Fitness"
+msgstr "Aptitud"
+
+#: controllers/playground_controller.py:100
+msgid "Fitness distribution per generation"
+msgstr "Distribución de la aptitud por generación"
+
+#: models/ga/genetic_algorithm.py:318
+msgid "Evaluation type"
+msgstr "Tipo de evaluación"
+
+#: models/ga/genetic_algorithm.py:319
+msgid "Algorith"
+msgstr "Algoritmo"
+
+#: models/ga/genetic_algorithm.py:320
+msgid "Generations"
+msgstr "Generaciones"
+
+#: models/ga/genetic_algorithm.py:321
+#: templates/config_forms_classes/ga_configurations_form.py:9
+msgid "Population size"
+msgstr "Tamaño de población"
+
+#: models/ga/genetic_algorithm.py:322
+msgid "Chromosome length"
+msgstr "Longitud del cromosoma"
+
+#: models/ga/genetic_algorithm.py:323
+msgid "Gen type"
+msgstr "Tipo de gen"
+
+#: models/ga/genetic_algorithm.py:324
+#: templates/config_forms_classes/ga_configurations_form.py:21
+msgid "Selection type"
+msgstr "Tipo de selección"
+
+#: models/ga/genetic_algorithm.py:325
+#: templates/config_forms_classes/ga_configurations_form.py:27
+msgid "Selection rate"
+msgstr "Tasa de selección"
+
+#: models/ga/genetic_algorithm.py:326
+#: templates/config_forms_classes/ga_configurations_form.py:34
+msgid "Crossover type"
+msgstr "Tipo de cruce"
+
+#: models/ga/genetic_algorithm.py:327
+#: templates/config_forms_classes/ga_configurations_form.py:40
+msgid "Mutation type"
+msgstr "Tipo de mutación"
+
+#: models/ga/genetic_algorithm.py:328
+#: templates/config_forms_classes/ga_configurations_form.py:46
+msgid "Mutation rate"
+msgstr "Tasa de mutación"
+
+#: models/ga/genetic_algorithm.py:329
+msgid "Elite population rate"
+msgstr "Tasa de población élite"
+
+#: models/ga/genetic_algorithm.py:333
+msgid "Initial population"
+msgstr "Población inicial"
+
+#: models/ga/genetic_algorithm.py:334
+msgid "Selected population"
+msgstr "Población seleccionada"
+
+#: models/ga/genetic_algorithm.py:335
+msgid "Crossover population"
+msgstr "Población cruzada"
+
+#: models/ga/genetic_algorithm.py:336
+msgid "Mutated population"
+msgstr "Población mutada"
+
+#: models/ga/genetic_algorithm.py:337
+msgid "Evaluated population"
+msgstr "Población evaluada"
+
+#: templates/about.html:3
+msgid "ABOUT"
+msgstr "ACERCA DE"
+
+#: templates/about.html:4
+msgid ""
+"\n"
+"        BiTe in its version 1.0 seeks to provide a means for those "
+"interested in SBST\n"
+"        for experimentation with canonical bioinspired algorithms in the "
+"generation of test data\n"
+"        generation of test data, allowing to know their behavior and "
+"performance under certain\n"
+"        performance under certain parameters without the need to "
+"implement and configure them manually.\n"
+"        and configure them manually. For version 1.0 of Bite, it includes"
+" a "
+msgstr ""
+"\n"
+"        BiTe en su versión 1.0 busca proporcionar un medio para quienes "
+"están interesados en SBST\n"
+"        para la experimentación con algoritmos bioinspirados canónicos en la "
+"generación de datos de prueba,\n"
+"        permitiendo conocer su comportamiento y rendimiento bajo ciertos\n"
+"        parámetros, sin la necesidad de implementarlos y configurarlos manualmente.\n"
+"        Para la versión 1.0 de BiTe, se incluye un "
+
+#: templates/about.html:10
+msgid "genetic algorithm "
+msgstr "algoritmo genético "
+
+#: templates/about.html:10
+msgid "applied to the problem of "
+msgstr "aplicado al problema de "
+
+#: templates/about.html:11
+msgid "triangle classification "
+msgstr "clasificación de triángulos "
+
+#: templates/about.html:11
+msgid ""
+", to which its parameters can be configured and the results\n"
+"        parameters can be configured and the results generated by the "
+"algorithm can be displayed in real time.\n"
+"        algorithm. "
+msgstr ""
+", cuyos parámetros pueden ser configurados y los resultados\n"
+"        generados por el algoritmo pueden ser visualizados en tiempo real.\n"
+
+#: templates/about.html:16
+msgid ""
+"For the development of BiTe a systematic mapping of the literature\n"
+"        entitled literature entitled  "
+msgstr ""
+"Para el desarrollo de BiTe se realizó un mapeo sistemático de la literatura\n"
+"        titulado  "
+
+#: templates/about.html:19
+msgid ""
+"\"Search-Based Software Testing Driven by Bioinspired Algorithms: A\n"
+"            Systematic Literature Mapping\" "
+msgstr ""
+"\"Search-Based Software Testing Driven by Bioinspired Algorithms: A\n"
+"            Systematic Literature Mapping\" "
+
+#: templates/about.html:22
+msgid "and published at the conference "
+msgstr "y publicado en la conferencia "
+
+#: templates/about.html:22
+msgid ""
+"The objective of the\n"
+"        mapping was to identify the canonical bio-inspired algorithms "
+"that were most commonly used in the area of\n"
+"        used in the area of search-based software testing, in order to "
+"analyze their main elements, modifiable  parameters, and\n"
+"        their main elements, tunable parameters and performance metrics.\n"
+"        performance metrics. The DOI of the article is "
+msgstr ""
+"El objetivo del\n"
+"        mapeo fue identificar los algoritmos bioinspirados canónicos más comúnmente usados en el área de\n"
+"        pruebas de software basadas en búsqueda, con el fin de analizar sus principales elementos,\n"
+"        parámetros modificables y métricas de rendimiento.\n"
+"        El DOI del artículo es "
+
+#: templates/about.html:30
+msgid ""
+"The repository for this project can be found on GitHub at the following "
+"address"
+msgstr "El repositorio de este proyecto puede encontrarse en GitHub en la siguiente dirección"
+
+#: templates/about.html:35
+msgid "Involved in the project "
+msgstr "Participantes en el proyecto "
+
+#: templates/download_format.html:5
+msgid "Report"
+msgstr "Reporte"
+
+#: templates/download_format.html:8 templates/playground.html:45
+msgid "Execution results"
+msgstr "Resultados de la ejecución"
+
+#: templates/download_format.html:12 templates/playground.html:50
+msgid "Applied configuration"
+msgstr "Configuración aplicada"
+
+#: templates/download_format.html:14 templates/playground.html:54
+msgid "Execution analysis graphs"
+msgstr "Gráficas de análisis de ejecución"
+
+#: templates/download_format.html:18 templates/playground.html:59
+msgid "Test data generated"
+msgstr "Datos de prueba generados"
+
+#: templates/index.html:14
+msgid "About"
+msgstr "Acerca de"
+
+#: templates/playground.html:10
+msgid "Problem:"
+msgstr "Problema:"
+
+#: templates/playground.html:13
+msgid "Algorithm:"
+msgstr "Algoritmo:"
+
+#: templates/playground.html:22 templates/playground.html:24
+msgid "Download report"
+msgstr "Descargar reporte"
+
+#: templates/playground.html:34
+msgid "Algorithm settings"
+msgstr "Configuración del algoritmo"
+
+#: templates/playground.html:66
+msgid "Results"
+msgstr "Resultados"
+
+#: templates/playground.html:68
+msgid "Run the algorithm to be able to visualize the results."
+msgstr "Ejecute el algoritmo para poder visualizar los resultados."
+
+#: templates/config_forms_classes/ga_configurations_form.py:15
+msgid "Number of generations"
+msgstr "Número de generaciones"
+
+#: templates/config_forms_classes/ga_configurations_form.py:22
+msgid "Random"
+msgstr "Aleatorio"
+
+#: templates/config_forms_classes/ga_configurations_form.py:22
+msgid "Steady state"
+msgstr "Estado estable"
+
+#: templates/config_forms_classes/ga_configurations_form.py:35
+msgid "One point"
+msgstr "Un punto"
+
+#: templates/config_forms_classes/ga_configurations_form.py:35
+msgid "Two points"
+msgstr "Dos puntos"
+
+#: templates/config_forms_classes/ga_configurations_form.py:35
+msgid "Uniform"
+msgstr "Uniforme"
+
+#: templates/config_forms_classes/ga_configurations_form.py:41
+msgid "Random resetting"
+msgstr "Reinicio aleatorio"
+
+#: templates/config_forms_classes/ga_configurations_form.py:53
+msgid "Elitism rate"
+msgstr "Tasa de elitismo"
+
+#: templates/config_forms_classes/ga_configurations_form.py:60
+msgid "Execute algorithm"
+msgstr "Ejecutar algoritmo"
+
+#: templates/config_forms_classes/problem_algorithm_form.py:9
+msgid "Problem"
+msgstr "Problema"
+
+#: templates/config_forms_classes/problem_algorithm_form.py:10
+msgid "Triangle classification problem"
+msgstr "Problema de clasificación de triángulos"
+
+#: templates/config_forms_classes/problem_algorithm_form.py:16
+msgid "Algorithm"
+msgstr "Algoritmo"
+
+#: templates/config_forms_classes/problem_algorithm_form.py:17
+msgid "Genetic Algorithm"
+msgstr "Algoritmo Genético"
+
+#: templates/config_forms_classes/problem_algorithm_form.py:22
+msgid "Apply"
+msgstr "Aplicar"

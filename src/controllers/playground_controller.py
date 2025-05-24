@@ -4,11 +4,14 @@ import io
 import json
 import os
 import pdfkit
-from flask import render_template_string, Flask, session
+
+from flask import render_template
+from flask_babel import lazy_gettext as _, force_locale
 from matplotlib import pyplot as plt
-from pandas import DataFrame
+from pandas import DataFrame, Series
 
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
+
 
 class PlaygroundController:
     """Controller for the playground"""
@@ -40,73 +43,87 @@ class PlaygroundController:
             json.dump(content, file)
         return content
 
-    @staticmethod
-    def generate_execution_report(config, exec_data) -> list:
+    def generate_execution_report(self, config, exec_data) -> list:
         """Generate the execution report"""
         config = DataFrame(config)
         exec_data = DataFrame(exec_data)
         config_html = config.transpose().to_html(header=False)
         exec_data_html = exec_data.to_html(index=False, justify="center")
-        num_generations = exec_data["Generation"]
-        data_generations = exec_data["Evaluated population"]
-        fitness = []
-        for generation in data_generations:
-            fitness.append([chromo_fitness[1] for chromo_fitness in generation])
-        average_fitness = [sum(pop) / len(pop) for pop in fitness]
+        num_generations = exec_data[_("Generation")]
+        data_generations = exec_data[_("Evaluated population")]
 
-        plt.plot(num_generations, average_fitness, marker='x', linestyle='-', label='Fitness', color='red')
-        plt.title("Fitness por generation")
-        plt.yticks(average_fitness)
-        plt.xticks(num_generations)
-        plt.xlabel("Generación")
-        plt.ylabel("Fitness")
-        plt.legend()
-        plt.grid(True)
-        buf = io.BytesIO()
-        plt.savefig(buf, format='png')
-        buf.seek(0)
-        graphic = base64.b64encode(buf.read()).decode('utf-8')
-        buf.close()
-        plt.close()
+        graphics = self.generate_graphics(num_generations, data_generations)
 
-        result_report = [{ 'config_html': config_html, 'exec_data_html': exec_data_html, 'graphic': graphic}]
+        result_report = [{ 'config_html': config_html, 'exec_data_html': exec_data_html, 'plot_grap': graphics[0], 'box_graph': graphics[1] }]
         return result_report
 
     @staticmethod
-    def download_report(exec_id: str) -> bytes:
+    def generate_graphics(num_generations: list, data_generations: Series) -> list:
+        """Generate report graphs"""
+        graphics = []
+        fitness = []
+
+        for generation in data_generations:
+            fitness.append([chromo_fitness[1] for chromo_fitness in generation])
+        average_fitness_per_generation = [round(sum(pop) / len(pop), 2) for pop in fitness]
+        best_fitness_per_generation = [max(pop) for pop in fitness]
+
+        # === First graph: Fitness ===
+        plt.figure()
+        plt.plot(num_generations, best_fitness_per_generation,
+                 marker="o", linestyle="-", color="blue", label=_("Best fitness per generation"))
+        plt.plot(num_generations, average_fitness_per_generation,
+                 marker='x', linestyle='-', color='red', label=_("Average fitness per generation"))
+        plt.axhline(y=100, linestyle='--', color='gray', label=_("Max fitness value (100)"))
+        for i in range(len(num_generations)):
+            plt.text(num_generations[i], best_fitness_per_generation[i] + 2,
+                     str(best_fitness_per_generation[i]), ha='center', color='black')
+            plt.text(num_generations[i], average_fitness_per_generation[i] + 2,
+                     str(average_fitness_per_generation[i]), ha='center', color='black')
+        plt.title(_('Fitness per generation'))
+        plt.xlabel(_('Generation'))
+        plt.ylabel(_('Fitness'))
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+
+        buf1 = io.BytesIO()
+        plt.savefig(buf1, format='png')
+        buf1.seek(0)
+        graphics.append(base64.b64encode(buf1.read()).decode('utf-8'))
+        buf1.close()
+        plt.close()
+
+        # === First graph: Fitness ===
+        plt.figure()
+        plt.boxplot(fitness, labels=[str(gen) for gen in num_generations], patch_artist=True)
+        plt.title(_('Fitness distribution per generation'))
+        plt.xlabel(_('Generation'))
+        plt.ylabel(_('Fitness'))
+        plt.grid(True)
+        plt.tight_layout()
+
+        buf2 = io.BytesIO()
+        plt.savefig(buf2, format='png')
+        buf2.seek(0)
+        graphics.append(base64.b64encode(buf2.read()).decode('utf-8'))
+        buf2.close()
+        plt.close()
+
+        return graphics
+
+    @staticmethod
+    def download_report(exec_id: str, lang: str) -> bytes:
         """Create the file to download"""
         with open(f"routes/{exec_id}.json", "r") as f:
             result_report = json.load(f)
 
-        app = Flask(__name__)
-        template_html = """
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-                <meta charset="UTF-8">
-                <title>Reporte</title>
-            </head>
-            <body>
-                <h2>Resultados de la ejecución</h2>
-                <div>
-                    {% for item in content %}
-                        <div class="initial-form">
-                            <h3>Configuración</h3>
-                            {{ item.config_html|safe }}
-                            <h3>Gráfico</h3>
-                            <img src="data:image/png;base64,{{ item.graphic }}" alt="Gráfico Iteración {{ item.iteration }}">
-                        </div>
-                            <h3>Datos de Ejecución</h3>
-                            {{ item.exec_data_html|safe }}
-                        <hr>
-                    {% endfor %}
-                </div>
-            </body>
-            </html>
-            """
-
-        with app.app_context():
-            rendered_html = render_template_string(template_html, content=result_report)
+        with force_locale(lang):  # o 'en', 'fr', etc.
+            rendered_html = render_template(
+                "download_format.html",
+                content=result_report,
+                current_lang=lang
+            )
 
         html_to_pdf = os.environ['wkhtmltopdf']
         pdfkit_conf = pdfkit.configuration(wkhtmltopdf=html_to_pdf)

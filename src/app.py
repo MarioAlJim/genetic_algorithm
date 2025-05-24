@@ -1,7 +1,8 @@
 """This file is for executing the app"""
 # Third party imports
 import os
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, request, session
+from flask_babel import Babel, get_locale, gettext
 
 # Local application imports
 from routes.about_routes import about_blueprint
@@ -13,24 +14,42 @@ def clean_temp_files(directory, extensions):
             file_path = os.path.join(directory, filename)
             try:
                 os.remove(file_path)
-                print(f"Archivo eliminado: {file_path}")
+                print(f"Residual file removed: {file_path}")
             except Exception as e:
-                print(f"No se pudo eliminar {file_path}: {e}")
-
+                print(f"Could not be eliminated {file_path}: {e}")
 
 def create_app() -> Flask:
     """Create and set up the app"""
-    new_app = Flask(__name__)
-    new_app.config['SECRET_KEY'] = 'bite'
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'bite'
+    app.register_blueprint(about_blueprint)
+    app.register_blueprint(playground_blueprint, url_prefix='/playground')
 
-    new_app.register_blueprint(about_blueprint)
-    new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
+    app.config['BABEL_DEFAULT_LOCALE'] = 'es'
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
 
-    @new_app.route('/')
+    babel = Babel(app, locale_selector=get_locale())
+
+    @app.route('/')
     def home():
-        return redirect(url_for('playground_blueprint.show_playground'))
+        return redirect(url_for('playground_blueprint.show_playground', current_lang=get_locale()))
 
-    return new_app
+    @app.route('/setlang')
+    def setlang():
+        lang = request.args.get('lang', 'en')
+        session['lang'] = lang
+        return redirect(request.referrer)
+
+    @app.context_processor
+    def inject_babel():
+        return dict(_=gettext)
+
+    @app.context_processor
+    def inject_locale():
+        # This makes the function available directly, allowing you to call it in the template
+        return {'get_locale': get_locale()}
+
+    return app
 
 if __name__ == '__main__':
     clean_temp_files("routes", [".json"])

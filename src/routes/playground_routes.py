@@ -4,11 +4,11 @@ import uuid
 
 from flask import Blueprint, url_for
 from flask import render_template, session, redirect, send_file
+from flask_babel import get_locale
 
 from src.controllers.playground_controller import PlaygroundController
 from src.templates.config_forms_classes.problem_algorithm_form import ProblemAlgorithmForm
 from src.templates.config_forms_classes.ga_configurations_form import GAConfigurationsForm
-
 
 playground_blueprint = Blueprint('playground_blueprint', __name__, template_folder='templates')
 
@@ -26,7 +26,7 @@ def show_playground():
         if selected_algorithm == "algorithm_ga":
             return redirect(url_for("playground_blueprint.show_ga_playground"))
 
-    return render_template("playground.html", initial_config=problem_algorithm_form)
+    return render_template("playground.html", current_lang=get_locale(), initial_config=problem_algorithm_form)
 
 @playground_blueprint.route('/ga', methods=['GET', 'POST'])
 def show_ga_playground():
@@ -60,10 +60,10 @@ def show_ga_playground():
             ga_config_form.mutation_rate.data = ga_config_form.mutation_rate.data
             ga_config_form.elitism_rate.data = ga_config_form.elitism_rate.data
 
-            return render_template("playground.html",  initial_config=problem_algorithm_form, config_form="ga_form", ga_config_form=ga_config_form, content=exec_result, allow_download=True)
+            return render_template("playground.html", current_lang=get_locale(), initial_config=problem_algorithm_form, config_form="ga_form", ga_config_form=ga_config_form, content=exec_result, allow_download=True)
         else:
             return redirect(url_for("playground_blueprint.show_ga_playground"))
-    return render_template("playground.html", initial_config=problem_algorithm_form, config_form="ga_form", ga_config_form=ga_config_form)
+    return render_template("playground.html", current_lang=get_locale(), initial_config=problem_algorithm_form, config_form="ga_form", ga_config_form=ga_config_form)
 
 
 @playground_blueprint.route('/download')
@@ -71,7 +71,8 @@ def download_report():
     """Download the report"""
     exec_id = session.get("exec_id")
     playground_controller = PlaygroundController()
-    report = io.BytesIO(playground_controller.download_report(exec_id))
+    lang = str(get_locale())
+    report = io.BytesIO(playground_controller.download_report(exec_id, lang))
 
     return send_file(report, as_attachment=True, download_name="report.html", mimetype="application/pdf")
 

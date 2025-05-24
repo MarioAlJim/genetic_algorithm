@@ -1,3 +1,4 @@
+from flask_babel import lazy_gettext as _
 from flask_wtf import FlaskForm
 from wtforms import SelectField
 from wtforms.fields.simple import SubmitField
@@ -5,19 +6,19 @@ from wtforms.validators import DataRequired
 
 class ProblemAlgorithmForm(FlaskForm):
     problem = SelectField(
-        "Problema",
-        choices=[('problem_triangles', 'Problema de clasificación de triángulos')],
+        _("Problem"),
+        choices=[('problem_triangles', _('Triangle classification problem'))],
         validators=[DataRequired()],
         id="problem_field"
         )
 
     algorithm = SelectField(
-        "Algoritmo",
-        choices=[('algorithm_ga', 'Algoritmo Genético')],
+        _("Algorithm"),
+        choices=[('algorithm_ga', _('Genetic Algorithm'))],
         validators=[DataRequired()],
         id="algorithm_field"
     )
     initial_config_button = SubmitField(
-        "Aplicar",
+        _("Apply"),
         id="initial_config_button"
     )

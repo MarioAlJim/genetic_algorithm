@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <title>BiTe</title>
@@ -11,7 +11,7 @@
     <nav>
         <ul>
             <li><a href="/playground">Playground</a></li>
-            <li style="float:right"><a class="active" href="/about">Acerca de</a></li>
+            <li style="float:right"><a class="active" href="/about">{{ _('About') }}</a></li>
         </ul>
     </nav>
     {% block body %}

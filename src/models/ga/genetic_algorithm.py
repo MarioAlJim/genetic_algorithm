@@ -1,5 +1,6 @@
 """This file is for defining the genetic algorithm"""
 from random import choice
+from flask_babel import lazy_gettext as _
 
 from src.models.algorithm import Algorithm
 from src.models.ga.crossover import OnePoint, TwoPoint, Uniform
@@ -314,25 +315,27 @@ class GeneticAlgorithm(Algorithm):
             self._current_pop = new_pop
 
         config = {
-            "Evaluation type": [self.evaluation],
-            "Algorithm": [self.name],
-            "Generations": [self.num_generations],
-            "Population size": [self.pop_size],
-            "Chromosome length": [self.chromo_len],
-            "Gen type": [self.gen_type],
-            "Selection type": [self.selection_type],
-            "Selection rate": [f"{int(self.selection_rate * 100)}%"],
-            "Crossover type": [self.crossover_type],
-            "Mutation type": [self.mutation_type],
-            "Mutation rate": [f"{int(self.mutation_rate * 100)}%"],
-            "Elite population rate": [f"{int(self.elite_pop_rate * 100)}%"],
+            str(_("Evaluation type")): [self.evaluation],
+            str(_("Algorith")): [self.name],
+            str(_("Generations")): [self.num_generations],
+            str(_("Population size")): [self.pop_size],
+            str(_("Chromosome length")): [self.chromo_len],
+            str(_("Gen type")): [self.gen_type],
+            str(_("Selection type")): [self.selection_type],
+            str(_("Selection rate")): [f"{int(self.selection_rate * 100)}%"],
+            str(_("Crossover type")): [self.crossover_type],
+            str(_("Mutation type")): [self.mutation_type],
+            str(_("Mutation rate")): [f"{int(self.mutation_rate * 100)}%"],
+            str(_("Elite population rate")): [f"{int(self.elite_pop_rate * 100)}%"],
         }
+
         exec_data = {
-            "Generation": generations,
-            "Initial population": initial_pops,
-            "Selected population": selected_pops,
-            "Crossover population": crossover_pops,
-            "Mutated population": mutated_pops,
-            "Evaluated population": evaluated_pops,
+            str(_("Generation")): generations,
+            str(_("Initial population")): initial_pops,
+            str(_("Selected population")): selected_pops,
+            str(_("Crossover population")): crossover_pops,
+            str(_("Mutated population")): mutated_pops,
+            str(_("Evaluated population")): evaluated_pops,
         }
+
         return config, exec_data
