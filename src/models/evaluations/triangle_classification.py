@@ -13,15 +13,8 @@ class TriangleClassification(Evaluation):
         self._inputs = 3
         self._input_type = 'real-number'
 
-    def score(self, suite: list) -> list:
-        """Evaluates the code coverage of the suite"""
-        score = self._get_coverage(self._classify_triangle, suite)
-
-        return [suite, score]
-
     # no cover: stop
-    @staticmethod
-    def _classify_triangle(data: list) -> str:
+    def _fitness_function(self, data: list) -> str:
         """Classifies the triangle based on the given lengths"""
         classification = "out of range"
         a = data[0]

@@ -54,5 +54,10 @@ class Evaluation:
         return coverage_percent
 
     def score(self, suite: list) -> list:
-        """Evaluation method"""
-        raise NotImplementedError('Evaluation method should be implemented by child class')
+        """Evaluates the code coverage of the suite"""
+        score = self._get_coverage(self._fitness_function, suite)
+        return [suite, score]
+
+    def _fitness_function(self, data: list):
+        """Fitness function"""
+        raise NotImplementedError('Fitness function should be implemented by child class')
