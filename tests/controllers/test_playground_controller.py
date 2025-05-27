@@ -42,8 +42,8 @@ class TestPlaygroundController:
     def test_start_execution(self):
         """Test start_execution method"""
         controller = PlaygroundController()
-        controller.genetic_algorithm.pop_size = 4
-        controller.genetic_algorithm.num_generations = 2
+        controller.algorithm.pop_size = 4
+        controller.algorithm.num_generations = 2
         result = controller.start_execution()
         print(result)
         assert result is not None

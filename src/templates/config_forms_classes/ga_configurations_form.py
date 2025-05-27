@@ -1,35 +1,76 @@
+"""File containing the GAConfigurationsForm class for configuring the genetic algorithm."""
+from flask_babel import gettext
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, NumberRange
 
 class GAConfigurationsForm(FlaskForm):
-    population_size = IntegerField("Tamaño de la población", validators=[
-        DataRequired(), NumberRange(min=1, max=10)], default=5)
-    generations = IntegerField("Número de generaciones", validators=[
-        DataRequired(), NumberRange(min=1, max=10)], default=5)
-    selection_type = SelectField("Tipo de selección", choices=[
-        ('random', 'Aleatoria'), ('steady-state', 'Estado uniforme')], validators=[DataRequired()])
+    """Form for configuring the genetic algorithm"""
+    population_size = IntegerField(
+        label=gettext('Population size'),
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=10)
+        ],
+        default=5
+    )
+
+    generations = IntegerField(
+        gettext('Number of generations'),
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=10)
+        ],
+        default=5
+    )
+
+    selection_type = SelectField(
+        label=gettext('Selection type'),
+        choices=[
+            ('random', gettext('Random')),
+            ('steady-state', gettext('Steady state')),
+        ],
+        validators=[DataRequired()]
+    )
+
     selection_rate = SelectField(
-        "Probabilidad de selección",
+        label=gettext('Selection rate'),
         choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(1, 11)],
         validators=[DataRequired()],
         default="0.5"
     )
-    crossover_type = SelectField("Tipo de cruce", choices=[
-        ('one-point', 'Punto único'), ('two-point', 'Dos puntos'), ('uniform', 'Uniforme')], validators=[DataRequired()])
-    mutation_type = SelectField("Tipo de mutación", choices=[
-        ('random-resetting', 'Restablecimiento aleatorio')], validators=[DataRequired()])
+
+    crossover_type = SelectField(
+        label=gettext('Crossover type'),
+        choices=[
+            ('one-point', gettext('One point')),
+            ('two-point', gettext('Two point')),
+            ('uniform', gettext('Uniform')),
+        ],
+        validators=[DataRequired()]
+    )
+
+    mutation_type = SelectField(
+        label=gettext('Mutation type'),
+        choices=[
+            ('random-resetting', gettext('Random resetting')),
+        ],
+        validators=[DataRequired()]
+    )
+
     mutation_rate = SelectField(
-        "Probabilidad de mutación",
+        label=gettext('Mutation rate'),
         choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
         default="0.5"
     )
-    elitism_rate = SelectField(
-        "Probabilidad de elitismo",
+
+    elite_pop_rate = SelectField(
+        label=gettext('Elite population rate'),
         choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
         default="0.5"
     )
-    execute_button = SubmitField("Ejecutar algoritmo")
+
+    execute_button = SubmitField(gettext('Execute'))

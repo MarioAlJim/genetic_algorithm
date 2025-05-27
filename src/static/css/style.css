@@ -79,6 +79,48 @@ li a:hover {
     margin: 10px;
 }
 
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.report-config {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.report-config table {
+    width: auto;
+    margin: 20px auto;
+}
+
+.report-graphic {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.report-graphic img {
+    max-width: 100%;
+    height: auto;
+}
+
+.report-data {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
 .combo-header,
 .label-header {
     padding: 5px;
@@ -95,6 +137,13 @@ li a:hover {
     .initial-form-right {
         flex-direction: column;
         margin-left: 10px;
+    }
+    .report-header {
+        flex-direction: column;  /* Stacks items on small screens */
+    }
+    .report-config,
+    .report-graphic {
+        width: 100%;
     }
 }
 

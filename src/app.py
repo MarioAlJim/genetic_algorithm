@@ -1,7 +1,9 @@
 """This file is for executing the app"""
 # Third party imports
 import os
-from flask import Flask, redirect, url_for
+import uuid
+from flask import Flask, redirect, url_for, session
+from flask_babel import Babel
 
 # Local application imports
 from routes.about_routes import about_blueprint
@@ -21,6 +23,7 @@ def clean_temp_files(directory, extensions):
 def create_app() -> Flask:
     """Create and set up the app"""
     new_app = Flask(__name__)
+    babel = Babel(new_app)
     new_app.config['SECRET_KEY'] = 'bite'
 
     new_app.register_blueprint(about_blueprint)
@@ -28,6 +31,10 @@ def create_app() -> Flask:
 
     @new_app.route('/')
     def home():
+        if "exec_id" not in session:
+            exec_id = uuid.uuid4()
+            session["exec_id"] = exec_id
+
         return redirect(url_for('playground_blueprint.show_playground'))
 
     return new_app

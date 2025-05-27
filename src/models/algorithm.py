@@ -31,3 +31,7 @@ class Algorithm:
                 return
 
         raise ValueError('Evaluation must be a valid value: ', self._evaluations)
+
+    def execute(self) -> tuple:
+        """Execute the algorithm"""
+        raise NotImplementedError('Algorithm must implement execute method')
