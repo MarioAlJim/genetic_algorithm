@@ -6,19 +6,20 @@ from wtforms.validators import DataRequired
 
 class ProblemAlgorithmForm(FlaskForm):
     problem = SelectField(
-        _("Problem"),
-        choices=[('problem_triangles', _('Triangle classification problem'))],
-        validators=[DataRequired()],
-        id="problem_field"
+            _("Problem"),
+            choices=[('problem_triangles', _('Triangle classification'))],
+            validators=[DataRequired()],
+            id="problem_field"
         )
 
     algorithm = SelectField(
-        _("Algorithm"),
-        choices=[('algorithm_ga', _('Genetic Algorithm'))],
-        validators=[DataRequired()],
-        id="algorithm_field"
-    )
+            _("Algorithm"),
+            choices=[('algorithm_ga', _('Genetic Algorithm'))],
+            validators=[DataRequired()],
+            id="algorithm_field"
+        )
+
     initial_config_button = SubmitField(
-        _("Apply"),
-        id="initial_config_button"
-    )
+            _("Apply"),
+            id="initial_config_button"
+        )

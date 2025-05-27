@@ -24,6 +24,12 @@
                     <button disabled>{{ _('Download report') }}</button>
                 {% endif %}
             </div>
+            <div>
+                <select onchange="location = '/setlang?lang=' + this.value;" class="label-form">
+                    <option value="en" {{ 'selected' if get_locale() == 'en' else '' }}>{{ _('English') }}</option>
+                    <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('Spanish') }}</option>
+                </select>
+            </div>
         </div>
     </div>
 </header>

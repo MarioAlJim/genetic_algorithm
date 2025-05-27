@@ -32,15 +32,18 @@ class PlaygroundController:
         self.genetic_algorithm.mutation_type = config.get("mutation_type")
         self.genetic_algorithm.expected_solution = config.get("expected_solution")
         self.genetic_algorithm.elite_pop_rate = config.get("elitism_rate")
+
         return
 
     def start_execution(self, exec_id: str) -> list:
         """Execute the experiment"""
         config, exec_data = self.genetic_algorithm.execute()
         content = self.generate_execution_report(config, exec_data)
+
         with open(f"routes/{exec_id}.json", "w") as file:
             file.truncate(0)
             json.dump(content, file)
+
         return content
 
     def generate_execution_report(self, config, exec_data) -> list:
@@ -54,7 +57,14 @@ class PlaygroundController:
 
         graphics = self.generate_graphics(num_generations, data_generations)
 
-        result_report = [{ 'config_html': config_html, 'exec_data_html': exec_data_html, 'plot_grap': graphics[0], 'box_graph': graphics[1] }]
+        result_report = [
+            {
+                'config_html': config_html,
+                'exec_data_html': exec_data_html,
+                'plot_grap': graphics[0],
+                'box_graph': graphics[1]
+            }
+        ]
         return result_report
 
     @staticmethod
@@ -68,7 +78,6 @@ class PlaygroundController:
         average_fitness_per_generation = [round(sum(pop) / len(pop), 2) for pop in fitness]
         best_fitness_per_generation = [max(pop) for pop in fitness]
 
-        # === First graph: Fitness ===
         plt.figure()
         plt.plot(num_generations, best_fitness_per_generation,
                  marker="o", linestyle="-", color="blue", label=_("Best fitness per generation"))
@@ -86,7 +95,6 @@ class PlaygroundController:
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-
         buf1 = io.BytesIO()
         plt.savefig(buf1, format='png')
         buf1.seek(0)
@@ -94,7 +102,6 @@ class PlaygroundController:
         buf1.close()
         plt.close()
 
-        # === First graph: Fitness ===
         plt.figure()
         plt.boxplot(fitness, labels=[str(gen) for gen in num_generations], patch_artist=True)
         plt.title(_('Fitness distribution per generation'))
@@ -102,7 +109,6 @@ class PlaygroundController:
         plt.ylabel(_('Fitness'))
         plt.grid(True)
         plt.tight_layout()
-
         buf2 = io.BytesIO()
         plt.savefig(buf2, format='png')
         buf2.seek(0)
@@ -118,7 +124,7 @@ class PlaygroundController:
         with open(f"routes/{exec_id}.json", "r") as f:
             result_report = json.load(f)
 
-        with force_locale(lang):  # o 'en', 'fr', etc.
+        with force_locale(lang):
             rendered_html = render_template(
                 "download_format.html",
                 content=result_report,
@@ -131,5 +137,4 @@ class PlaygroundController:
             input=rendered_html,
             configuration=pdfkit_conf,
         )
-        os.remove(f'routes/{exec_id}.json')
         return report

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-24 01:55-0600\n"
+"POT-Creation-Date: 2025-05-26 00:33-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,113 +17,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
+#: controllers/playground_controller.py:52
+#: controllers/playground_controller.py:84
+#: controllers/playground_controller.py:101 models/ga/genetic_algorithm.py:333
+msgid "Generation"
+msgstr ""
+
+#: controllers/playground_controller.py:53 models/ga/genetic_algorithm.py:338
+msgid "Evaluated population"
+msgstr ""
+
 #: controllers/playground_controller.py:74
 msgid "Best fitness per generation"
-msgstr "Mejor aptitud por generación"
+msgstr ""
 
 #: controllers/playground_controller.py:76
 msgid "Average fitness per generation"
-msgstr "Aptitud promedio por generación"
+msgstr ""
 
 #: controllers/playground_controller.py:77
 msgid "Max fitness value (100)"
-msgstr "Valor máximo de aptitud (100)"
+msgstr ""
 
 #: controllers/playground_controller.py:83
 msgid "Fitness per generation"
-msgstr "Aptitud por generación"
-
-#: controllers/playground_controller.py:84
-#: controllers/playground_controller.py:101 models/ga/genetic_algorithm.py:332
-msgid "Generation"
-msgstr "Generación"
+msgstr ""
 
 #: controllers/playground_controller.py:85
 #: controllers/playground_controller.py:102
 msgid "Fitness"
-msgstr "Aptitud"
+msgstr ""
 
 #: controllers/playground_controller.py:100
 msgid "Fitness distribution per generation"
-msgstr "Distribución de la aptitud por generación"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:318
 msgid "Evaluation type"
-msgstr "Tipo de evaluación"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:319
 msgid "Algorith"
-msgstr "Algoritmo"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:320
 msgid "Generations"
-msgstr "Generaciones"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:321
 #: templates/config_forms_classes/ga_configurations_form.py:9
 msgid "Population size"
-msgstr "Tamaño de población"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:322
 msgid "Chromosome length"
-msgstr "Longitud del cromosoma"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:323
 msgid "Gen type"
-msgstr "Tipo de gen"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:324
 #: templates/config_forms_classes/ga_configurations_form.py:21
 msgid "Selection type"
-msgstr "Tipo de selección"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:325
 #: templates/config_forms_classes/ga_configurations_form.py:27
 msgid "Selection rate"
-msgstr "Tasa de selección"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:326
 #: templates/config_forms_classes/ga_configurations_form.py:34
 msgid "Crossover type"
-msgstr "Tipo de cruce"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:327
 #: templates/config_forms_classes/ga_configurations_form.py:40
 msgid "Mutation type"
-msgstr "Tipo de mutación"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:328
 #: templates/config_forms_classes/ga_configurations_form.py:46
 msgid "Mutation rate"
-msgstr "Tasa de mutación"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:329
 msgid "Elite population rate"
-msgstr "Tasa de población élite"
-
-#: models/ga/genetic_algorithm.py:333
-msgid "Initial population"
-msgstr "Población inicial"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:334
-msgid "Selected population"
-msgstr "Población seleccionada"
+msgid "Initial population"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:335
-msgid "Crossover population"
-msgstr "Población cruzada"
+msgid "Selected population"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:336
-msgid "Mutated population"
-msgstr "Población mutada"
+msgid "Crossover population"
+msgstr ""
 
 #: models/ga/genetic_algorithm.py:337
-msgid "Evaluated population"
-msgstr "Población evaluada"
+msgid "Mutated population"
+msgstr ""
 
 #: templates/about.html:3
 msgid "ABOUT"
-msgstr "ACERCA DE"
+msgstr ""
 
 #: templates/about.html:4
 msgid ""
@@ -139,26 +140,18 @@ msgid ""
 "        and configure them manually. For version 1.0 of Bite, it includes"
 " a "
 msgstr ""
-"\n"
-"        BiTe en su versión 1.0 busca proporcionar un medio para quienes "
-"están interesados en SBST\n"
-"        para la experimentación con algoritmos bioinspirados canónicos en la "
-"generación de datos de prueba,\n"
-"        permitiendo conocer su comportamiento y rendimiento bajo ciertos\n"
-"        parámetros, sin la necesidad de implementarlos y configurarlos manualmente.\n"
-"        Para la versión 1.0 de BiTe, se incluye un "
 
 #: templates/about.html:10
 msgid "genetic algorithm "
-msgstr "algoritmo genético "
+msgstr ""
 
 #: templates/about.html:10
 msgid "applied to the problem of "
-msgstr "aplicado al problema de "
+msgstr ""
 
 #: templates/about.html:11
 msgid "triangle classification "
-msgstr "clasificación de triángulos "
+msgstr ""
 
 #: templates/about.html:11
 msgid ""
@@ -167,28 +160,22 @@ msgid ""
 "algorithm can be displayed in real time.\n"
 "        algorithm. "
 msgstr ""
-", cuyos parámetros pueden ser configurados y los resultados\n"
-"        generados por el algoritmo pueden ser visualizados en tiempo real.\n"
 
 #: templates/about.html:16
 msgid ""
 "For the development of BiTe a systematic mapping of the literature\n"
 "        entitled literature entitled  "
 msgstr ""
-"Para el desarrollo de BiTe se realizó un mapeo sistemático de la literatura\n"
-"        titulado  "
 
 #: templates/about.html:19
 msgid ""
 "\"Search-Based Software Testing Driven by Bioinspired Algorithms: A\n"
 "            Systematic Literature Mapping\" "
 msgstr ""
-"\"Search-Based Software Testing Driven by Bioinspired Algorithms: A\n"
-"            Systematic Literature Mapping\" "
 
 #: templates/about.html:22
 msgid "and published at the conference "
-msgstr "y publicado en la conferencia "
+msgstr ""
 
 #: templates/about.html:22
 msgid ""
@@ -200,122 +187,126 @@ msgid ""
 "        their main elements, tunable parameters and performance metrics.\n"
 "        performance metrics. The DOI of the article is "
 msgstr ""
-"El objetivo del\n"
-"        mapeo fue identificar los algoritmos bioinspirados canónicos más comúnmente usados en el área de\n"
-"        pruebas de software basadas en búsqueda, con el fin de analizar sus principales elementos,\n"
-"        parámetros modificables y métricas de rendimiento.\n"
-"        El DOI del artículo es "
 
 #: templates/about.html:30
 msgid ""
 "The repository for this project can be found on GitHub at the following "
 "address"
-msgstr "El repositorio de este proyecto puede encontrarse en GitHub en la siguiente dirección"
+msgstr ""
 
 #: templates/about.html:35
 msgid "Involved in the project "
-msgstr "Participantes en el proyecto "
+msgstr ""
 
 #: templates/download_format.html:5
 msgid "Report"
-msgstr "Reporte"
+msgstr ""
 
-#: templates/download_format.html:8 templates/playground.html:45
+#: templates/download_format.html:8 templates/playground.html:51
 msgid "Execution results"
-msgstr "Resultados de la ejecución"
+msgstr ""
 
-#: templates/download_format.html:12 templates/playground.html:50
+#: templates/download_format.html:12 templates/playground.html:56
 msgid "Applied configuration"
-msgstr "Configuración aplicada"
+msgstr ""
 
-#: templates/download_format.html:14 templates/playground.html:54
+#: templates/download_format.html:14 templates/playground.html:60
 msgid "Execution analysis graphs"
-msgstr "Gráficas de análisis de ejecución"
+msgstr ""
 
-#: templates/download_format.html:18 templates/playground.html:59
+#: templates/download_format.html:18 templates/playground.html:65
 msgid "Test data generated"
-msgstr "Datos de prueba generados"
+msgstr ""
 
 #: templates/index.html:14
 msgid "About"
-msgstr "Acerca de"
+msgstr ""
 
 #: templates/playground.html:10
 msgid "Problem:"
-msgstr "Problema:"
+msgstr ""
 
 #: templates/playground.html:13
 msgid "Algorithm:"
-msgstr "Algoritmo:"
+msgstr ""
 
 #: templates/playground.html:22 templates/playground.html:24
 msgid "Download report"
-msgstr "Descargar reporte"
+msgstr ""
 
-#: templates/playground.html:34
+#: templates/playground.html:29
+msgid "English"
+msgstr ""
+
+#: templates/playground.html:30
+msgid "Spanish"
+msgstr ""
+
+#: templates/playground.html:40
 msgid "Algorithm settings"
-msgstr "Configuración del algoritmo"
+msgstr ""
 
-#: templates/playground.html:66
+#: templates/playground.html:72
 msgid "Results"
-msgstr "Resultados"
+msgstr ""
 
-#: templates/playground.html:68
+#: templates/playground.html:74
 msgid "Run the algorithm to be able to visualize the results."
-msgstr "Ejecute el algoritmo para poder visualizar los resultados."
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:15
 msgid "Number of generations"
-msgstr "Número de generaciones"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:22
 msgid "Random"
-msgstr "Aleatorio"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:22
 msgid "Steady state"
-msgstr "Estado estable"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:35
 msgid "One point"
-msgstr "Un punto"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:35
 msgid "Two points"
-msgstr "Dos puntos"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:35
 msgid "Uniform"
-msgstr "Uniforme"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:41
 msgid "Random resetting"
-msgstr "Reinicio aleatorio"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:53
 msgid "Elitism rate"
-msgstr "Tasa de elitismo"
+msgstr ""
 
 #: templates/config_forms_classes/ga_configurations_form.py:60
 msgid "Execute algorithm"
-msgstr "Ejecutar algoritmo"
+msgstr ""
 
 #: templates/config_forms_classes/problem_algorithm_form.py:9
 msgid "Problem"
-msgstr "Problema"
+msgstr ""
 
 #: templates/config_forms_classes/problem_algorithm_form.py:10
-msgid "Triangle classification problem"
-msgstr "Problema de clasificación de triángulos"
+msgid "Triangle classification"
+msgstr ""
 
 #: templates/config_forms_classes/problem_algorithm_form.py:16
 msgid "Algorithm"
-msgstr "Algoritmo"
+msgstr ""
 
 #: templates/config_forms_classes/problem_algorithm_form.py:17
 msgid "Genetic Algorithm"
-msgstr "Algoritmo Genético"
+msgstr ""
 
 #: templates/config_forms_classes/problem_algorithm_form.py:22
 msgid "Apply"
-msgstr "Aplicar"
+msgstr ""
+

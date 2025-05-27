@@ -101,7 +101,6 @@ li a:hover {
     flex: 0 0 20%;
     flex-direction: row;
     margin: 10px;
-    margin-left: auto;
 }
 
 .initial-form-left {
@@ -188,12 +187,20 @@ select {
     border-radius: 4px;
 }
 
+input:valid {
+    border-color: #04AA6D;
+}
+
+input:invalid {
+    border-color: #dc3545;
+}
+
 /* BUTTONS */
 button {
     width: auto;
     padding: 10px;
     margin: 5px;
-    background-color: #4CAF50;
+    background-color: #04AA6D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -212,7 +219,7 @@ button:disabled {
     width: auto;
     padding: 10px;
     margin: 5px;
-    background-color: #4CAF50;
+    background-color: #04AA6D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -222,6 +229,10 @@ button:disabled {
 
 button:hover {
     background-color: #45a049;
+}
+
+select {
+    margin: 6px;
 }
 
 
@@ -243,6 +254,13 @@ th, td {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: auto;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+
 }
 
 
