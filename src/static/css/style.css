@@ -1,4 +1,4 @@
-/* RESET Y BASE */
+/* BASE */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,6 +30,36 @@ header {
     color: #ffffff;
 }
 
+.centered-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+@media screen and (max-width: 1080px) {
+    html {
+        font-size: 16px; /* 1rem = 16px */
+    }
+
+    p {
+        font-size: 1rem;     /* 16px */
+    }
+
+    h1 {
+      font-size: 2rem;     /* 32px */
+    }
+
+    main {
+        flex-direction: column;
+    }
+}
+
+
 /* NAVBAR */
 ul {
     list-style-type: none;
@@ -59,6 +89,8 @@ li a:hover {
     background-color: #04AA6D;
 }
 
+
+/* INITIAL FORM */
 .initial-form {
     display: flex;
     flex-direction: row;
@@ -69,7 +101,6 @@ li a:hover {
     flex: 0 0 20%;
     flex-direction: row;
     margin: 10px;
-    margin-left: auto;
 }
 
 .initial-form-left {
@@ -147,12 +178,8 @@ li a:hover {
     }
 }
 
-main {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-}
 
+/* CONFIGURATION AND RESULTS BASE */
 .left-panel {
     flex: 0 0 35%;
     padding: 20px;
@@ -170,6 +197,7 @@ main {
     gap: 10px;
 }
 
+
 /* FORM */
 .form-background {
     background-color: #f1f1f1;
@@ -177,17 +205,6 @@ main {
     padding: 20px;
     border-radius: 6px;
     margin-bottom: 20px;
-}
-
-@media screen and (max-width: 1080px) {
-  main {
-    flex-direction: column;
-  }
-
-  .left-panel,
-  .right-panel {
-    flex: 1 1 auto;
-  }
 }
 
 .form-group {
@@ -203,6 +220,13 @@ main {
     width: 100%;
 }
 
+@media screen and (max-width: 1080px) {
+    .left-panel,
+    .right-panel {
+        flex: 1 1 auto;
+    }
+}
+
 /* INPUTS */
 input,
 select {
@@ -212,12 +236,20 @@ select {
     border-radius: 4px;
 }
 
+input:valid {
+    border-color: #04AA6D;
+}
+
+input:invalid {
+    border-color: #dc3545;
+}
+
 /* BUTTONS */
 button {
     width: auto;
     padding: 10px;
     margin: 5px;
-    background-color: #4CAF50;
+    background-color: #04AA6D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -236,7 +268,7 @@ button:disabled {
     width: auto;
     padding: 10px;
     margin: 5px;
-    background-color: #4CAF50;
+    background-color: #04AA6D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -248,11 +280,41 @@ button:hover {
     background-color: #45a049;
 }
 
-.centered-title {
-    text-align: center;
-    margin-bottom: 20px;
+select {
+    margin: 6px;
 }
 
+
+/* TABLES */
+.config-table,
+.exec-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+th, td {
+    border: 1px solid #333;
+}
+
+.graph-conf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+
+}
+
+
+/* ABOUT */
+/* Float four columns side by side */
 .about-section {
     padding: 50px;
     text-align: center;
@@ -260,29 +322,6 @@ button:hover {
     color: white;
 }
 
-/* TABLES */
-.config-table,
-.exec-table {
-    width: auto;
-    max-width: 800px;
-    border-collapse: collapse;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    display: block;
-}
-
-th, td {
-    border: 1px solid #ccc;
-}
-
-.graph-conf {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Float four columns side by side */
 .column {
     float: left;
     width: 25%;

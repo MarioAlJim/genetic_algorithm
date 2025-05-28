@@ -1,5 +1,6 @@
 """This file is for defining the mutation class and its child classes"""
 from random import random
+from flask_babel import gettext
 
 class Mutation:
     """Mutation class"""
@@ -36,7 +37,7 @@ class RandomResetting(Mutation):
     """
     def __init__(self, rate: float):
         super().__init__(rate)
-        self._type = 'random-resetting'
+        self._type = gettext("Random resetting")
 
     def mutate(self, offspring: list, chromo_len: int, create_gen) -> list:
         mutated_offspring = []

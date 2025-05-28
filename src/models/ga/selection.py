@@ -1,5 +1,6 @@
 """This file is for defining the selection class and its child classes"""
 from random import sample
+from flask_babel import gettext
 
 class Selection:
     """Selection class"""
@@ -36,7 +37,7 @@ class RandomSelection(Selection):
     """
     def __init__(self, rate: float) -> None:
         super().__init__(rate)
-        self._type = 'random'
+        self._type = gettext("Random")
 
     def select(self, pop: list, sel_size: int) -> list:
         return sample(pop, sel_size)
@@ -48,7 +49,7 @@ class SteadyState(Selection):
     """
     def __init__(self, rate: float) -> None:
         super().__init__(rate)
-        self._type = 'steady-state'
+        self._type = gettext("Steady state")
 
     def select(self, pop: list, sel_size: int) -> list:
         sorted_pop = sorted(pop, key=lambda x: x[1], reverse=True)

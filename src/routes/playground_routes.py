@@ -1,12 +1,13 @@
 """Playground routes"""
 import io
 import os
+import uuid
 from flask import Blueprint, url_for
 from flask import render_template, session, redirect, send_file
+from flask_babel import get_locale
 from src.controllers.playground_controller import PlaygroundController
 from src.templates.config_forms_classes.problem_algorithm_form import ProblemAlgorithmForm
 from src.templates.config_forms_classes.ga_configurations_form import GAConfigurationsForm
-
 
 playground_blueprint = Blueprint('playground_blueprint', __name__, template_folder='templates')
 
@@ -25,6 +26,7 @@ def show_playground():
 
     return render_template(
         template_name_or_list="playground.html",
+        current_locale=get_locale(),
         context=context_form
     )
 
@@ -37,6 +39,9 @@ def show_ga_playground():
     allow_download = False
 
     if ga_form.validate_on_submit():
+        if os.path.exists(f"routes/{session["exec_id"]}.json"):
+            os.remove(f"routes/{session["exec_id"]}.json")
+
         playground_controller = PlaygroundController()
         playground_controller.set_algorithm_parameters({
             "algorithm": "ga",
@@ -49,12 +54,12 @@ def show_ga_playground():
             "mutation_rate": float(ga_form.mutation_rate.data),
             "elite_pop_rate": float(ga_form.elite_pop_rate.data)
         })
-
         exec_result = playground_controller.start_execution(session["exec_id"])
         allow_download = True
 
     return render_template(
         template_name_or_list="playground.html",
+        current_locale=get_locale(),
         context=context_form,
         config_form="ga_form",
         ga_config_form=ga_form,
@@ -67,6 +72,12 @@ def download_report():
     """Download the report"""
     exec_id = session.get("exec_id")
     playground_controller = PlaygroundController()
-    report = io.BytesIO(playground_controller.download_report(exec_id))
+    lang = str(get_locale())
+    report = io.BytesIO(playground_controller.download_report(exec_id, lang))
 
-    return send_file(report, as_attachment=True, download_name="report.html", mimetype="application/pdf")
+    return send_file(
+        report,
+        as_attachment=True,
+        download_name="report.html",
+        mimetype="application/pdf"
+    )

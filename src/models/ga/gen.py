@@ -1,5 +1,6 @@
 """File for gen class and its children"""
 from random import uniform
+from flask_babel import gettext
 
 class Gen:
     """Gen class"""
@@ -19,7 +20,7 @@ class RealNumber(Gen):
     """Real number class"""
     def __init__(self):
         super().__init__()
-        self._type = 'real-number'
+        self._type = gettext("Real number")
         self._min_value = -100
         self._max_value = 100
 

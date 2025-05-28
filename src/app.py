@@ -1,11 +1,8 @@
 """This file is for executing the app"""
-# Third party imports
 import os
 import uuid
-from flask import Flask, redirect, url_for, session
+from flask import Flask, redirect, url_for, request, session
 from flask_babel import Babel
-
-# Local application imports
 from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
 
@@ -15,19 +12,26 @@ def clean_temp_files(directory, extensions):
             file_path = os.path.join(directory, filename)
             try:
                 os.remove(file_path)
-                print(f"Archivo eliminado: {file_path}")
+                print(f"Residual file removed: {file_path}")
             except Exception as e:
-                print(f"No se pudo eliminar {file_path}: {e}")
+                print(f"Could not be eliminated {file_path}: {e}")
+    return
 
+def get_locale():
+    """Get the locale from the session or request arguments"""
+    if request.args.get("lang"):
+        session['lang'] = request.args.get("lang")
+    return session.get("lang", "en")
 
 def create_app() -> Flask:
     """Create and set up the app"""
     new_app = Flask(__name__)
-    babel = Babel(new_app)
     new_app.config['SECRET_KEY'] = 'bite'
-
+    new_app.config['BABEL_DEFAULT_LOCALE'] = 'es'
+    new_app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
     new_app.register_blueprint(about_blueprint)
     new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
+    babel_app = Babel(new_app, locale_selector=get_locale)
 
     @new_app.route('/')
     def home():
@@ -36,6 +40,17 @@ def create_app() -> Flask:
             session["exec_id"] = exec_id
 
         return redirect(url_for('playground_blueprint.show_playground'))
+
+    @new_app.route('/setlang')
+    def set_lang():
+        lang = request.args.get('lang')
+        session['lang'] = lang
+        return redirect(url_for('playground_blueprint.show_playground'))
+
+    @new_app.context_processor
+    def inject_locale():
+        # This makes the function available directly, allowing you to call it in the template
+        return {'get_locale': get_locale}
 
     return new_app
 

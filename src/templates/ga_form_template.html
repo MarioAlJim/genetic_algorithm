@@ -3,45 +3,45 @@
     {{ ga_config_form.hidden_tag() }}
     <div class="form-group">
         {{ ga_config_form.population_size.label(class="label-form") }}
-        {{ ga_config_form.population_size(class="form-control", id="population_size") }}
+        {{ ga_config_form.population_size(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.generations.label(class="label-form") }}
-        {{ ga_config_form.generations(class="form-control", id="generations") }}
+        {{ ga_config_form.generations(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.selection_rate.label(class="label-form") }}
-        {{ ga_config_form.selection_rate(class="form-control", id="selection_rate") }}
+        {{ ga_config_form.selection_rate(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.selection_type.label(class="label-form") }}
-        {{ ga_config_form.selection_type(class="form-control", id="selection_type") }}
+        {{ ga_config_form.selection_type(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.crossover_type.label(class="label-form") }}
-        {{ ga_config_form.crossover_type(class="form-control", id="crossover_type") }}
+        {{ ga_config_form.crossover_type(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.mutation_rate.label(class="label-form") }}
-        {{ ga_config_form.mutation_rate(class="form-control", id="mutation_rate") }}
+        {{ ga_config_form.mutation_rate(class="form-control") }}
     </div>
 
     <div class="form-group">
         {{ ga_config_form.mutation_type.label(class="label-form") }}
-        {{ ga_config_form.mutation_type(class="form-control", id="mutation_type") }}
+        {{ ga_config_form.mutation_type(class="form-control") }}
     </div>
 
     <div class="form-group">
-        {{ ga_config_form.elitism_rate.label(class="label-form") }}
-        {{ ga_config_form.elitism_rate(class="form-control", id="elitism_rate") }}
+        {{ ga_config_form.elite_pop_rate.label(class="label-form") }}
+        {{ ga_config_form.elite_pop_rate(class="form-control") }}
     </div>
 
     <div>
-        {{ ga_config_form.execute_button(class="button", id="execute_button") }}
+        {{ ga_config_form.execute_algorithm_button(class="button") }}
     </div>
 </form>

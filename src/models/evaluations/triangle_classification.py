@@ -1,6 +1,7 @@
 """This file is for defining the triangle classification evaluation."""
 # no cover: start
 from src.models.evaluation import Evaluation
+from flask_babel import gettext
 # no cover: stop
 class TriangleClassification(Evaluation):
     """Triangle classification class"""
@@ -8,7 +9,7 @@ class TriangleClassification(Evaluation):
     # no cover: start
     def __init__(self) -> None:
         super().__init__()
-        self._name = 'triangle-classification'
+        self._name = gettext("Triangle Classification")
         self._branches = 5
         self._inputs = 3
         self._input_type = 'real-number'
