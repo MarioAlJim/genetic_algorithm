@@ -1,10 +1,9 @@
 """Playground routes"""
 import io
 import os
-import uuid
 from flask import Blueprint, url_for
 from flask import render_template, session, redirect, send_file
-from flask_babel import get_locale
+from flask_babel import get_locale, gettext
 from src.controllers.playground_controller import PlaygroundController
 from src.templates.config_forms_classes.problem_algorithm_form import ProblemAlgorithmForm
 from src.templates.config_forms_classes.ga_configurations_form import GAConfigurationsForm
@@ -35,7 +34,7 @@ def show_ga_playground():
     """Render genetic algorithm playground"""
     context_form = ProblemAlgorithmForm()
     ga_form = GAConfigurationsForm()
-    exec_result = None
+    exec_result = {}
     allow_download = False
 
     if ga_form.validate_on_submit():
@@ -67,7 +66,7 @@ def show_ga_playground():
         allow_download=allow_download
     )
 
-@playground_blueprint.route('/download')
+@playground_blueprint.route('/download', methods=['GET'])
 def download_report():
     """Download the report"""
     exec_id = session.get("exec_id")
@@ -78,6 +77,6 @@ def download_report():
     return send_file(
         report,
         as_attachment=True,
-        download_name="report.html",
+        download_name=gettext("Execution results")+".pdf",
         mimetype="application/pdf"
     )

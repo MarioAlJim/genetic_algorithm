@@ -38,14 +38,13 @@ def create_app() -> Flask:
         if "exec_id" not in session:
             exec_id = uuid.uuid4()
             session["exec_id"] = exec_id
-
         return redirect(url_for('playground_blueprint.show_playground'))
 
     @new_app.route('/setlang')
     def set_lang():
         lang = request.args.get('lang')
         session['lang'] = lang
-        return redirect(url_for('playground_blueprint.show_playground'))
+        return redirect(request.referrer)
 
     @new_app.context_processor
     def inject_locale():

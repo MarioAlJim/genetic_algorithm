@@ -1,74 +1,55 @@
 {% extends 'index.html' %} {% block body %}
 
-<header>
-    <div class="header-title">
-        <div class="title">BiTe Playground</div>
-    </div>
-    <div class="initial-form">
-        <form method="POST" class="initial-form-left">
-            {{ context.hidden_tag() }}
-            {{ context.problem.label(class="label-header") }}
-            {{ context.problem(class="combo-header") }}
-            {{ context.algorithm.label(class="label-header") }}
-            {{ context.algorithm(class="combo-header") }}
-            <div>
-                {{ context.apply_button(class="button")}}
-            </div>
-        </form>
-        <div class="initial-form-right ">
-            <div>
-                {% if allow_download %}
-                    <button id="download-btn" onclick="downloadReport()">{{ _('Download report') }}</button>
-                {% else %}
-                    <button disabled>{{ _('Download report') }}</button>
-                {% endif %}
-            </div>
+    <header>
+        <div class="header__title">
+            <h1 class="title">BiTe Playground</h1>
         </div>
-    </div>
-</header>
+    </header>
 
-<main>
-    <div class="left-panel">
-        <div id="configFormContainer">
-            <h3>{{ _('Algorithm settings') }}</h3>
-            <div class="form-background">
-                {% if config_form %}
+    <main class="playground">
+        <div id="configFormContainer" class="playground__left-panel">
+            <h2 class="title">{{ _('Playground context') }}</h2>
+            <div class="playground__left-panel-form">
+                <form method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
+                    {{ context.hidden_tag() }}
+                    {{ context.problem.label(class="form__item-label") }}
+                    {{ context.problem(class="form__item-input") }}
+                    {{ context.algorithm.label(class="form__item-label") }}
+                    {{ context.algorithm(class="form__item-input") }}
+                    {{ context.apply_button(class="form__item-button")}}
+                </form>
+                <button id="download-btn" onclick="downloadReport()" class="form__item-button" {% if not allow_download %}disabled{% endif %}>{{ _('Download report') }}</button>
+            </div>
+            {% if config_form %}
+                <h2 class="title">{{ _('Algorithm settings') }}</h2>
+                <form method="POST" class="playground__left-panel-form" id="config-form">
                     {% include config_form + "_template.html" %}
+                </form>
+            {% endif %}
+        </div>
+
+        <div id="div-results" class="playground__right-panel">
+            <h2 class="title">{{ _('Execution results') }}</h2>
+            <div class="playground__right-panel-output">
+                {% if content %}
+                    <div class="output__item">
+                        <h3 class="title">{{ _('Applied configuration') }}</h3>
+                        <div>{{ content.config_html|safe }}</div>
+                    </div>
+                    <div class="output__item">
+                        <h3 class="title">{{ _('Execution analysis graphs') }}</h3>
+                        <img src="data:image/png;base64,{{ content.plot_graph }}" class="output__item-image" alt="plot_graph">
+                        <img src="data:image/png;base64, {{ content.box_graph }}" class="output__item-image" alt="box_graph">
+                    </div>
+                    <div class="output__item">
+                        <h3 class="title">{{ _('Test data generated') }}</h3>
+                        <div>{{ content.exec_data_html|safe }}</div>
+                    </div>
+                {% else %}
+                    <p class="output__item">{{ _('Run the algorithm to be able to visualize the results.') }}</p>
                 {% endif %}
             </div>
         </div>
-    </div>
-
-    <div class="right-panel">
-        {% if content %}
-        <h2>{{ _('Execution results') }}</h2>
-        <div>
-            {% for item in content %}
-                <div class="initial-form"  id="div-results">
-                    <div class="config-table">
-                        <h3>{{ _('Applied configuration') }}</h3>
-                        {{ item.config_html|safe }}
-                    </div>
-                    <div class="graph-conf">
-                        <h3>{{ _('Execution analysis graphs') }}</h3>
-                        <img src="data:image/png;base64,{{ item.plot_graph }}" alt="plot_graph">
-                        <img src="data:image/png;base64, {{ item.box_graph }}" alt="box_graph">
-                    </div>
-                </div>
-                    <h3>{{ _('Test data generated') }}</h3>
-                    {{ item.exec_data_html|safe }}
-                <hr>
-            {% endfor %}
-        </div>
-        {% else %}
-            <div class="content">
-                <h3>{{ _('Results') }}</h3>
-                <div class="content-background">
-                    <p>{{ _('Run the algorithm to be able to visualize the results.') }}</p>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-</main>
+    </main>
 
 {% endblock %}

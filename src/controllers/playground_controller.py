@@ -33,7 +33,7 @@ class PlaygroundController:
             self.algorithm.expected_solution = config.get("expected_solution")
             self.algorithm.elite_pop_rate = config.get("elite_pop_rate")
 
-    def start_execution(self, exec_id: str) -> list:
+    def start_execution(self, exec_id: str) -> dict:
         """Execute the experiment"""
         config, exec_data = self.algorithm.execute()
         content = self.generate_execution_report(config, exec_data)
@@ -140,7 +140,7 @@ class PlaygroundController:
 
         return graphic1, graphic2
 
-    def generate_execution_report(self, config: dict, exec_data: dict) -> list:
+    def generate_execution_report(self, config: dict, exec_data: dict) -> dict:
         """Generate the execution report"""
         df_config = DataFrame(config)
         df_exec_data = DataFrame(exec_data)
@@ -149,12 +149,12 @@ class PlaygroundController:
 
         graphic1, graphic2 = self._generate_graphics(df_exec_data)
 
-        return [{
+        return {
             "config_html": config_html,
             "exec_data_html": exec_data_html,
             "plot_graph": graphic1,
             "box_graph": graphic2
-        }]
+        }
 
     @staticmethod
     def download_report(exec_id: str, lang: str) -> bytes:
@@ -162,12 +162,11 @@ class PlaygroundController:
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
             result_report = json.load(f)
 
-        with force_locale(lang):
-            rendered_html = render_template(
-                "download_format.html",
-                content=result_report,
-                current_lang=lang
-            )
+        rendered_html = render_template(
+            "report.html",
+            content=result_report,
+            current_lang=lang
+        )
 
         html_to_pdf = os.environ['wkhtmltopdf']
         pdfkit_conf = pdfkit.configuration(wkhtmltopdf=html_to_pdf)

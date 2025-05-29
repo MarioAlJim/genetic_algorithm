@@ -1,47 +1,18 @@
-<form method="POST" action="" id="config-form">
-
-    {{ ga_config_form.hidden_tag() }}
-    <div class="form-group">
-        {{ ga_config_form.population_size.label(class="label-form") }}
-        {{ ga_config_form.population_size(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.generations.label(class="label-form") }}
-        {{ ga_config_form.generations(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.selection_rate.label(class="label-form") }}
-        {{ ga_config_form.selection_rate(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.selection_type.label(class="label-form") }}
-        {{ ga_config_form.selection_type(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.crossover_type.label(class="label-form") }}
-        {{ ga_config_form.crossover_type(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.mutation_rate.label(class="label-form") }}
-        {{ ga_config_form.mutation_rate(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.mutation_type.label(class="label-form") }}
-        {{ ga_config_form.mutation_type(class="form-control") }}
-    </div>
-
-    <div class="form-group">
-        {{ ga_config_form.elite_pop_rate.label(class="label-form") }}
-        {{ ga_config_form.elite_pop_rate(class="form-control") }}
-    </div>
-
-    <div>
-        {{ ga_config_form.execute_algorithm_button(class="button") }}
-    </div>
-</form>
+{{ ga_config_form.hidden_tag() }}
+{{ ga_config_form.population_size.label(class="form__item-label") }}
+{{ ga_config_form.population_size(class="form__item-input form__item-input--check") }}
+{{ ga_config_form.generations.label(class="form__item-label") }}
+{{ ga_config_form.generations(class="form__item-input form__item-input--check") }}
+{{ ga_config_form.selection_rate.label(class="form__item-label") }}
+{{ ga_config_form.selection_rate(class="form__item-input") }}
+{{ ga_config_form.selection_type.label(class="form__item-label") }}
+{{ ga_config_form.selection_type(class="form__item-input") }}
+{{ ga_config_form.crossover_type.label(class="form__item-label") }}
+{{ ga_config_form.crossover_type(class="form__item-input") }}
+{{ ga_config_form.mutation_rate.label(class="form__item-label") }}
+{{ ga_config_form.mutation_rate(class="form__item-input") }}
+{{ ga_config_form.mutation_type.label(class="form__item-label") }}
+{{ ga_config_form.mutation_type(class="form__item-input") }}
+{{ ga_config_form.elite_pop_rate.label(class="form__item-label") }}
+{{ ga_config_form.elite_pop_rate(class="form__item-input") }}
+{{ ga_config_form.execute_algorithm_button(class="form__item-button") }}

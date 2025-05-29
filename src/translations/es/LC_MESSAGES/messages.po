@@ -176,6 +176,12 @@ msgstr "Estado estacionario"
 msgid "ABOUT"
 msgstr "ACERCA DE"
 
+msgid "PLAYGROUND"
+msgstr "ENTORNO DE PRUEBA"
+
+msgid "Playground context"
+msgstr "Contexto del entorno de prueba"
+
 #: src/templates/about.html:5
 msgid ""
 "BiTe is intended to be a tool for those interested in search-based "
@@ -243,10 +249,6 @@ msgstr "Gráficas de análisis de ejecución"
 msgid "Test data generated"
 msgstr "Datos de prueba generados"
 
-#: src/templates/index.html:14
-msgid "About"
-msgstr "Acerca de"
-
 #: src/templates/playground.html:10
 msgid "System Under Testing"
 msgstr "Sistema bajo prueba"
@@ -256,20 +258,16 @@ msgid "Download report"
 msgstr "Descargar reporte"
 
 #: src/templates/playground.html:29
-msgid "English"
-msgstr "Inglés"
+msgid "ENGLISH"
+msgstr "INGLÉS"
 
 #: src/templates/playground.html:30
-msgid "Spanish"
-msgstr "Español"
+msgid "SPANISH"
+msgstr "ESPAÑOL"
 
 #: src/templates/playground.html:40
 msgid "Algorithm settings"
 msgstr "Configuración del algoritmo"
-
-#: src/templates/playground.html:72
-msgid "Results"
-msgstr "Resultados"
 
 #: src/templates/playground.html:74
 msgid "Run the algorithm to be able to visualize the results."

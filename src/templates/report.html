@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ _('Report') }}</title>
+</head>
+<body>
+<h2>{{ _('Execution results') }}</h2>
+<div>
+    <div class="initial-form"  id="div-results">
+        <h3>{{ _('Applied configuration') }}</h3>
+        {{ content.config_html|safe }}
+        <h3>{{ _('Execution analysis graphs') }}</h3>
+        <img src="data:image/png;base64,{{ content.plot_graph }}" alt="plot_graph">
+        <img src="data:image/png;base64, {{ content.box_graph }}" alt="box_graph">
+    </div>
+    <h3>{{ _('Test data generated') }}</h3>
+    {{ content.exec_data_html|safe }}
+    <hr>
+</div>
+</body>
+</html>

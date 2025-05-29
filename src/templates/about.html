@@ -1,65 +1,53 @@
 {% extends 'index.html' %} {% block body %}
-<div class="about-section">
-    <h1>{{ _('ABOUT') }}</h1>
-    <p>
-        {{ _('BiTe is intended to be a tool for those interested in search-based software testing
+    <div class="header__title">
+        <h1 class="title">{{ _('ABOUT') }}</h1>
+    </div>
+
+    <div class="about">
+        <p>
+            {{ _('BiTe is intended to be a tool for those interested in search-based software testing
         (SBST) to experiment with the use of bio-inspired algorithms in the generation of test data,
         allowing them to know their behavior and performance through the experimentation with different
         parameters and configurations without the need to implement them manually.') }}
-    </p>
-    <p>
-        {{ _('A systematic literature mapping was conducted for the development of BiTe. Publishing the
+        </p>
+        <p>
+            {{ _('A systematic literature mapping was conducted for the development of BiTe. Publishing the
         results of this mapping in an <a href="https://ieeexplore.ieee.org/document/10795575">article</a>
         that summarizes the findings and provides insights into the use of canonical bio-inspired
         algorithms in SBST.') }}
-    </p>
-    <p>
-        {{ _('<a href="https://github.com/MarioAlJim/genetic_algorithm">Here</a> you can find the source
+        </p>
+        <p>
+            {{ _('<a href="https://github.com/MarioAlJim/genetic_algorithm">Here</a> you can find the source
         code of BiTe.') }}
-    </p>
-</div>
+        </p>
+    </div>
 
-<h1 class="centered-title">{{ _('Team members') }}</h1>
-<div class="row">
-    <div class="column">
-        <div class="team-member-card">
-            <div class="container-members">
-                <h3>Joshua Eliud Hernández Suárez</h3>
-                <p>jeliud.hsuarez@gmail.com</p>
-            </div>
+    <h1 class="title">{{ _('Team members') }}</h1>
+    <div class="cards">
+        <div class="cards__card">
+            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+            <h3>Joshua Eliud Hernández Suárez</h3>
+            <p>jeliud.hsuarez@gmail.com</p>
+        </div>
+        <div class="cards__card">
+            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+            <h3>Mario Alberto Jiménez Jiménez</h3>
+            <p>mario.aljim@gmail.com</p>
+        </div>
+        <div class="cards__card">
+            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+            <h3>Saúl Domínguez Isidro</h3>
+            <p>sauldominguez@uv.mx</p>
+        </div>
+        <div class="cards__card">
+            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+            <h3>Jorge Octavio Ocharán Hernández</h3>
+            <p>jocharan@uv.mx</p>
+        </div>
+        <div class="cards__card">
+            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+            <h3>Héctor Xavier Limón Riaño</h3>
+            <p>hlimon@uv.mx</p>
         </div>
     </div>
-    <div class="column">
-        <div class="team-member-card">
-            <div class="container-members">
-                <h3>Mario Alberto Jiménez Jiménez</h3>
-                <p>mario.aljim@gmail.com</p>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="team-member-card">
-            <div class="container-members">
-                <h3>Saúl Domínguez Isidro</h3>
-                <p>sauldominguez@uv.mx</p>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="team-member-card">
-            <div class="container-members">
-                <h3>Jorge Octavio Ocharán Hernández</h3>
-                <p>jocharan@uv.mx</p>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="team-member-card">
-            <div class="container-members">
-                <h3>Limón</h3>
-                <p>l@uv.mx</p>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ get_locale() }}">
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <title>BiTe</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/playground">Playground</a></li>
-            <li>
-                <select onchange="location = '/setlang?lang=' + this.value;" class="label-form">
-                    <option value="en" {{ 'selected' if get_locale() == 'en' else '' }}>{{ _('English') }}</option>
-                    <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('Spanish') }}</option>
-                </select>
-            </li>
-            <li style="float:right"><a class="active" href="/about">{{ _('About') }}</a></li>
-        </ul>
-    </nav>
-    {% block body %}
-    {% endblock %}
+<body class="body">
+<div class="navbar">
+    <a class="navbar__item" href="/about">{{ _('ABOUT') }}</a>
+    <a class="navbar__item navbar__item--highlight" href="/playground">{{ _('PLAYGROUND') }}</a>
+    <div class="navbar__item">
+        <label>
+            <select style="font-size: 18px" onchange="location='/setlang?lang='+ this.value;">
+                <option value="en" {{ 'selected' if get_locale() == 'en' else '' }}>{{ _('ENGLISH') }}</option>
+                <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('SPANISH') }}</option>
+            </select>
+        </label>
+    </div>
+</div>
+{% block body %}
+{% endblock %}
 </body>
 </html>
