@@ -36,11 +36,7 @@ class PlaygroundController:
     def start_execution(self, exec_id: str) -> dict:
         """Execute the experiment"""
         config, exec_data = self.algorithm.execute()
-        content = self.generate_execution_report(config, exec_data)
-
-        with open(f"routes/{exec_id}.json", "w", encoding='utf-8') as file:
-            file.truncate(0)
-            json.dump(content, file)
+        content = self.generate_execution_report(config, exec_data, exec_id)
 
         return content
 
@@ -79,14 +75,14 @@ class PlaygroundController:
             best_fitness,
             label=gettext('Best FS'),
             marker='o',
-            linestyle='-',
+            linestyle='--',
             color='green'
         )
         plt.plot(
             num_generations,
             avg_fitness,
             label=gettext('Average FS'),
-            marker='o',
+            marker='x',
             linestyle='-',
             color='blue'
         )
@@ -140,27 +136,50 @@ class PlaygroundController:
 
         return graphic1, graphic2
 
-    def generate_execution_report(self, config: dict, exec_data: dict) -> dict:
+    def generate_execution_report(self, config: dict, exec_data: dict, exec_id: str) -> dict:
         """Generate the execution report"""
         df_config = DataFrame(config)
         df_exec_data = DataFrame(exec_data)
         config_html = df_config.transpose().to_html(header=False)
-        exec_data_html = df_exec_data.to_html(index=False, justify="center")
 
         graphic1, graphic2 = self._generate_graphics(df_exec_data)
 
-        return {
+        content = {
             "config_html": config_html,
-            "exec_data_html": exec_data_html,
+            "exec_data_html": df_exec_data.to_dict(orient='records'),
             "plot_graph": graphic1,
             "box_graph": graphic2
         }
+
+        #save base data
+        with open(f"routes/{exec_id}.json", "w", encoding='utf-8') as file:
+            file.truncate(0)
+            json.dump(content, file)
+
+        #create first page
+        page_size = 10
+        total_items = len(df_exec_data)
+        total_pages = (total_items + page_size - 1) // page_size
+        page_number = 1
+        start_index = (page_number - 1) * page_size
+        end_index = page_number * page_size
+        page_data_html = df_exec_data[start_index:end_index].to_html(index=False, justify="center")
+
+        #add page and return
+        content["exec_data_html"] = page_data_html
+        content["total_pages"] = total_pages
+        content["current_page"] = page_number
+
+        return content
 
     @staticmethod
     def download_report(exec_id: str, lang: str) -> bytes:
         """Create the file to download"""
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
             result_report = json.load(f)
+
+        exec_data_html = DataFrame(result_report['exec_data_html']).to_html(index=False, justify="center")
+        result_report["exec_data_html"] = exec_data_html
 
         rendered_html = render_template(
             "report.html",
@@ -175,3 +194,26 @@ class PlaygroundController:
             configuration=pdfkit_conf,
         )
         return report
+
+    def get_paginated_results(self, exec_id: str, page: int):
+        with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
+            current_report = json.load(f)
+        df_exec_data = DataFrame(current_report.get("exec_data_html"))
+
+        page_size = 10
+        total_items = len(df_exec_data)
+        total_pages = (total_items + page_size - 1) // page_size
+        start_index = (page - 1) * page_size
+        end_index = page * page_size
+        page_data_html = df_exec_data[start_index:end_index].to_html(index=False, justify="center")
+
+        content = {
+            "config_html": current_report.get("config_html"),
+            "exec_data_html": page_data_html,
+            "total_pages": total_pages,
+            "current_page": page,
+            "plot_graph": current_report.get("plot_graph"),
+            "box_graph": current_report.get("box_graph")
+        }
+
+        return content

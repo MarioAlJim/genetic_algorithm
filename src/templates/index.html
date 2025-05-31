@@ -5,6 +5,8 @@
     <title>BiTe</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </head>
 <body class="body">
@@ -18,6 +20,12 @@
                 <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('SPANISH') }}</option>
             </select>
         </label>
+    </div>
+</div>
+<div id="loader-modal" class="loader-modal">
+    <div class="loader-modal__content">
+        <div class="loader-modal__spinner"></div>
+        <p>{{ _('Running the experiment, please wait...') }}</p>
     </div>
 </div>
 {% block body %}

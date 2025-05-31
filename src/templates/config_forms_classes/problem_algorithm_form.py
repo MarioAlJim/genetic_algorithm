@@ -9,7 +9,7 @@ class ProblemAlgorithmForm(FlaskForm):
     """Form for selecting the problem and algorithm"""
     problem = SelectField(
         id="problem_field",
-        label=lazy_gettext("System Under Testing"),
+        label=lazy_gettext('System Under Testing'),
         choices=[
             ('triangles-problem', lazy_gettext('Triangle Classification')),
         ],

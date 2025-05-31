@@ -1,7 +1,7 @@
 """Playground routes"""
 import io
 import os
-from flask import Blueprint, url_for
+from flask import Blueprint, url_for, request
 from flask import render_template, session, redirect, send_file
 from flask_babel import get_locale, gettext
 from src.controllers.playground_controller import PlaygroundController
@@ -25,7 +25,6 @@ def show_playground():
 
     return render_template(
         template_name_or_list="playground.html",
-        current_locale=get_locale(),
         context=context_form
     )
 
@@ -36,12 +35,19 @@ def show_ga_playground():
     ga_form = GAConfigurationsForm()
     exec_result = {}
     allow_download = False
+    playground_controller = PlaygroundController()
+
+    page = request.args.get("page", default=None, type=int)
+
+    if request.args.get("page") is not None:
+        exec_result = playground_controller.get_paginated_results(session["exec_id"], page)
+        allow_download = True
+
 
     if ga_form.validate_on_submit():
         if os.path.exists(f"routes/{session["exec_id"]}.json"):
             os.remove(f"routes/{session["exec_id"]}.json")
 
-        playground_controller = PlaygroundController()
         playground_controller.set_algorithm_parameters({
             "algorithm": "ga",
             "population_size": int(ga_form.population_size.data),
@@ -58,7 +64,6 @@ def show_ga_playground():
 
     return render_template(
         template_name_or_list="playground.html",
-        current_locale=get_locale(),
         context=context_form,
         config_form="ga_form",
         ga_config_form=ga_form,

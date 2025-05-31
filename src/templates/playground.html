@@ -12,9 +12,21 @@
             <div class="playground__left-panel-form">
                 <form method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
                     {{ context.hidden_tag() }}
-                    {{ context.problem.label(class="form__item-label") }}
+                    <label for="{{ context.problem.id }}" class="form__item-label">
+                        {{ context.problem.label.text }}
+                        <span class="tooltip">
+                            <i class="fas fa-circle-info"></i>
+                            <span class="tooltip__text">{{ _('System selected for experimentation of test data generation.') }}</span>
+                        </span>
+                    </label>
                     {{ context.problem(class="form__item-input") }}
-                    {{ context.algorithm.label(class="form__item-label") }}
+                    <label for="{{ context.algorithm.id }}" class="form__item-label">
+                        {{ context.algorithm.label.text }}
+                        <span class="tooltip">
+                            <i class="fas fa-circle-info"></i>
+                            <span class="tooltip__text">{{ _('Algorithm selected for test data generation.') }}</span>
+                        </span>
+                    </label>
                     {{ context.algorithm(class="form__item-input") }}
                     {{ context.apply_button(class="form__item-button")}}
                 </form>
@@ -43,7 +55,33 @@
                     </div>
                     <div class="output__item">
                         <h3 class="title">{{ _('Test data generated') }}</h3>
-                        <div>{{ content.exec_data_html|safe }}</div>
+
+                        <h2 class="title"> {{ _('Page') }} {{ content.current_page }} of {{ content.total_pages }}</h2>
+
+                        <div>{{ content.exec_data_html | safe }}</div>
+
+                        <nav aria-label="Pagination">
+                            <ul class="pagination">
+                                {% if content.current_page > 1 %}
+                                    <li class="pagination__item">
+                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_ga_playground', page=content.current_page - 1) }}">Previous</a>
+                                    </li>
+                                {% endif %}
+
+                                {% for p in range(1, content.total_pages + 1) %}
+                                    <li class="pagination__item {% if p == content.current_page %}pagination__item--active{% endif %}">
+                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_ga_playground', page=p) }}">{{ p }}</a>
+                                    </li>
+                                {% endfor %}
+
+                                {% if content.current_page < content.total_pages %}
+                                    <li class="pagination__item">
+                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_ga_playground', page=content.current_page + 1) }}">{{ _('Next') }}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+
                     </div>
                 {% else %}
                     <p class="output__item">{{ _('Run the algorithm to be able to visualize the results.') }}</p>
