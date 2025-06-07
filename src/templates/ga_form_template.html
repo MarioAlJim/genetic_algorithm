@@ -1,66 +1,79 @@
 {{ ga_config_form.hidden_tag() }}
+
 <label for="{{ ga_config_form.population_size.id }}" class="form__item-label">
     {{ ga_config_form.population_size.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_population-size">
         <i class="fas fa-circle-info"></i>
         <span class="tooltip__text">{{ _('Number of individuals in each generation of the genetic algorithm.') }}</span>
-    </span>
+    </button>
 </label>
 {{ ga_config_form.population_size(class="form__item-input form__item-input--check") }}
+
 <label for="{{ ga_config_form.generations.id }}" class="form__item-label">
     {{ ga_config_form.generations.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_generations">
         <i class="fas fa-circle-info"></i>
         <span class="tooltip__text">{{ _('Number of iterations the genetic algorithm will run.') }}</span>
-    </span>
+    </button>
 </label>
 {{ ga_config_form.generations(class="form__item-input form__item-input--check") }}
+
 <label for="{{ ga_config_form.selection_rate.id }}" class="form__item-label">
     {{ ga_config_form.selection_rate.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_selection_rate">
         <i class="fas fa-circle-info"></i>
         <span class="tooltip__text">{{ _('Percentage of individuals selected for reproduction in each generation.') }}</span>
-    </span>
+    </button>
 </label>
 {{ ga_config_form.selection_rate(class="form__item-input") }}
+
 <label for="{{ ga_config_form.selection_type.id }}" class="form__item-label">
     {{ ga_config_form.selection_type.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_selection_type">
         <i class="fas fa-circle-info"></i>
-        <span class="tooltip__text">{{ _('The strategy used to choose individuals for reproduction.') }}</span>
-    </span>
+        <span class="tooltip__text">{{ _('Strategy used to select individuals for reproduction.') }}</span>
+    </button>
 </label>
 {{ ga_config_form.selection_type(class="form__item-input") }}
+
 <label for="{{ ga_config_form.crossover_type.id }}" class="form__item-label">
     {{ ga_config_form.crossover_type.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_crossover_type">
         <i class="fas fa-circle-info"></i>
         <span class="tooltip__text">{{ _('Method used to combine genetic information from parents to produce offspring.') }}</span>
-    </span>
+    </button>
 </label>
 {{ ga_config_form.crossover_type(class="form__item-input") }}
+
 <label for="{{ ga_config_form.mutation_rate.id }}" class="form__item-label">
     {{ ga_config_form.mutation_rate.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_mutation_rate">
         <i class="fas fa-circle-info"></i>
         <span class="tooltip__text">{{ _('Probability that a mutation will occur in a gene during reproduction.') }}</span>
-    </span>
+    </button>
 </label>
 {{ ga_config_form.mutation_rate(class="form__item-input") }}
+
 <label for="{{ ga_config_form.mutation_type.id }}" class="form__item-label">
     {{ ga_config_form.mutation_type.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_mutation_type">
         <i class="fas fa-circle-info"></i>
-        <span class="tooltip__text">{{ _('The method used to apply mutations.')}}</span>
-    </span>
+        <span class="tooltip__text">{{ _('The method used to apply genetic mutations.') }}</span>
+    </button>
 </label>
 {{ ga_config_form.mutation_type(class="form__item-input") }}
+
 <label for="{{ ga_config_form.elite_pop_rate.id }}" class="form__item-label">
     {{ ga_config_form.elite_pop_rate.label.text }}
-    <span class="tooltip">
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_elite_pop_rate">
         <i class="fas fa-circle-info"></i>
-        <span class="tooltip__text">{{ _('Portion of the best individuals preserved without changes for the next generation.') }}</span>
-    </span>
+        <span class="tooltip__text">{{ _('Portion of best individuals preserved without modification.') }}</span>
+    </button>
 </label>
 {{ ga_config_form.elite_pop_rate(class="form__item-input") }}
+
 {{ ga_config_form.execute_algorithm_button(class="form__item-button") }}
+
+{% for modal in ga_config_form.modals %}
+    {% include "modal_help_template.html" with context %}
+{% endfor %}
