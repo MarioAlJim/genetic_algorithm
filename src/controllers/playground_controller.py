@@ -170,20 +170,6 @@ class PlaygroundController:
             file.truncate(0)
             json.dump(content, file)
 
-        #create first page
-        page_size = 10
-        total_items = len(df_exec_data)
-        total_pages = (total_items + page_size - 1) // page_size
-        page_number = 1
-        start_index = (page_number - 1) * page_size
-        end_index = page_number * page_size
-        page_data_html = df_exec_data[start_index:end_index].to_html(index=False, justify="center")
-
-        #add page and return
-        content["exec_data_html"] = page_data_html
-        content["total_pages"] = total_pages
-        content["current_page"] = page_number
-
         return content
 
     @staticmethod
