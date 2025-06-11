@@ -139,17 +139,31 @@ class PlaygroundController:
     def generate_execution_report(self, config: dict, exec_data: dict, exec_id: str) -> dict:
         """Generate the execution report"""
         df_config = DataFrame(config)
-        df_exec_data = DataFrame(exec_data)
         config_html = df_config.transpose().to_html(header=False)
-
-        graphic1, graphic2 = self._generate_graphics(df_exec_data)
+        df_exec_data = DataFrame(exec_data)
+        exec_data_html = df_exec_data.to_html(index=False, justify="center")
+        graphic1, graphic2 = self._generate_graphics(exec_data)
+        test_suite = None
+        evaluated_populations = exec_data.get(gettext("Evaluated population"), [])
+        if evaluated_populations:
+            # Gets the last evaluated population with '[-1]' and the first chromosome with '[0][0]'
+            # The first chromosome is the best one because the population is sorted by fitness
+            best_chromo = evaluated_populations[-1][0][0]
+            it = iter(best_chromo)
+            inputs = config.get(gettext("Evaluation inputs"), [1])
+            test_suite = enumerate(zip(*[it] * inputs[0]), start=1)
 
         content = {
             "config_html": config_html,
-            "exec_data_html": df_exec_data.to_dict(orient='records'),
+            "exec_data_html": exec_data_html,
             "plot_graph": graphic1,
-            "box_graph": graphic2
+            "box_graph": graphic2,
+            "test_suite": list(test_suite),
         }
+
+        # Remove previous execution data if exists
+        if os.path.exists(f"routes/{'exec_id'}.json"):
+            os.remove(f"routes/{'exec_id'}.json")
 
         #save base data
         with open(f"routes/{exec_id}.json", "w", encoding='utf-8') as file:
