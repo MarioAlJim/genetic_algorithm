@@ -1,13 +1,13 @@
 """Controller for the playground"""
 import base64
-import io
 import json
+from io import BytesIO, StringIO
 import os
-import pdfkit
 from flask import render_template
-from flask_babel import force_locale, gettext
+from flask_babel import gettext
 from matplotlib import pyplot as plt
-from pandas import DataFrame
+from pandas import DataFrame, read_html
+import pdfkit
 from src.models.algorithm import Algorithm
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
