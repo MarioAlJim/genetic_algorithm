@@ -111,21 +111,17 @@
     flex: 75%;
 }
 
-.playground__right-panel-output {
+.output__item {
     display: flex;
-    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-}
-
-.output__item {
-    width: fit-content;
+    padding: 0 18px 18px 18px;
+    width: auto;
     text-align: center;
-    background-size: contain;
-    padding: 20px;
 }
 
 .output__item-image {
+    padding: 0 18px 18px 18px;
     width: 100%;
     height: auto;
     max-width: fit-content;
