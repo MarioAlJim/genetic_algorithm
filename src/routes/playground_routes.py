@@ -1,8 +1,7 @@
 """Playground routes"""
-import io
-import os
-from flask import Blueprint, url_for, request
-from flask import render_template, session, redirect, send_file
+from io import BytesIO
+import uuid
+from flask import Blueprint, render_template, session, send_file, url_for, flash, redirect
 from flask_babel import get_locale, gettext
 from src.controllers.playground_controller import PlaygroundController
 from src.templates.config_forms_classes.problem_algorithm_form import ProblemAlgorithmForm
