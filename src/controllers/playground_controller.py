@@ -109,7 +109,7 @@ class PlaygroundController:
         plt.grid(True)
 
         # Save the graphic 1 to a buffer
-        buf1 = io.BytesIO()
+        buf1 = BytesIO()
         plt.savefig(buf1, format='png')
         buf1.seek(0)
         graphic1 = base64.b64encode(buf1.read()).decode('utf-8')
@@ -127,7 +127,7 @@ class PlaygroundController:
         plt.tight_layout()
 
         # Save the graphic 2 to a buffer
-        buf2 = io.BytesIO()
+        buf2 = BytesIO()
         plt.savefig(buf2, format='png')
         buf2.seek(0)
         graphic2 = base64.b64encode(buf2.read()).decode('utf-8')
