@@ -1,9 +1,7 @@
 """This file is for executing the app"""
 import os
-import uuid
 from flask import Flask, redirect, url_for, request, session
 from flask_babel import Babel
-from flask_babel_js import BabelJS
 from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
 
