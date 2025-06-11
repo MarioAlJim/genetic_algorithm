@@ -40,9 +40,9 @@ class GAConfigurationsForm(FlaskForm):
     selection_rate = SelectField(
         id="selection_rate_field",
         label=lazy_gettext('Selection rate'),
-        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(1, 11)],
+        choices=[(round(i / 10, 1), f"{i * 10}%") for i in range(1, 11)],
         validators=[DataRequired()],
-        default="0.5"
+        default=0.5
     )
 
     crossover_type = SelectField(
@@ -68,17 +68,17 @@ class GAConfigurationsForm(FlaskForm):
     mutation_rate = SelectField(
         id="mutation_rate_field",
         label=lazy_gettext('Mutation rate'),
-        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
+        choices=[(round(i / 10, 1), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
-        default="0.5"
+        default=0.5
     )
 
     elite_pop_rate = SelectField(
         id="elite_pop_rate_field",
         label=lazy_gettext('Elite population rate'),
-        choices=[(str(round(i / 10, 1)), f"{i * 10}%") for i in range(0, 11)],
+        choices=[(round(i / 10, 1), f"{i * 10}%") for i in range(0, 11)],
         validators=[DataRequired()],
-        default="0.5"
+        default=0.5
     )
 
     execute_algorithm_button = SubmitField(
