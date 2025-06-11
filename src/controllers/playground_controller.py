@@ -190,14 +190,11 @@ class PlaygroundController:
     def download_report(exec_id: str, lang: str) -> bytes:
         """Create the file to download"""
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
-            result_report = json.load(f)
-
-        exec_data_html = DataFrame(result_report['exec_data_html']).to_html(index=False, justify="center")
-        result_report["exec_data_html"] = exec_data_html
+            report = json.load(f)
 
         rendered_html = render_template(
             "report.html",
-            content=result_report,
+            content=report,
             current_lang=lang
         )
 
