@@ -221,6 +221,29 @@
     background-color: #dc3545;
 }
 
+.code-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+    width: auto;
+}
+
+.code-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: auto;
+    max-width: inherit;
+}
+
+.code-container__block {
+    display: block;
+    white-space: pre-line;
+}
+
 @media screen and (max-width: 600px) {
     .navbar {
         flex-direction: column;
