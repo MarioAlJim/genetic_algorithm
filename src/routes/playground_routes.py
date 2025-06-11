@@ -74,14 +74,26 @@ def show_ga_playground():
 @playground_blueprint.route('/download', methods=['GET'])
 def download_report():
     """Download the report"""
-    exec_id = session.get("exec_id")
-    playground_controller = PlaygroundController()
-    lang = str(get_locale())
-    report = io.BytesIO(playground_controller.download_report(exec_id, lang))
-
-    return send_file(
-        report,
-        as_attachment=True,
-        download_name=gettext("Execution results")+".pdf",
-        mimetype="application/pdf"
-    )
+    controller = PlaygroundController()
+    try:
+        report = BytesIO(controller.download_report(
+            session["exec_id"],
+            str(get_locale())
+        ))
+        return send_file(
+            report,
+            as_attachment=True,
+            download_name=gettext("Execution results") + ".pdf",
+            mimetype="application/pdf"
+        )
+    except FileNotFoundError:
+        flash(
+            gettext("No report available for download."),
+            category="error"
+        )
+        return redirect(
+            url_for(
+                endpoint="playground_blueprint.show_playground",
+                page=1
+            )
+        )
