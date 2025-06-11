@@ -17,7 +17,7 @@ class TriangleClassification(Evaluation):
     # no cover: stop
     def _fitness_function(self, data: list) -> str:
         """Classifies the triangle based on the given lengths"""
-        classification = "out of range"
+        classification = None
         a = data[0]
         b = data[1]
         c = data[2]
