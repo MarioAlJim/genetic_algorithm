@@ -160,6 +160,35 @@
     max-height: 300px;
 }
 
+.collapsible {
+    width: 100%;
+}
+
+.collapsible__label {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.collapsible__label:hover {
+    background-color: #555;
+}
+
+.collapsible__label::-webkit-details-marker {
+    display: none;
+}
+
+.collapsible__content {
+    padding: 0 18px;
+    font-size: 16px;
+    text-align: justify;
+}
+
 .notification-container {
     position: fixed;
     bottom: 20px;
