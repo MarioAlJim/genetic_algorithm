@@ -315,6 +315,7 @@ class GeneticAlgorithm(Algorithm):
 
         config = {
             gettext("Evaluation type"): [self.evaluation],
+            gettext("Evaluation inputs"): [self._evaluation.inputs],
             gettext("Algorithm"): [self.name],
             gettext("Generations"): [self.num_generations],
             gettext("Population size"): [self.pop_size],
