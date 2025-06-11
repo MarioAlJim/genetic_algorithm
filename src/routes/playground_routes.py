@@ -9,65 +9,88 @@ from src.templates.config_forms_classes.ga_configurations_form import GAConfigur
 
 playground_blueprint = Blueprint('playground_blueprint', __name__, template_folder='templates')
 
-@playground_blueprint.route('/', methods=['GET', 'POST'])
-def show_playground():
+def init_session() -> None:
+    """Initialize session variables if not already set"""
+    if "exec_id" not in session:
+        session["exec_id"] = str(uuid.uuid4())
+    if "context" not in session:
+        session["context"] = {
+            "problem": "triangle-classification",
+            "algorithm": "ga"
+        }
+    if "param" not in session:
+        session["param"] = {}
+    if "allow_download" not in session:
+        session["allow_download"] = False
+
+def init_forms(context_form, config_form) -> tuple:
+    """Initialize forms values from session"""
+    algorithm = session["context"]["algorithm"]
+
+    context_form.problem.data = session["context"]["problem"]
+    context_form.algorithm.data = algorithm
+    if algorithm == "ga":
+        config_form = GAConfigurationsForm(data=session["param"])
+
+    return context_form, config_form
+
+@playground_blueprint.route('/', defaults={'page': 1}, methods=['GET', 'POST'])
+@playground_blueprint.route('/<int:page>', methods=['GET', 'POST'])
+def show_playground(page: int):
     """Render playground
     Get and post methods for the playground
     """
+    controller = PlaygroundController()
     context_form = ProblemAlgorithmForm()
+    config_form = None
+    config_form_template = None
+
+    init_session()
+
     if context_form.validate_on_submit():
-        selected_problem = context_form.problem.data
-        selected_algorithm = context_form.algorithm.data
+        # Update session parameters
+        session["context"] = {
+            "problem": context_form.problem.data,
+            "algorithm": context_form.algorithm.data
+        }
+        session["allow_download"] = False
 
-        if selected_algorithm == "ga":
-            return redirect(url_for("playground_blueprint.show_ga_playground"))
+    # Initialize the algorithm form based on the selected algorithm
+    if session["context"]["algorithm"] == "ga":
+        config_form = GAConfigurationsForm()
+        config_form_template = "ga_form_template.html"
 
-    return render_template(
-        template_name_or_list="playground.html",
-        context=context_form
-    )
-
-@playground_blueprint.route('/ga', methods=['GET', 'POST'])
-def show_ga_playground():
-    """Render genetic algorithm playground"""
-    context_form = ProblemAlgorithmForm()
-    ga_form = GAConfigurationsForm()
-    exec_result = {}
-    allow_download = False
-    playground_controller = PlaygroundController()
-
-    page = request.args.get("page", default=None, type=int)
-
-    if request.args.get("page") is not None:
-        exec_result = playground_controller.get_paginated_results(session["exec_id"], page)
-        allow_download = True
-
-
-    if ga_form.validate_on_submit():
-        if os.path.exists(f"routes/{session["exec_id"]}.json"):
-            os.remove(f"routes/{session["exec_id"]}.json")
-
-        playground_controller.set_algorithm_parameters({
-            "algorithm": "ga",
-            "population_size": int(ga_form.population_size.data),
-            "generations": int(ga_form.generations.data),
-            "selection_type": ga_form.selection_type.data,
-            "selection_rate": float(ga_form.selection_rate.data),
-            "crossover_type": ga_form.crossover_type.data,
-            "mutation_type": ga_form.mutation_type.data,
-            "mutation_rate": float(ga_form.mutation_rate.data),
-            "elite_pop_rate": float(ga_form.elite_pop_rate.data)
+    if config_form and config_form.validate_on_submit():
+        controller.set_algorithm_parameters({
+            "algorithm": session["context"]["algorithm"],
+            "sut": session["context"]["problem"],
+            "param": config_form.data
         })
-        exec_result = playground_controller.start_execution(session["exec_id"])
-        allow_download = True
+        controller.start_execution(session["exec_id"])
+
+        # Update session parameters and reset page
+        session["param"] = config_form.data
+        session["allow_download"] = True
+        page = 1
+
+    try:
+        exec_result = controller.get_paginated_results(
+            session["exec_id"],
+            page
+        )
+    except FileNotFoundError:
+        exec_result = {}
+        session["allow_download"] = False
+
+    context_form, config_form = init_forms(context_form,config_form)
 
     return render_template(
         template_name_or_list="playground.html",
         context=context_form,
-        config_form="ga_form",
-        ga_config_form=ga_form,
+        config_form=config_form,
+        config_form_template=config_form_template,
         content=exec_result,
-        allow_download=allow_download
+        allow_download=session["allow_download"],
     )
 
 @playground_blueprint.route('/download', methods=['GET'])
