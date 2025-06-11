@@ -11,7 +11,7 @@ class ProblemAlgorithmForm(FlaskForm):
         id="problem_field",
         label=lazy_gettext('System Under Testing'),
         choices=[
-            ('triangles-problem', lazy_gettext('Triangle Classification')),
+            ('triangle-classification', lazy_gettext('Triangle Classification')),
         ],
         validators=[DataRequired()]
     )
