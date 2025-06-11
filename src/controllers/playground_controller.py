@@ -57,10 +57,10 @@ class PlaygroundController:
 
         return avg_fitness, best_fitness, fitness_by_generation
 
-    def _generate_graphics(self, df_exec_data: DataFrame) -> tuple:
+    def _generate_graphics(self, exec_data: dict) -> tuple:
         """Generate the graphics for the report"""
-        num_generations = df_exec_data[gettext("Generation")]
-        eval_pop = df_exec_data[gettext("Evaluated population")]
+        num_generations = exec_data[gettext("Generation")]
+        eval_pop = exec_data[gettext("Evaluated population")]
         avg_fitness, best_fitness, fitness_by_generation = self._get_fitness_values(eval_pop)
 
         # Generate the graphic 1
