@@ -190,12 +190,14 @@ class PlaygroundController:
             input=rendered_html,
             configuration=pdfkit_conf,
         )
+
         return report
 
-    def get_paginated_results(self, exec_id: str, page: int):
+    def get_paginated_results(self, exec_id: str, page: int) -> dict:
+        """Get paginated results for the execution data"""
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
-            current_report = json.load(f)
-        df_exec_data = DataFrame(current_report.get("exec_data_html"))
+            report = json.load(f)
+        df_exec_data = read_html(StringIO(report["exec_data_html"]))[0]
 
         page_size = 10
         total_items = len(df_exec_data)
@@ -205,12 +207,13 @@ class PlaygroundController:
         page_data_html = df_exec_data[start_index:end_index].to_html(index=False, justify="center")
 
         content = {
-            "config_html": current_report.get("config_html"),
+            "config_html": report.get("config_html"),
             "exec_data_html": page_data_html,
             "total_pages": total_pages,
             "current_page": page,
-            "plot_graph": current_report.get("plot_graph"),
-            "box_graph": current_report.get("box_graph")
+            "plot_graph": report.get("plot_graph"),
+            "box_graph": report.get("box_graph"),
+            "test_suite": report.get("test_suite"),
         }
 
         return content
