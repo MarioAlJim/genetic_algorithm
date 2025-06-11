@@ -20,18 +20,18 @@ class PlaygroundController:
 
     def set_algorithm_parameters(self, config: dict) -> None:
         """Set the algorithm parameters"""
-        algorithm = config.get("algorithm")
+        algorithm = config["algorithm"]
         if algorithm == "ga":
             self.algorithm = GeneticAlgorithm()
-            self.algorithm.pop_size = config.get("population_size")
-            self.algorithm.num_generations = config.get("generations")
-            self.algorithm.selection_rate = config.get("selection_rate")
-            self.algorithm.selection_type = config.get("selection_type")
-            self.algorithm.crossover_type = config.get("crossover_type")
-            self.algorithm.mutation_rate = config.get("mutation_rate")
-            self.algorithm.mutation_type = config.get("mutation_type")
-            self.algorithm.expected_solution = config.get("expected_solution")
-            self.algorithm.elite_pop_rate = config.get("elite_pop_rate")
+            self.algorithm.evaluation = config["sut"]
+            self.algorithm.pop_size = config["param"]["population_size"]
+            self.algorithm.num_generations = config["param"]["generations"]
+            self.algorithm.selection_rate = float(config["param"]["selection_rate"])
+            self.algorithm.selection_type = config["param"]["selection_type"]
+            self.algorithm.crossover_type = config["param"]["crossover_type"]
+            self.algorithm.mutation_rate = float(config["param"]["mutation_rate"])
+            self.algorithm.mutation_type = config["param"]["mutation_type"]
+            self.algorithm.elite_pop_rate = float(config["param"]["elite_pop_rate"])
 
     def start_execution(self, exec_id: str) -> dict:
         """Execute the experiment"""
