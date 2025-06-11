@@ -34,9 +34,6 @@ def create_app() -> Flask:
 
     @new_app.route('/')
     def home():
-        if "exec_id" not in session:
-            exec_id = uuid.uuid4()
-            session["exec_id"] = exec_id
         return redirect(url_for('playground_blueprint.show_playground'))
 
     @new_app.route('/setlang')
