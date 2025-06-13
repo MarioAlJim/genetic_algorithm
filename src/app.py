@@ -6,6 +6,7 @@ from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
 
 def clean_temp_files(directory, extensions):
+    """Remove residual files from the specified directory with given extensions"""
     for filename in os.listdir(directory):
         if any(filename.endswith(ext) for ext in extensions):
             file_path = os.path.join(directory, filename)
@@ -34,18 +35,25 @@ def create_app() -> Flask:
 
     @new_app.route('/')
     def home():
+        """Set the home page"""
         return redirect(url_for('playground_blueprint.show_playground'))
 
     @new_app.route('/setlang')
     def set_lang():
+        """Set the language based on the request argument"""
         lang = request.args.get('lang')
         session['lang'] = lang
         return redirect(request.referrer)
 
     @new_app.context_processor
     def inject_locale():
-        # This makes the function available directly, allowing you to call it in the template
+        """This makes the function available directly, allowing you to call it in the template"""
         return {'get_locale': get_locale}
+
+    @new_app.errorhandler(404)
+    def page_not_found(e):
+        """Handle 404 errors"""
+        return redirect(url_for('home'))
 
     return new_app
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-30 02:31-0600\n"
+"POT-Creation-Date: 2025-06-13 01:34-0600\n"
 "PO-Revision-Date: 2025-05-27 12:32-0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,154 +18,168 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: controllers/playground_controller.py:62
-#: controllers/playground_controller.py:106
-#: controllers/playground_controller.py:124 models/ga/genetic_algorithm.py:332
+#: src/controllers/playground_controller.py:62
+#: src/controllers/playground_controller.py:130
+#: src/controllers/playground_controller.py:148
+#: src/models/ga/genetic_algorithm.py:333
 msgid "Generation"
 msgstr "Generación"
 
-#: controllers/playground_controller.py:63 models/ga/genetic_algorithm.py:337
+#: src/controllers/playground_controller.py:63
+#: src/controllers/playground_controller.py:171
+#: src/models/ga/genetic_algorithm.py:338
 msgid "Evaluated population"
 msgstr "Población evaluada"
 
-#: controllers/playground_controller.py:68
+#: src/controllers/playground_controller.py:92
 msgid "Max FS"
 msgstr "VA máximo"
 
-#: controllers/playground_controller.py:76
+#: src/controllers/playground_controller.py:100
 msgid "Best FS"
 msgstr "Mejor VA"
 
-#: controllers/playground_controller.py:84
+#: src/controllers/playground_controller.py:108
 msgid "Average FS"
 msgstr "VA promedio"
 
-#: controllers/playground_controller.py:105
+#: src/controllers/playground_controller.py:129
 msgid "Fitness score evolution"
 msgstr "Evolución del valor de aptitud"
 
-#: controllers/playground_controller.py:107
+#: src/controllers/playground_controller.py:131
 msgid "Fitness Score (FS)"
 msgstr "Valor de Aptitud (VA)"
 
-#: controllers/playground_controller.py:123
+#: src/controllers/playground_controller.py:147
 msgid "Fitness distribution per generation"
 msgstr "Aptitud por generación"
 
-#: controllers/playground_controller.py:125
+#: src/controllers/playground_controller.py:149
 msgid "Fitness"
 msgstr "Aptitud"
 
-#: models/evaluations/triangle_classification.py:12
+#: src/controllers/playground_controller.py:177
+#: src/models/ga/genetic_algorithm.py:318
+#, fuzzy
+msgid "Evaluation inputs"
+msgstr "Tipo de evaluación"
+
+#: src/models/evaluations/triangle_classification.py:12
+#: src/templates/playground.html:52
 msgid "Triangle Classification"
 msgstr "Clasificación de Triángulos"
 
-#: models/ga/crossover.py:26
+#: src/models/ga/crossover.py:26
 msgid "One point"
 msgstr "Un punto"
 
-#: models/ga/crossover.py:43
+#: src/models/ga/crossover.py:43
 msgid "Two point"
 msgstr "Dos puntos"
 
-#: models/ga/crossover.py:60
+#: src/models/ga/crossover.py:60
 msgid "Uniform"
 msgstr "Uniforme"
 
-#: models/ga/gen.py:23
+#: src/models/ga/gen.py:23
 msgid "Real number"
 msgstr "Número real"
 
-#: models/ga/genetic_algorithm.py:28
+#: src/models/ga/genetic_algorithm.py:28 src/templates/playground.html:66
 msgid "Genetic Algorithm"
 msgstr "Algoritmo Genético"
 
-#: models/ga/genetic_algorithm.py:317
+#: src/models/ga/genetic_algorithm.py:317
 msgid "Evaluation type"
 msgstr "Tipo de evaluación"
 
-#: models/ga/genetic_algorithm.py:318
+#: src/models/ga/genetic_algorithm.py:319
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: models/ga/genetic_algorithm.py:319
+#: src/models/ga/genetic_algorithm.py:320
 msgid "Generations"
 msgstr "Generaciones"
 
-#: models/ga/genetic_algorithm.py:320
+#: src/models/ga/genetic_algorithm.py:321
 msgid "Population size"
 msgstr "Tamaño de la población"
 
-#: models/ga/genetic_algorithm.py:321
+#: src/models/ga/genetic_algorithm.py:322
 msgid "Chromosome length"
 msgstr "Tamaño del cromosoma"
 
-#: models/ga/genetic_algorithm.py:322
+#: src/models/ga/genetic_algorithm.py:323
 msgid "Gen type"
 msgstr "Tipo de gen"
 
-#: models/ga/genetic_algorithm.py:323
+#: src/models/ga/genetic_algorithm.py:324
 msgid "Selection type"
 msgstr "Tipo de selección"
 
-#: models/ga/genetic_algorithm.py:324
+#: src/models/ga/genetic_algorithm.py:325
 msgid "Selection rate"
 msgstr "Probabilidad de selección"
 
-#: models/ga/genetic_algorithm.py:325
+#: src/models/ga/genetic_algorithm.py:326
 msgid "Crossover type"
 msgstr "Tipo de cruce"
 
-#: models/ga/genetic_algorithm.py:326
+#: src/models/ga/genetic_algorithm.py:327
 msgid "Mutation type"
 msgstr "Tipo de mutación"
 
-#: models/ga/genetic_algorithm.py:327
+#: src/models/ga/genetic_algorithm.py:328
 msgid "Mutation rate"
 msgstr "Probabilidad de mutación"
 
-#: models/ga/genetic_algorithm.py:328
+#: src/models/ga/genetic_algorithm.py:329
 msgid "Elite population rate"
 msgstr "Porcentaje de población élite"
 
-#: models/ga/genetic_algorithm.py:333
+#: src/models/ga/genetic_algorithm.py:334
 msgid "Initial population"
 msgstr "Población inicial"
 
-#: models/ga/genetic_algorithm.py:334
+#: src/models/ga/genetic_algorithm.py:335
 msgid "Selected population"
 msgstr "Población seleccionada"
 
-#: models/ga/genetic_algorithm.py:335
+#: src/models/ga/genetic_algorithm.py:336
 msgid "Crossover population"
 msgstr "Población cruzada"
 
-#: models/ga/genetic_algorithm.py:336
+#: src/models/ga/genetic_algorithm.py:337
 msgid "Mutated population"
 msgstr "Población mutada"
 
-#: models/ga/mutation.py:40
+#: src/models/ga/mutation.py:40
 msgid "Random resetting"
 msgstr "Reinicialización aleatoria"
 
-#: models/ga/selection.py:40
+#: src/models/ga/selection.py:40
 msgid "Random"
 msgstr "Aleatorio"
 
-#: models/ga/selection.py:52
+#: src/models/ga/selection.py:52
 msgid "Steady state"
 msgstr "Estado estacionario"
 
-#: routes/playground_routes.py:87 templates/playground.html:44
-#: templates/report.html:8
+#: src/routes/playground_routes.py:108 src/templates/playground.html:82
+#: src/templates/report.html:8
 msgid "Execution results"
 msgstr "Resultados de ejecución"
 
-#: templates/about.html:3 templates/index.html:14
+#: src/routes/playground_routes.py:113
+msgid "No report available for download."
+msgstr ""
+
+#: src/templates/about.html:3 src/templates/index.html:16
 msgid "ABOUT"
 msgstr "ACERCA DE"
 
-#: templates/about.html:8
+#: src/templates/about.html:8
 msgid ""
 "BiTe is intended to be a tool for those interested in search-based "
 "software testing\n"
@@ -184,7 +198,7 @@ msgstr ""
 " rendimiento a través de la experimentación con diferentes parámetros y "
 "configuraciones sin necesidad de implementarlos manualmente."
 
-#: templates/about.html:14
+#: src/templates/about.html:14
 msgid ""
 "A systematic literature mapping was conducted for the development of "
 "BiTe. Publishing the\n"
@@ -200,7 +214,7 @@ msgstr ""
 " que resume los hallazgos y proporciona información sobre el uso de "
 "algoritmos bioinspirados canónicos en SBST."
 
-#: templates/about.html:20
+#: src/templates/about.html:20
 msgid ""
 "<a href=\"https://github.com/MarioAlJim/genetic_algorithm\">Here</a> you "
 "can find the source\n"
@@ -209,122 +223,265 @@ msgstr ""
 "<a href=\"https://github.com/MarioAlJim/genetic_algorithm\">Aquí</a> se "
 "puede encontrar el código fuente de BiTe."
 
-#: templates/about.html:25
+#: src/templates/about.html:25
 msgid "Team members"
 msgstr "Miembros del equipo"
 
-#: templates/ga_form_template.html:6
+#: src/templates/ga_form_template.html:7
 msgid "Number of individuals in each generation of the genetic algorithm."
 msgstr "Número de individuos en cada generación del algoritmo genético."
 
-#: templates/ga_form_template.html:14
+#: src/templates/ga_form_template.html:16
 msgid "Number of iterations the genetic algorithm will run."
 msgstr "Número de iteraciones que ejecutará el algoritmo genético."
 
-#: templates/ga_form_template.html:22
+#: src/templates/ga_form_template.html:25
 msgid "Percentage of individuals selected for reproduction in each generation."
-msgstr "Porcentaje de individuos seleccionados para la reproducción en cada generación."
+msgstr ""
+"Porcentaje de individuos seleccionados para la reproducción en cada "
+"generación."
 
-#: templates/ga_form_template.html:30
-msgid "The strategy used to choose individuals for reproduction."
+#: src/templates/ga_form_template.html:34
+#, fuzzy
+msgid "Strategy used to select individuals for reproduction."
 msgstr "La estrategia utilizada para elegir a los individuos para la reproducción."
 
-#: templates/ga_form_template.html:38
+#: src/templates/ga_form_template.html:43
 msgid ""
 "Method used to combine genetic information from parents to produce "
 "offspring."
-msgstr "Método utilizado para combinar la información genética de los padres para producir descendencia."
+msgstr ""
+"Método utilizado para combinar la información genética de los padres para"
+" producir descendencia."
 
-#: templates/ga_form_template.html:46
+#: src/templates/ga_form_template.html:52
 msgid "Probability that a mutation will occur in a gene during reproduction."
-msgstr "Probabilidad de que se produzca una mutación en un gen durante la reproducción."
+msgstr ""
+"Probabilidad de que se produzca una mutación en un gen durante la "
+"reproducción."
 
-#: templates/ga_form_template.html:54
-msgid "The method used to apply mutations."
+#: src/templates/ga_form_template.html:61
+#, fuzzy
+msgid "The method used to apply genetic mutations."
 msgstr "El método utilizado para aplicar las mutaciones."
 
-#: templates/ga_form_template.html:62
-msgid ""
-"Portion of the best individuals preserved without changes for the next "
-"generation."
-msgstr "Porción de los mejores individuos conservada sin cambios para la siguiente generación."
-
-#: templates/index.html:15
-msgid "PLAYGROUND"
+#: src/templates/ga_form_template.html:70
+#, fuzzy
+msgid "Portion of best individuals preserved without modification."
 msgstr ""
+"Porción de los mejores individuos conservada sin cambios para la "
+"siguiente generación."
 
-#: templates/index.html:19
+#: src/templates/index.html:17
+msgid "PLAYGROUND"
+msgstr "PLAYGROUND"
+
+#: src/templates/index.html:21
 #, fuzzy
 msgid "ENGLISH"
 msgstr "INGLÉS"
 
-#: templates/index.html:20
+#: src/templates/index.html:22
 #, fuzzy
 msgid "SPANISH"
 msgstr "ESPAÑOL"
 
-#: templates/index.html:28
+#: src/templates/index.html:30
 msgid "Running the experiment, please wait..."
 msgstr "Ejecutando el experimento, por favor espere..."
 
-#: templates/playground.html:11
+#: src/templates/playground.html:10
+#, fuzzy
+msgid "Press"
+msgstr "Presiona"
+
+#: src/templates/playground.html:10
+msgid "to get help"
+msgstr "para obtener ayuda"
+
+#: src/templates/playground.html:11
 msgid "Playground context"
 msgstr "Contexto del entorno de prueba"
 
-#: templates/playground.html:19
+#: src/templates/playground.html:20
 msgid "System selected for experimentation of test data generation."
-msgstr "Sistema seleccionado para la experimentación de generación de datos de prueba."
+msgstr ""
+"Sistema seleccionado para la experimentación de generación de datos de "
+"prueba."
 
-#: templates/playground.html:27
+#: src/templates/playground.html:28
 msgid "Algorithm selected for test data generation."
 msgstr "Algoritmo seleccionado para la generación de datos de prueba."
 
-#: templates/playground.html:33
-msgid "Download report"
-msgstr "Descargar reporte"
-
-#: templates/playground.html:36
+#: src/templates/playground.html:37
 msgid "Algorithm settings"
 msgstr "Configuración del algoritmo"
 
-#: templates/playground.html:48 templates/report.html:11
-msgid "Applied configuration"
-msgstr "Configuración aplicada"
+#: src/templates/playground.html:43
+msgid "Download report"
+msgstr "Descargar reporte"
 
-#: templates/playground.html:52 templates/report.html:13
+#: src/templates/playground.html:53
+msgid ""
+"The Triangle Classification problem consists of categorizing the type of "
+"triangle that is formed given the inputs (measurements of each side). "
+"Depending on the inputs the triangle can be classified into:"
+msgstr ""
+"El problema de Clasificación de Triángulos consiste en categorizar el "
+"tipo de triángulo que se forma según las entradas (medidas de cada lado)."
+" Dependiendo de las entradas, el triángulo puede clasificarse en:"
+
+#: src/templates/playground.html:55
+msgid "Scalene"
+msgstr "Escaleno"
+
+#: src/templates/playground.html:56
+msgid "Equilateral"
+msgstr "Equilátero"
+
+#: src/templates/playground.html:57
+msgid "Isosceles"
+msgstr "Isósceles"
+
+#: src/templates/playground.html:58
+msgid "Invalid"
+msgstr "Inválido"
+
+#: src/templates/playground.html:59
+msgid "Out of range"
+msgstr "Fuera de rango"
+
+#: src/templates/playground.html:67
+msgid ""
+"The Genetic Algorithm is a population algorithm based on biological "
+"evolution. The process followed by the algorithm is:"
+msgstr ""
+"El Algoritmo Genético es un algoritmo poblacional basado en la evolución "
+"biológica. El proceso seguido por el algoritmo es:"
+
+#: src/templates/playground.html:69
+msgid ""
+"Select the type of representation of the solution to be generated (real "
+"number, binary, permutation, or mixed)."
+msgstr ""
+"Selecciona el tipo de representación de la solución a generar (número "
+"real, binario, permutación o mixto)."
+
+#: src/templates/playground.html:70
+msgid ""
+"Initialize a population and evaluate it using the fitness function. A "
+"fitness function its a function that evaluates how well a potential "
+"solution meets its goals given a problem."
+msgstr ""
+"Inicializa una población y evalúala usando la función de aptitud. La "
+"función de aptitud evalúa qué tan bien una solución potencial cumple con "
+"los objetivos dados de un problema."
+
+#: src/templates/playground.html:71
+msgid ""
+"Apply elitism if indicated. Elitism consists in selecting a defined "
+"number of the best individuals in the current population and keep them "
+"intact until the next generation."
+msgstr ""
+"Aplica elitismo si se indica. El elitismo consiste en seleccionar un "
+"número definido de los mejores individuos de la población actual y "
+"conservarlos intactos hasta la siguiente generación."
+
+#: src/templates/playground.html:72
+msgid ""
+"Select some chromosomes (also called individuals) from the current "
+"population."
+msgstr ""
+"Selecciona algunos cromosomas (también llamados individuos) de la "
+"población actual."
+
+#: src/templates/playground.html:73
+msgid "Cross the selected individuals to create new individuals (children)."
+msgstr "Cruza los individuos seleccionados para crear nuevos individuos (hijos)."
+
+#: src/templates/playground.html:74
+msgid "Mutate some of the children."
+msgstr "Muta algunos de los hijos."
+
+#: src/templates/playground.html:75
+msgid "Evaluate the new population (children) using the fitness function."
+msgstr "Evalúa la nueva población (hijos) usando la función de aptitud."
+
+#: src/templates/playground.html:76
+msgid ""
+"Repeat the steps 3 to 7 until a standstill condition is known or a "
+"satisfactory solution is reached."
+msgstr ""
+"Repite los pasos del 3 al 7 hasta que se alcance una condición de parada "
+"o se obtenga una solución satisfactoria."
+
+#: src/templates/playground.html:87 src/templates/report.html:13
 msgid "Execution analysis graphs"
-msgstr "Gráficas de análisis de ejecución"
+msgstr "Gráficos de análisis de ejecución"
 
-#: templates/playground.html:57 templates/report.html:17
+#: src/templates/playground.html:88
+msgid ""
+"The context and parameters indicated for the algorithm are represented in"
+" the following table:"
+msgstr ""
+"El contexto y los parámetros indicados para el algoritmo se representan "
+"en la siguiente tabla:"
+
+#: src/templates/playground.html:90
+msgid "The following graphs represent the execution analysis of the algorithm:"
+msgstr ""
+"Las siguientes gráficas representan el análisis de ejecución del "
+"algoritmo:"
+
+#: src/templates/playground.html:96 src/templates/report.html:17
 msgid "Test data generated"
 msgstr "Datos de prueba generados"
 
-#: templates/playground.html:59
-msgid "Page"
-msgstr "Pagina"
+#: src/templates/playground.html:97
+msgid "The following table shows the execution data generated by the algorithm:"
+msgstr ""
+"La siguiente tabla muestra los datos de ejecución generados por el "
+"algoritmo:"
 
-#: templates/playground.html:79
+#: src/templates/playground.html:103 src/templates/playground.html:127
+#, fuzzy
+msgid "Previous"
+msgstr "Anterior"
+
+#: src/templates/playground.html:115 src/templates/playground.html:139
 msgid "Next"
 msgstr "Siguiente"
-#: templates/playground.html:87
+
+#: src/templates/playground.html:147
+msgid "Test cases"
+msgstr "Casos de prueba"
+
+#: src/templates/playground.html:148
+msgid "The test cases with the highest code coverage in the last generation were:"
+msgstr ""
+"Los casos de prueba con mayor cobertura de código en la última generación"
+" fueron:"
+
+#: src/templates/playground.html:202
 msgid "Run the algorithm to be able to visualize the results."
 msgstr "Ejecuta el algoritmo para poder visualizar los resultados."
 
-#: templates/report.html:5
+#: src/templates/report.html:5
 msgid "Report"
 msgstr "Reporte"
 
-msgid "PLAYGROUND"
-msgstr "ENTORNO DE PRUEBA"
+#: src/templates/report.html:11
+msgid "Applied configuration"
+msgstr "Configuración aplicada"
 
-msgid "Playground context"
-msgstr "Contexto del entorno de prueba"
+#~ msgid "Page"
+#~ msgstr "Pagina"
 
 msgid "System Under Testing"
 msgstr "Sistema bajo prueba"
 
-msgid "Number of generations"
-msgstr "Número de generaciones"
+#~ msgid "Number of generations"
+#~ msgstr "Número de generaciones"
 
 msgid "Execute"
 msgstr "Ejecutar"
@@ -332,5 +489,168 @@ msgstr "Ejecutar"
 msgid "Apply"
 msgstr "Aplicar"
 
-msgid "Results"
-msgstr "Resultados"
+#: src/templates/ga_form_template.html:95
+msgid "Population size"
+msgstr "Tamaño de la población"
+
+#: src/templates/ga_form_template.html:97
+#: src/templates/ga_form_template.html:107
+#: src/templates/ga_form_template.html:117
+#: src/templates/ga_form_template.html:134
+#: src/templates/ga_form_template.html:144
+#: src/templates/ga_form_template.html:168
+#: src/templates/ga_form_template.html:180
+#: src/templates/ga_form_template.html:190
+msgid "Definition"
+msgstr "Definición"
+
+#: src/templates/ga_form_template.html:98
+msgid "Number of individuals in each generation."
+msgstr "Número de individuos en cada generación."
+
+#: src/templates/ga_form_template.html:99
+#: src/templates/ga_form_template.html:109
+#: src/templates/ga_form_template.html:119
+#: src/templates/ga_form_template.html:136
+#: src/templates/ga_form_template.html:146
+#: src/templates/ga_form_template.html:170
+#: src/templates/ga_form_template.html:182
+#: src/templates/ga_form_template.html:192
+msgid "Impact"
+msgstr "Impacto"
+
+#: src/templates/ga_form_template.html:99
+msgid "A larger size can improve diversity but increases computational cost."
+msgstr "Un tamaño mayor puede mejorar la diversidad pero incrementa el costo computacional."
+
+#: src/templates/ga_form_template.html:105
+msgid "Number of generations"
+msgstr "Número de generaciones"
+
+#: src/templates/ga_form_template.html:108
+msgid "Total number of iterations for the genetic algorithm."
+msgstr "Número total de iteraciones para el algoritmo genético."
+
+#: src/templates/ga_form_template.html:110
+msgid "More generations may improve results but increase execution time."
+msgstr "Más generaciones pueden mejorar los resultados pero aumentan el tiempo de ejecución."
+
+#: src/templates/ga_form_template.html:115
+msgid "Selection type"
+msgstr "Tipo de selección"
+
+#: src/templates/ga_form_template.html:118
+msgid "Method used to select individuals for reproduction."
+msgstr "Método utilizado para seleccionar individuos para reproducción."
+
+#: src/templates/ga_form_template.html:120
+msgid "Affects convergence speed and genetic diversity."
+msgstr "Afecta la velocidad de convergencia y la diversidad genética."
+
+#: src/templates/ga_form_template.html:121
+msgid "Random"
+msgstr "Aleatorio"
+
+#: src/templates/ga_form_template.html:121
+msgid "Selects individuals randomly, promoting diversity but possibly reducing convergence speed."
+msgstr "Selecciona individuos aleatoriamente, promoviendo diversidad pero posiblemente reduciendo la velocidad de convergencia."
+
+#: src/templates/ga_form_template.html:123
+msgid "Steady state"
+msgstr "Estado estacionario"
+
+#: src/templates/ga_form_template.html:123
+msgid "1) A certain number of chromosomes (with good or high fitness scores) are selected from the new population. 2) These chromosomes replace a certain number of chromosomes (with low or poor fitness scores) from the previous population. 3) The rest of the population survives to the new generation."
+msgstr "1) Se selecciona un cierto número de cromosomas (con buenas o altas puntuaciones de aptitud) de la nueva población. 2) Estos cromosomas reemplazan a un cierto número de cromosomas (con bajas o pobres puntuaciones de aptitud) de la población anterior. 3) El resto de la población sobrevive a la nueva generación."
+
+#: src/templates/ga_form_template.html:132
+msgid "Selection rate"
+msgstr "Tasa de selección"
+
+#: src/templates/ga_form_template.html:135
+msgid "Proportion of population selected for reproduction."
+msgstr "Proporción de la población seleccionada para reproducción."
+
+#: src/templates/ga_form_template.html:136
+msgid "Higher rates increase selective pressure, but too high may cause premature convergence."
+msgstr "Tasas más altas aumentan la presión selectiva, pero demasiado altas pueden causar convergencia prematura."
+
+#: src/templates/ga_form_template.html:142
+msgid "Crossover type"
+msgstr "Tipo de cruce"
+
+#: src/templates/ga_form_template.html:145
+msgid "Method used to combine two parents to produce offspring."
+msgstr "Método utilizado para combinar dos padres y producir descendencia."
+
+#: src/templates/ga_form_template.html:147
+msgid "Determines how genetic material is mixed, influencing diversity."
+msgstr "Determina cómo se mezcla el material genético, influyendo en la diversidad."
+
+#: src/templates/ga_form_template.html:148
+msgid "One point"
+msgstr "Un punto"
+
+#: src/templates/ga_form_template.html:148
+msgid "1) A crossover point is randomly selected. 2) Genes from that point onward are swapped between the two parent chromosomes. 3) This results in two offspring each carrying information from both parents."
+msgstr "1) Se selecciona aleatoriamente un punto de cruce. 2) Los genes desde ese punto en adelante se intercambian entre los dos cromosomas padres. 3) Esto resulta en dos descendientes que portan información de ambos padres."
+
+#: src/templates/ga_form_template.html:153
+msgid "Two point"
+msgstr "Dos puntos"
+
+#: src/templates/ga_form_template.html:153
+msgid "1) k crossover points are randomly selected. 2) Genes between the k points are swapped between the parent chromosomes. 3) This results in two offspring each carrying information from both parents."
+msgstr "1) Se seleccionan aleatoriamente k puntos de cruce. 2) Los genes entre esos puntos se intercambian entre los cromosomas padres. 3) Esto resulta en dos descendientes que portan información de ambos padres."
+
+#: src/templates/ga_form_template.html:158
+msgid "Uniform"
+msgstr "Uniforme"
+
+#: src/templates/ga_form_template.html:158
+msgid "1) Each gene is selected from either parent with equal probability. 2) This results in two offspring with random genes from the parents."
+msgstr "1) Cada gen es seleccionado de cualquiera de los padres con igual probabilidad. 2) Esto resulta en dos descendientes con genes aleatorios de los padres."
+
+#: src/templates/ga_form_template.html:166
+msgid "Mutation type"
+msgstr "Tipo de mutación"
+
+#: src/templates/ga_form_template.html:169
+msgid "Method used to introduce random variations in individuals."
+msgstr "Método utilizado para introducir variaciones aleatorias en los individuos."
+
+#: src/templates/ga_form_template.html:171
+msgid "Prevents premature convergence by exploring new solutions."
+msgstr "Previene la convergencia prematura explorando nuevas soluciones."
+
+#: src/templates/ga_form_template.html:172
+msgid "Random resetting"
+msgstr "Reinicio aleatorio"
+
+#: src/templates/ga_form_template.html:172
+msgid "Changes the value of one or more genes to a random value within its domain."
+msgstr "Cambia el valor de uno o más genes a un valor aleatorio dentro de su dominio."
+
+#: src/templates/ga_form_template.html:178
+msgid "Mutation rate"
+msgstr "Tasa de mutación"
+
+#: src/templates/ga_form_template.html:181
+msgid "Probability of applying mutation to individuals."
+msgstr "Probabilidad de aplicar mutación a los individuos."
+
+#: src/templates/ga_form_template.html:183
+msgid "Higher rates explore more, but can destabilize the population."
+msgstr "Tasas más altas exploran más, pero pueden desestabilizar la población."
+
+#: src/templates/ga_form_template.html:188
+msgid "Elite population rate"
+msgstr "Tasa de población élite"
+
+#: src/templates/ga_form_template.html:190
+msgid "Proportion of the best individuals preserved to the next generation."
+msgstr "Proporción de los mejores individuos preservados para la siguiente generación."
+
+#: src/templates/ga_form_template.html:193
+msgid "Helps retain strong solutions but too high may reduce diversity."
+msgstr "Ayuda a conservar soluciones fuertes, pero un valor demasiado alto puede reducir la diversidad."
