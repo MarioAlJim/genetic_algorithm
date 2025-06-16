@@ -78,12 +78,13 @@ msgstr ""
 msgid "Genetic Algorithm"
 msgstr ""
 
-#: src/models/ga/genetic_algorithm.py:317
+#: src/models/ga/genetic_algorithm.py:316
 msgid "Evaluation type"
 msgstr ""
 
+#: src/models/ga/genetic_algorithm.py:317
 msgid "Evaluation inputs"
-msgstr "Entradas de la evaluación"
+msgstr ""
 
 #: src/models/ga/genetic_algorithm.py:318 src/templates/playground.html:13
 msgid "Algorithm"
