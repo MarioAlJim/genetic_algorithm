@@ -61,7 +61,6 @@ msgstr "Aptitud"
 
 #: src/controllers/playground_controller.py:177
 #: src/models/ga/genetic_algorithm.py:318
-#, fuzzy
 msgid "Evaluation inputs"
 msgstr "Tipo de evaluación"
 
@@ -277,12 +276,10 @@ msgid "PLAYGROUND"
 msgstr "PLAYGROUND"
 
 #: src/templates/index.html:21
-#, fuzzy
 msgid "ENGLISH"
 msgstr "INGLÉS"
 
 #: src/templates/index.html:22
-#, fuzzy
 msgid "SPANISH"
 msgstr "ESPAÑOL"
 
@@ -291,7 +288,6 @@ msgid "Running the experiment, please wait..."
 msgstr "Ejecutando el experimento, por favor espere..."
 
 #: src/templates/playground.html:10
-#, fuzzy
 msgid "Press"
 msgstr "Presiona"
 
@@ -444,7 +440,6 @@ msgstr ""
 "algoritmo:"
 
 #: src/templates/playground.html:103 src/templates/playground.html:127
-#, fuzzy
 msgid "Previous"
 msgstr "Anterior"
 

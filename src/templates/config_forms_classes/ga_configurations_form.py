@@ -12,7 +12,7 @@ class GAConfigurationsForm(FlaskForm):
         label=lazy_gettext('Population size'),
         validators=[
             DataRequired(),
-            NumberRange(min=1, max=50)
+            NumberRange(min=1, max=20)
         ],
         default=5
     )
@@ -22,7 +22,7 @@ class GAConfigurationsForm(FlaskForm):
         label=lazy_gettext('Number of generations'),
         validators=[
             DataRequired(),
-            NumberRange(min=1, max=100)
+            NumberRange(min=1, max=50)
         ],
         default=5
     )

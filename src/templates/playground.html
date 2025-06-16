@@ -7,6 +7,7 @@
 
     <main class="playground">
         <div id="configFormContainer" class="playground__left-panel">
+            <label class="form__item-label">{{ _('Press') }} <i class="fas fa-circle-info tooltip"></i> {{ _('to get help') }} </label>
             <h2 class="title">{{ _('Playground context') }}</h2>
 
             <div class="playground__left-panel-form">
@@ -99,7 +100,7 @@
                         <ul class="pagination">
                             {% if content.current_page > 1 %}
                                 <li class="pagination__item">
-                                    <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">Previous</a>
+                                    <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
                                 </li>
                             {% endif %}
 
@@ -123,7 +124,7 @@
                         <ul class="pagination">
                             {% if content.current_page > 1 %}
                                 <li class="pagination__item">
-                                    <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">Previous</a>
+                                    <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
                                 </li>
                             {% endif %}
 
