@@ -1,6 +1,6 @@
 {% extends 'index.html' %} {% block body %}
     <main>
-        <header class="header__title">
+        <header id="context-section" class="header__title">
             <h1 class="title">BiTe Playground</h1>
         </header>
 
@@ -9,7 +9,7 @@
                 <h2 class="title">{{ _('Playground context') }}</h2>
 
                 <div class="playground__left-panel-form">
-                    <form method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
+                    <form action="{{ url_for('playground_blueprint.show_playground') }}#context-section" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
                         {{ context.hidden_tag() }}
                         <label for="{{ context.problem.id }}" class="form__item-label">
                             {{ context.problem.label.text }}
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <header class="header__title">
+        <header id="execution-results" class="header__title">
             <h1 class="title">{{ _('Execution results') }}</h1>
         </header>
 
@@ -75,7 +75,7 @@
                 {% if config_form_template %}
                     <h2 class="title">{{ _('Algorithm settings') }}</h2>
                     <div class="playground__left-panel-form">
-                        <form id="config-form" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
+                        <form id="config-form" action="{{ url_for('playground_blueprint.show_playground') }}#execution-results" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
                             {% include config_form_template %}
                         </form>
                         <form action="{{ url_for('playground_blueprint.download_report') }}" method="GET" class="playground__left-panel-form playground__left-panel-form--no-padding">
