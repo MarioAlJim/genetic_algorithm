@@ -649,3 +649,6 @@ msgstr "Proporción de los mejores individuos preservados para la siguiente gene
 #: src/templates/ga_form_template.html:193
 msgid "Helps retain strong solutions but too high may reduce diversity."
 msgstr "Ayuda a conservar soluciones fuertes, pero un valor demasiado alto puede reducir la diversidad."
+
+msgid "An unexpected error occurred. Please try again later."
+msgstr "Un error inesperado ocurrió. Por favor, inténtalo de nuevo más tarde."

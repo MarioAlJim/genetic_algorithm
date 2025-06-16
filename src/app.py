@@ -1,9 +1,13 @@
 """This file is for executing the app"""
 import os
+from venv import logger
+
 from flask import Flask, redirect, url_for, request, session
-from flask_babel import Babel
+from flask_babel import Babel, gettext
+
 from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
+
 
 def clean_temp_files(directory, extensions):
     """Remove residual files from the specified directory with given extensions"""
@@ -26,8 +30,8 @@ def get_locale():
 def create_app() -> Flask:
     """Create and set up the app"""
     new_app = Flask(__name__)
-    new_app.config['SECRET_KEY'] = 'bite'
-    new_app.config['BABEL_DEFAULT_LOCALE'] = 'es'
+    new_app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    new_app.config['BABEL_DEFAULT_LOCALE'] = os.getenv('BABEL_DEFAULT_LOCALE')
     new_app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
     new_app.register_blueprint(about_blueprint)
     new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
@@ -54,6 +58,13 @@ def create_app() -> Flask:
     def page_not_found(e):
         """Handle 404 errors"""
         return redirect(url_for('home'))
+
+    @new_app.errorhandler(Exception)
+    def handle_exception(error):
+        """Handle uncaught exceptions globally."""
+        logger.exception("Unhandled exception caught: %s", error)
+        message = gettext("An unexpected error occurred. Please try again later.")
+        return message, 500
 
     return new_app
 

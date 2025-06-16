@@ -4,7 +4,7 @@
             <h1 class="title">BiTe Playground</h1>
         </header>
 
-    <main class="playground">
+    <div class="playground">
         <div id="configFormContainer" class="playground__left-panel">
             <label class="form__item-label">{{ _('Press') }} <i class="fas fa-circle-info tooltip"></i> {{ _('to get help') }} </label>
             <h2 class="title">{{ _('Playground context') }}</h2>
@@ -88,7 +88,8 @@
 
             <div id="div-results" class="playground__right-panel">
                 {% if content %}
-                    <details open class="collapsible">
+
+                    <details id="successful_execution" open class="collapsible">
                         <summary class="collapsible__label">{{ _('Execution analysis graphs') }}</summary>
                         <p class="collapsible__content">{{ _('The context and parameters indicated for the algorithm are represented in the following table:') }}</p>
                         <div class="output__item">{{ content.config_html|safe }}</div>
