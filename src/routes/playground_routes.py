@@ -74,7 +74,7 @@ def show_playground(page: int):
         page = 1
 
     try:
-        exec_result = controller.get_paginated_results(
+        exec_result = controller.update_page_data(
             session["exec_id"],
             page
         )

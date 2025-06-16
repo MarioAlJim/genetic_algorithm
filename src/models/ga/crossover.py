@@ -1,6 +1,5 @@
 """This file is for defining the crossover classes"""
 from random import randint, shuffle
-from flask_babel import gettext
 
 class Crossover:
     """Crossover class"""
@@ -23,7 +22,7 @@ class OnePoint(Crossover):
     """
     def __init__(self) -> None:
         super().__init__()
-        self._type = gettext("One point")
+        self._type = "One point"
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         # Creates children
@@ -40,7 +39,7 @@ class TwoPoint(Crossover):
     """
     def __init__(self) -> None:
         super().__init__()
-        self._type = gettext("Two point")
+        self._type = "Two point"
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         point1 = randint(1, (chromo_len - 2))
@@ -57,7 +56,7 @@ class Uniform(Crossover):
     """
     def __init__(self) -> None:
         super().__init__()
-        self._type = gettext("Uniform")
+        self._type = "Uniform"
 
     def cross(self, chromo_len: int, parent1: list, parent2: list) -> list:
         parents = [parent1, parent2]

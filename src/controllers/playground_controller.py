@@ -59,8 +59,8 @@ class PlaygroundController:
 
     def _generate_graphics(self, df_exec_data: dict) -> tuple:
         """Generate the graphics for the report"""
-        num_generations = df_exec_data[gettext("Generation")]
-        eval_pop = df_exec_data[gettext("Evaluated population")]
+        num_generations = df_exec_data["Generation"]
+        eval_pop = df_exec_data["Evaluated population"]
 
         total = len(eval_pop)
         elements = 10
@@ -161,17 +161,19 @@ class PlaygroundController:
         exec_data_html = df_exec_data.to_html(index=False, justify="center")
         graphic1, graphic2 = self._generate_graphics(exec_data)
         test_suite = None
-        evaluated_populations = exec_data.get(gettext("Evaluated population"), [])
+        evaluated_populations = exec_data.get("Evaluated population", [])
         if evaluated_populations:
             # Gets the last evaluated population with '[-1]' and the first chromosome with '[0][0]'
             # The first chromosome is the best one because the population is sorted by fitness
             best_chromo = evaluated_populations[-1][0][0]
             it = iter(best_chromo)
-            inputs = config.get(gettext("Evaluation inputs"), [1])
+            inputs = config.get("Evaluation inputs", [1])
             test_suite = enumerate(zip(*[it] * inputs[0]), start=1)
 
         content = {
+            "config": config,
             "config_html": config_html,
+            "exec_data": exec_data,
             "exec_data_html": exec_data_html,
             "plot_graph": graphic1,
             "box_graph": graphic2,
@@ -210,21 +212,45 @@ class PlaygroundController:
 
         return report
 
-    def get_paginated_results(self, exec_id: str, page: int) -> dict:
+    def update_page_data(self, exec_id: str, page: int) -> dict:
         """Get paginated results for the execution data"""
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
             report = json.load(f)
-        df_exec_data = read_html(StringIO(report["exec_data_html"]))[0]
 
+        df_config = DataFrame(report.get("config"))
+        df_exec_data = DataFrame(report.get("exec_data"))
+
+        # Translate elements in config and execution data
+        for column in df_config.columns:
+            column_idx = df_config.columns.get_loc(column)
+            value = df_config.iloc[0, column_idx]
+
+            if isinstance(value, str):
+                df_config.iloc[0, column_idx] = gettext(value)
+
+            if isinstance(column, str):
+                translated_element = gettext(column)
+                df_config.rename(columns={column: translated_element}, inplace=True)
+
+        for column in df_exec_data.columns:
+            if isinstance(column, str):
+                translated_element = gettext(column)
+                df_exec_data.rename(columns={column: translated_element}, inplace=True)
+
+        # Paginate execution data
         page_size = 10
         total_items = len(df_exec_data)
         total_pages = (total_items + page_size - 1) // page_size
         start_index = (page - 1) * page_size
         end_index = page * page_size
+
+        config_html = df_config.transpose().to_html(header=False)
         page_data_html = df_exec_data[start_index:end_index].to_html(index=False, justify="center")
 
         content = {
-            "config_html": report.get("config_html"),
+            "config": report.get("config"),
+            "config_html": config_html,
+            "exec_data": report.get("exec_data"),
             "exec_data_html": page_data_html,
             "total_pages": total_pages,
             "current_page": page,
