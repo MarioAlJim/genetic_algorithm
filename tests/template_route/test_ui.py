@@ -1,10 +1,8 @@
 import time
 
-from _pytest import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-
 
 configurations = [
     {"population_size": "4", "generations": "10", "selection_type": "random", "selection_rate": "0.5",
@@ -18,9 +16,9 @@ driver.get("http://127.0.0.1:3000")
 
 #initial config form
 select_problem = Select(driver.find_element(By.ID, "problem_field"))
-select_problem.select_by_value("problem_triangles")
+select_problem.select_by_value("triangle-classification")
 select_algorithm = Select(driver.find_element(By.ID, "algorithm_field"))
-select_algorithm.select_by_value("algorithm_ga")
+select_algorithm.select_by_value("ga")
 driver.find_element(By.ID, "initial_config_button").click()
 time.sleep(2)
 
@@ -36,7 +34,7 @@ for config in configurations:
     Select(driver.find_element(By.ID, "crossover_type_field")).select_by_value(config["crossover_type"])
     Select(driver.find_element(By.ID, "mutation_type_field")).select_by_value(config["mutation_type"])
     Select(driver.find_element(By.ID, "mutation_rate_field")).select_by_value(config["mutation_rate"])
-    Select(driver.find_element(By.ID, "elitism_rate_field")).select_by_value(config["elitism_rate"])
+    Select(driver.find_element(By.ID, "elite_pop_rate_field")).select_by_value(config["elitism_rate"])
 
     # Send the config form
     driver.find_element(By.ID, "execute_algorithm_button").click()

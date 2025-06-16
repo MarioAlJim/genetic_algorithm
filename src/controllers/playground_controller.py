@@ -203,8 +203,10 @@ class PlaygroundController:
             current_lang=lang
         )
 
-        html_to_pdf = os.environ['wkhtmltopdf']
-        pdfkit_conf = pdfkit.configuration(wkhtmltopdf=html_to_pdf)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+        wkhtmltopdf_path = os.path.join(project_root, 'tools', 'wkhtmltopdf.exe')
+        pdfkit_conf = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
         report = pdfkit.from_string(
             input=rendered_html,
             configuration=pdfkit_conf,
