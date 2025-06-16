@@ -1,6 +1,5 @@
 """This file is for defining the genetic algorithm"""
 from random import choice
-from flask_babel import gettext
 from src.models.algorithm import Algorithm
 from src.models.ga.crossover import OnePoint, TwoPoint, Uniform
 from src.models.ga.gen import RealNumber
@@ -25,7 +24,7 @@ class GeneticAlgorithm(Algorithm):
     """
     def __init__(self) -> None:
         super().__init__()
-        self._name = gettext("Genetic Algorithm")
+        self._name = "Genetic Algorithm"
         self._gen = RealNumber()
         self._chromo_len = self._evaluation.inputs * self._evaluation.branches
         self._pop_size = 10
@@ -314,28 +313,28 @@ class GeneticAlgorithm(Algorithm):
             self._current_pop = new_pop
 
         config = {
-            gettext("Evaluation type"): [self.evaluation],
-            gettext("Evaluation inputs"): [self._evaluation.inputs],
-            gettext("Algorithm"): [self.name],
-            gettext("Generations"): [self.num_generations],
-            gettext("Population size"): [self.pop_size],
-            gettext("Chromosome length"): [self.chromo_len],
-            gettext("Gen type"): [self.gen_type],
-            gettext("Selection type"): [self.selection_type],
-            gettext("Selection rate"): [f"{int(self.selection_rate * 100)}%"],
-            gettext("Crossover type"): [self.crossover_type],
-            gettext("Mutation type"): [self.mutation_type],
-            gettext("Mutation rate"): [f"{int(self.mutation_rate * 100)}%"],
-            gettext("Elite population rate"): [f"{int(self.elite_pop_rate * 100)}%"],
+            "Evaluation type": [self.evaluation],
+            "Evaluation inputs": [self._evaluation.inputs],
+            "Algorithm": [self.name],
+            "Generations": [self.num_generations],
+            "Population size": [self.pop_size],
+            "Chromosome length": [self.chromo_len],
+            "Gen type": [self.gen_type],
+            "Selection type": [self.selection_type],
+            "Selection rate": [f"{int(self.selection_rate * 100)}%"],
+            "Crossover type": [self.crossover_type],
+            "Mutation type": [self.mutation_type],
+            "Mutation rate": [f"{int(self.mutation_rate * 100)}%"],
+            "Elite population rate": [f"{int(self.elite_pop_rate * 100)}%"],
         }
 
         exec_data = {
-            gettext("Generation"): generations,
-            gettext("Initial population"): initial_pops,
-            gettext("Selected population"): selected_pops,
-            gettext("Crossover population"): crossover_pops,
-            gettext("Mutated population"): mutated_pops,
-            gettext("Evaluated population"): evaluated_pops,
+            "Generation": generations,
+            "Initial population": initial_pops,
+            "Selected population": selected_pops,
+            "Crossover population": crossover_pops,
+            "Mutated population": mutated_pops,
+            "Evaluated population": evaluated_pops,
         }
 
         return config, exec_data
