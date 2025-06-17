@@ -67,6 +67,14 @@
     margin-bottom: 5px;
 }
 
+.form__item-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    filter: invert(57%) sepia(53%) saturate(4897%) hue-rotate(126deg) brightness(89%) contrast(97%);
+}
+
 .form__item-input {
     font-size: 18px;
     margin-bottom: 5px;

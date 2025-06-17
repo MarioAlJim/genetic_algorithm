@@ -6,7 +6,9 @@
 
     <div class="playground">
         <div id="configFormContainer" class="playground__left-panel">
-            <label class="form__item-label">{{ _('Press') }} <i class="fas fa-circle-info tooltip"></i> {{ _('to get help') }} </label>
+            <label class="form__item-label">{{ _('Press') }}
+                <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+                {{ _('to get help') }} </label>
             <h2 class="title">{{ _('Playground context') }}</h2>
 
                 <div class="playground__left-panel-form">
@@ -15,7 +17,7 @@
                         <label for="{{ context.problem.id }}" class="form__item-label">
                             {{ context.problem.label.text }}
                             <span class="tooltip">
-                            <i class="fas fa-circle-info"></i>
+                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             <span class="tooltip__text">{{ _('System selected for experimentation of test data generation.') }}</span>
                         </span>
                         </label>
@@ -23,7 +25,7 @@
                         <label for="{{ context.algorithm.id }}" class="form__item-label">
                             {{ context.algorithm.label.text }}
                             <span class="tooltip">
-                            <i class="fas fa-circle-info"></i>
+                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             <span class="tooltip__text">{{ _('Algorithm selected for test data generation.') }}</span>
                         </span>
                         </label>
