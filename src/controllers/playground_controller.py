@@ -209,7 +209,7 @@ class PlaygroundController:
         pdfkit_conf = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
         report = pdfkit.from_string(
             input=rendered_html,
-            configuration=pdfkit_conf,
+            output_path=False  # o el path donde quieras guardarlo, por ejemplo 'reporte.pdf'
         )
 
         return report

@@ -33,8 +33,10 @@ class Evaluation:
     def _get_coverage(self, target_function, suite: list) -> float:
         """Measures the code coverage of the target function given a suite of inputs."""
         coverage_percent = 0
-        config_file = os.environ['COVERAGE_CONFIG']
-        cov = coverage.Coverage(config_file=config_file)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+        default_coverage_config = os.path.join(project_root, '.coveragerc')
+        cov = coverage.Coverage(config_file=default_coverage_config)
         it = iter(suite)
 
         with cov.collect():

@@ -1,6 +1,7 @@
 """This file is for executing the app"""
 import os
-from venv import logger
+import logging
+from dotenv import load_dotenv, dotenv_values
 
 from flask import Flask, redirect, url_for, request, session
 from flask_babel import Babel, gettext
@@ -8,6 +9,7 @@ from flask_babel import Babel, gettext
 from routes.about_routes import about_blueprint
 from routes.playground_routes import playground_blueprint
 
+load_dotenv()
 
 def clean_temp_files(directory, extensions):
     """Remove residual files from the specified directory with given extensions"""
@@ -36,6 +38,8 @@ def create_app() -> Flask:
     new_app.register_blueprint(about_blueprint)
     new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
     babel_app = Babel(new_app, locale_selector=get_locale)
+
+    logger = logging.getLogger(__name__)
 
     @new_app.route('/')
     def home():
