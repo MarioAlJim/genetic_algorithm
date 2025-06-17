@@ -4,18 +4,22 @@
             <h1 class="title">{{ _('Context') }}</h1>
         </header>
 
-        <div class="playground">
-            <div id="configFormContainer" class="playground__left-panel">
-                <h2 class="title">{{ _('Testing environment') }}</h2>
+    <div class="playground">
+        <div id="configFormContainer" class="playground__left-panel">
+            <h2 class="title">{{ _('Testing environment') }}</h2>
 
                 <div class="playground__left-panel-form">
-                    <label class="form__item-info">{{ _('Hover on') }} <i class="fas fa-circle-info tooltip"></i> {{ _('to get help') }} </label>
+                    <label class="form__item-info">
+                        {{ _('Hover on') }}
+                        <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+                        {{ _('to get help') }}
+                    </label>
                     <form action="{{ url_for('playground_blueprint.show_playground') }}#context-section" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
                         {{ context.hidden_tag() }}
                         <label for="{{ context.problem.id }}" class="form__item-label">
                             {{ context.problem.label.text }}
                             <span class="tooltip">
-                            <i class="fas fa-circle-info"></i>
+                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             <span class="tooltip__text">{{ _('System selected for experimentation of test data generation.') }}</span>
                         </span>
                         </label>
@@ -23,7 +27,7 @@
                         <label for="{{ context.algorithm.id }}" class="form__item-label">
                             {{ context.algorithm.label.text }}
                             <span class="tooltip">
-                            <i class="fas fa-circle-info"></i>
+                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             <span class="tooltip__text">{{ _('Algorithm selected for test data generation.') }}</span>
                         </span>
                         </label>
@@ -76,7 +80,11 @@
                 {% if config_form_template %}
                     <h2 class="title">{{ _('Algorithm settings') }}</h2>
                     <div class="playground__left-panel-form">
-                        <label class="form__item-info">{{ _('Click or hover on') }} <i class="fas fa-circle-info tooltip"></i> {{ _('to get help') }} </label>
+                        <label class="form__item-info">
+                            {{ _('Click or hover on') }}
+                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+                            {{ _('to get help') }}
+                        </label>
                         <form id="config-form" action="{{ url_for('playground_blueprint.show_playground') }}#execution-results" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
                             {% include config_form_template %}
                         </form>
