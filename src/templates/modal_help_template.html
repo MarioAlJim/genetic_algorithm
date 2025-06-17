@@ -1,0 +1,21 @@
+<div id="{{ modal.modal_id }}" class="help-modal">
+    <div class="help-modal__content">
+        <div class="help-modal__header">
+            <span class="help-modal__close" data-modal-target="{{ modal.modal_id }}"
+                  data-modal-close="true">&times;</span>
+            <h2 class="help-modal__title">{{ modal.modal_title }}</h2>
+        </div>
+        <div class="help-modal__body">
+            {% for item in modal.help_items %}
+                <details>
+                    <summary class="help-modal__collapsible">{{ item.title }}</summary>
+                    <p class="help-modal__collapsible__content">{{ item.description }}</p>
+                    {% if item.image %}
+                        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.title }} image"
+                             class="modal__image">
+                    {% endif %}
+                </details>
+            {% endfor %}
+        </div>
+    </div>
+</div>

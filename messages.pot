@@ -1,0 +1,271 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-27 15:45-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: src/controllers/playground_controller.py:66
+#: src/controllers/playground_controller.py:89
+#: src/controllers/playground_controller.py:107
+#: src/models/ga/genetic_algorithm.py:332
+msgid "Generation"
+msgstr ""
+
+#: src/controllers/playground_controller.py:67
+#: src/models/ga/genetic_algorithm.py:337
+msgid "Evaluated population"
+msgstr ""
+
+#: src/controllers/playground_controller.py:76
+msgid "Average score"
+msgstr ""
+
+#: src/controllers/playground_controller.py:84
+msgid "Best score"
+msgstr ""
+
+#: src/controllers/playground_controller.py:90
+msgid "Fitness score"
+msgstr ""
+
+#: src/controllers/playground_controller.py:106
+msgid "Fitness distribution per generation"
+msgstr ""
+
+#: src/controllers/playground_controller.py:108
+msgid "Fitness"
+msgstr ""
+
+#: src/models/evaluations/triangle_classification.py:12
+#: src/templates/config_forms_classes/problem_algorithm_form.py:14
+msgid "Triangle Classification"
+msgstr ""
+
+#: src/models/ga/crossover.py:26
+#: src/templates/config_forms_classes/ga_configurations_form.py:52
+msgid "One point"
+msgstr ""
+
+#: src/models/ga/crossover.py:43
+#: src/templates/config_forms_classes/ga_configurations_form.py:53
+msgid "Two point"
+msgstr ""
+
+#: src/models/ga/crossover.py:60
+#: src/templates/config_forms_classes/ga_configurations_form.py:54
+msgid "Uniform"
+msgstr ""
+
+#: src/models/ga/gen.py:23
+msgid "Real number"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:28
+#: src/templates/config_forms_classes/problem_algorithm_form.py:23
+msgid "Genetic Algorithm"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:316
+msgid "Evaluation type"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:317
+msgid "Evaluation inputs"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:318 src/templates/playground.html:13
+msgid "Algorithm"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:319
+msgid "Generations"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:320
+msgid "Population size"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:321
+msgid "Chromosome length"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:322
+msgid "Gen type"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:323
+#: src/templates/config_forms_classes/ga_configurations_form.py:32
+msgid "Selection type"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:324
+#: src/templates/config_forms_classes/ga_configurations_form.py:42
+msgid "Selection rate"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:325
+#: src/templates/config_forms_classes/ga_configurations_form.py:50
+msgid "Crossover type"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:326
+#: src/templates/config_forms_classes/ga_configurations_form.py:61
+msgid "Mutation type"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:327
+#: src/templates/config_forms_classes/ga_configurations_form.py:70
+msgid "Mutation rate"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:328
+#: src/templates/config_forms_classes/ga_configurations_form.py:78
+msgid "Elite population rate"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:333
+msgid "Initial population"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:334
+msgid "Selected population"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:335
+msgid "Crossover population"
+msgstr ""
+
+#: src/models/ga/genetic_algorithm.py:336
+msgid "Mutated population"
+msgstr ""
+
+#: src/models/ga/mutation.py:40
+#: src/templates/config_forms_classes/ga_configurations_form.py:63
+msgid "Random resetting"
+msgstr ""
+
+#: src/models/ga/selection.py:40
+#: src/templates/config_forms_classes/ga_configurations_form.py:34
+msgid "Random"
+msgstr ""
+
+#: src/models/ga/selection.py:52
+#: src/templates/config_forms_classes/ga_configurations_form.py:35
+msgid "Steady state"
+msgstr ""
+
+#: src/templates/about.html:3
+msgid "ABOUT"
+msgstr ""
+
+#: src/templates/about.html:5
+msgid ""
+"BiTe is intended to be a tool for those interested in search-based "
+"software testing\n"
+"        (SBST) to experiment with the use of bio-inspired algorithms in "
+"the generation of test data,\n"
+"        allowing them to know their behavior and performance through the "
+"experimentation with different\n"
+"        parameters and configurations without the need to implement them "
+"manually."
+msgstr ""
+
+#: src/templates/about.html:11
+msgid ""
+"A systematic literature mapping was conducted for the development of "
+"BiTe. Publishing the\n"
+"        results of this mapping in an <a "
+"href=\"https://ieeexplore.ieee.org/document/10795575\">article</a>\n"
+"        that summarizes the findings and provides insights into the use "
+"of canonical bio-inspired\n"
+"        algorithms in SBST."
+msgstr ""
+
+#: src/templates/about.html:17
+msgid ""
+"<a href=\"https://github.com/MarioAlJim/genetic_algorithm\">Here</a> you "
+"can find the source\n"
+"        code of BiTe."
+msgstr ""
+
+#: src/templates/about.html:22
+msgid "Team members"
+msgstr ""
+
+#: src/templates/download_format.html:5
+msgid "Report"
+msgstr ""
+
+#: src/templates/download_format.html:8 src/templates/playground.html:51
+msgid "Execution results"
+msgstr ""
+
+#: src/templates/download_format.html:12 src/templates/playground.html:56
+msgid "Applied configuration"
+msgstr ""
+
+#: src/templates/download_format.html:14 src/templates/playground.html:60
+msgid "Execution analysis graphs"
+msgstr ""
+
+#: src/templates/download_format.html:18 src/templates/playground.html:65
+msgid "Test data generated"
+msgstr ""
+
+#: src/templates/index.html:14
+msgid "About"
+msgstr ""
+
+#: src/templates/playground.html:10
+msgid "System Under Testing"
+msgstr ""
+
+#: src/templates/playground.html:22 src/templates/playground.html:24
+msgid "Download report"
+msgstr ""
+
+#: src/templates/playground.html:29
+msgid "English"
+msgstr ""
+
+#: src/templates/playground.html:30
+msgid "Spanish"
+msgstr ""
+
+#: src/templates/playground.html:40
+msgid "Algorithm settings"
+msgstr ""
+
+#: src/templates/playground.html:72
+msgid "Results"
+msgstr ""
+
+#: src/templates/playground.html:74
+msgid "Run the algorithm to be able to visualize the results."
+msgstr ""
+
+#: src/templates/config_forms_classes/ga_configurations_form.py:22
+msgid "Number of generations"
+msgstr ""
+
+#: src/templates/config_forms_classes/ga_configurations_form.py:86
+msgid "Execute"
+msgstr ""
+
+#: src/templates/config_forms_classes/problem_algorithm_form.py:30
+msgid "Apply"
+msgstr ""
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ get_locale() }}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title>BiTe</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prism.css') }}"/>
+    <script src="{{ url_for('static', filename='js/prism.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body class="body">
+<div class="navbar">
+    <a class="navbar__item" href="/about">{{ _('ABOUT') }}</a>
+    <a class="navbar__item navbar__item--highlight" href="/playground">{{ _('PLAYGROUND') }}</a>
+    <div class="navbar__item navbar__item--no-padding">
+        <label class="navbar__lang-item">
+            <select class="lang-item" onchange="location='/setlang?lang='+ this.value;">
+                <option value="en" {{ 'selected' if get_locale() == 'en' else '' }}>{{ _('ENGLISH') }}</option>
+                <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('SPANISH') }}</option>
+            </select>
+        </label>
+    </div>
+</div>
+<div id="loader-modal" class="loader-modal">
+    <div class="loader-modal__content">
+        <div class="loader-modal__spinner"></div>
+        <p>{{ _('Running the experiment, please wait...') }}</p>
+    </div>
+</div>
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div id="notification-container" class="notification-container"></div>
+            <script>showNotification('{{ message }}', '{{ category }}');</script>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% block body %}
+{% endblock %}
+</body>
+</html>
