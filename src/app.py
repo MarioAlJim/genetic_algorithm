@@ -1,9 +1,9 @@
 """This file is for executing the app"""
 import os
 import logging
-from dotenv import load_dotenv, dotenv_values
+from dotenv import load_dotenv
 
-from flask import Flask, redirect, url_for, request, session
+from flask import Flask, redirect, url_for, request, session, flash
 from flask_babel import Babel, gettext
 
 from routes.about_routes import about_blueprint
@@ -67,8 +67,11 @@ def create_app() -> Flask:
     def handle_exception(error):
         """Handle uncaught exceptions globally."""
         logger.exception("Unhandled exception caught: %s", error)
-        message = gettext("An unexpected error occurred. Please try again later.")
-        return message, 500
+        flash(
+            gettext("An unexpected error occurred. Please try again later."),
+            category="error"
+        )
+        return redirect(url_for('home'))
 
     return new_app
 
