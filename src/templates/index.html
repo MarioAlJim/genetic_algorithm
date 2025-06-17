@@ -15,9 +15,9 @@
 <div class="navbar">
     <a class="navbar__item" href="/about">{{ _('ABOUT') }}</a>
     <a class="navbar__item navbar__item--highlight" href="/playground">{{ _('PLAYGROUND') }}</a>
-    <div class="navbar__item">
-        <label>
-            <select style="font-size: 18px" onchange="location='/setlang?lang='+ this.value;">
+    <div class="navbar__item navbar__item--no-padding">
+        <label class="navbar__lang-item">
+            <select class="lang-item" onchange="location='/setlang?lang='+ this.value;">
                 <option value="en" {{ 'selected' if get_locale() == 'en' else '' }}>{{ _('ENGLISH') }}</option>
                 <option value="es" {{ 'selected' if get_locale() == 'es' else '' }}>{{ _('SPANISH') }}</option>
             </select>

@@ -62,7 +62,7 @@ msgstr "Aptitud"
 #: src/controllers/playground_controller.py:177
 #: src/models/ga/genetic_algorithm.py:318
 msgid "Evaluation inputs"
-msgstr "Tipo de evaluación"
+msgstr "Entradas de la evaluación"
 
 #: src/models/evaluations/triangle_classification.py:12
 #: src/templates/playground.html:52
@@ -287,17 +287,23 @@ msgstr "ESPAÑOL"
 msgid "Running the experiment, please wait..."
 msgstr "Ejecutando el experimento, por favor espere..."
 
+msgid "Context"
+msgstr "Contexto"
+
+msgid "Hover on"
+msgstr "Pase el cursor sobre"
+
 #: src/templates/playground.html:10
-msgid "Press"
-msgstr "Presiona"
+msgid "Click or hover on"
+msgstr "Haga clic o pase el cursor sobre"
 
 #: src/templates/playground.html:10
 msgid "to get help"
 msgstr "para obtener ayuda"
 
 #: src/templates/playground.html:11
-msgid "Playground context"
-msgstr "Contexto del entorno de prueba"
+msgid "Testing environment"
+msgstr "Entorno de prueba"
 
 #: src/templates/playground.html:20
 msgid "System selected for experimentation of test data generation."
@@ -430,7 +436,7 @@ msgstr ""
 "algoritmo:"
 
 #: src/templates/playground.html:96 src/templates/report.html:17
-msgid "Test data generated"
+msgid "Generated test data"
 msgstr "Datos de prueba generados"
 
 #: src/templates/playground.html:97
@@ -448,8 +454,11 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: src/templates/playground.html:147
-msgid "Test cases"
-msgstr "Casos de prueba"
+msgid "Generated test cases"
+msgstr "Casos de prueba generados"
+
+msgid "The following code belongs to the system under testing:"
+msgstr "El siguiente código pertenece al sistema bajo prueba:"
 
 #: src/templates/playground.html:148
 msgid "The test cases with the highest code coverage in the last generation were:"

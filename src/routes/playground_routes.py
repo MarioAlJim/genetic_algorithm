@@ -44,6 +44,7 @@ def show_playground(page: int):
     context_form = ProblemAlgorithmForm()
     config_form = None
     config_form_template = None
+    exec_result = None
 
     init_session()
 
@@ -79,7 +80,6 @@ def show_playground(page: int):
             page
         )
     except FileNotFoundError:
-        exec_result = {}
         session["allow_download"] = False
 
     context_form, config_form = init_forms(context_form,config_form)
@@ -89,7 +89,7 @@ def show_playground(page: int):
         context=context_form,
         config_form=config_form,
         config_form_template=config_form_template,
-        content=exec_result,
+        content=exec_result if session["allow_download"] else None,
         allow_download=session["allow_download"],
     )
 
@@ -100,7 +100,8 @@ def download_report():
     try:
         report = BytesIO(controller.download_report(
             session["exec_id"],
-            str(get_locale())
+            str(get_locale()),
+            session["context"]["algorithm"],
         ))
         return send_file(
             report,

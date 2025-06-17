@@ -191,16 +191,25 @@ class PlaygroundController:
 
         return content
 
-    @staticmethod
-    def download_report(exec_id: str, lang: str) -> bytes:
+    def download_report(self, exec_id: str, lang: str, algorithm: str) -> bytes:
         """Create the file to download"""
         with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
             report = json.load(f)
 
+        df_config, df_exec_data = self.translate_tables(
+            report.get("config"),
+            report.get("exec_data")
+        )
+        config_html = df_config.transpose().to_html(header=False)
+        page_data_html = df_exec_data.to_html(index=False, justify="center")
+
         rendered_html = render_template(
             "report.html",
             content=report,
-            current_lang=lang
+            current_lang=lang,
+            algorithm=algorithm,
+            config_html=config_html,
+            exec_data_html=page_data_html,
         )
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -210,19 +219,16 @@ class PlaygroundController:
         report = pdfkit.from_string(
             input=rendered_html,
             configuration=pdfkit_conf,
+            css=[
+                os.path.join(project_root,"src/static/css/style.css"),
+            ],
         )
 
         return report
 
-    def update_page_data(self, exec_id: str, page: int) -> dict:
-        """Get paginated results for the execution data"""
-        with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
-            report = json.load(f)
-
-        df_config = DataFrame(report.get("config"))
-        df_exec_data = DataFrame(report.get("exec_data"))
-
-        # Translate elements in config and execution data
+    def translate_tables(self, config: dict, exec_data: dict) -> tuple:
+        """Translate the tables to the current language"""
+        df_config = DataFrame(config)
         for column in df_config.columns:
             column_idx = df_config.columns.get_loc(column)
             value = df_config.iloc[0, column_idx]
@@ -234,10 +240,23 @@ class PlaygroundController:
                 translated_element = gettext(column)
                 df_config.rename(columns={column: translated_element}, inplace=True)
 
+        df_exec_data = DataFrame(exec_data)
         for column in df_exec_data.columns:
             if isinstance(column, str):
                 translated_element = gettext(column)
                 df_exec_data.rename(columns={column: translated_element}, inplace=True)
+
+        return df_config, df_exec_data
+
+    def update_page_data(self, exec_id: str, page: int) -> dict:
+        """Get paginated results for the execution data"""
+        with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
+            report = json.load(f)
+
+        df_config, df_exec_data = self.translate_tables(
+            report.get("config"),
+            report.get("exec_data")
+        )
 
         # Paginate execution data
         page_size = 10
