@@ -14,7 +14,7 @@ class GAConfigurationsForm(FlaskForm):
             DataRequired(),
             NumberRange(min=1, max=20)
         ],
-        default=5
+        default=10
     )
 
     generations = IntegerField(
@@ -22,9 +22,9 @@ class GAConfigurationsForm(FlaskForm):
         label=lazy_gettext('Number of generations'),
         validators=[
             DataRequired(),
-            NumberRange(min=1, max=50)
+            NumberRange(min=1, max=40)
         ],
-        default=5
+        default=20
     )
 
     selection_type = SelectField(

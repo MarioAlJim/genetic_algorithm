@@ -1,13 +1,13 @@
 """Controller for the playground"""
 import base64
 import json
-from io import BytesIO, StringIO
 import os
-from flask import render_template
+import pdfkit
+from io import BytesIO, StringIO
+from flask import render_template, current_app
 from flask_babel import gettext
 from matplotlib import pyplot as plt
 from pandas import DataFrame, read_html
-import pdfkit
 from src.models.algorithm import Algorithm
 from src.models.ga.genetic_algorithm import GeneticAlgorithm
 
@@ -17,6 +17,7 @@ class PlaygroundController:
     def __init__(self):
         """Initialize the controller"""
         self.algorithm = Algorithm()
+        self.temp_dir = current_app.config['TEMP_DIR']
 
     def set_algorithm_parameters(self, config: dict) -> None:
         """Set the algorithm parameters"""
@@ -155,11 +156,15 @@ class PlaygroundController:
 
     def generate_execution_report(self, config: dict, exec_data: dict, exec_id: str) -> dict:
         """Generate the execution report"""
+        report_file = os.path.join(self.temp_dir, f"{exec_id}.json")
+
         df_config = DataFrame(config)
         config_html = df_config.transpose().to_html(header=False)
         df_exec_data = DataFrame(exec_data)
         exec_data_html = df_exec_data.to_html(index=False, justify="center")
+
         graphic1, graphic2 = self._generate_graphics(exec_data)
+
         test_suite = None
         evaluated_populations = exec_data.get("Evaluated population", [])
         if evaluated_populations:
@@ -181,19 +186,21 @@ class PlaygroundController:
         }
 
         # Remove previous execution data if exists
-        if os.path.exists(f"routes/{'exec_id'}.json"):
-            os.remove(f"routes/{'exec_id'}.json")
+        if os.path.exists(report_file):
+            os.remove(report_file)
 
         #save base data
-        with open(f"routes/{exec_id}.json", "w", encoding='utf-8') as file:
+        with open(report_file, "w", encoding='utf-8') as file:
             file.truncate(0)
-            json.dump(content, file)
+            json.dump(content, file, indent=2)
 
         return content
 
     def download_report(self, exec_id: str, lang: str, algorithm: str) -> bytes:
         """Create the file to download"""
-        with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
+        report_file = os.path.join(self.temp_dir, f"{exec_id}.json")
+
+        with open(report_file, "r", encoding='utf-8') as f:
             report = json.load(f)
 
         df_config, df_exec_data = self.translate_tables(
@@ -222,6 +229,7 @@ class PlaygroundController:
             css=[
                 os.path.join(project_root,"src/static/css/style.css"),
             ],
+            output_path=False
         )
 
         return report
@@ -250,7 +258,8 @@ class PlaygroundController:
 
     def update_page_data(self, exec_id: str, page: int) -> dict:
         """Get paginated results for the execution data"""
-        with open(f"routes/{exec_id}.json", "r", encoding='utf-8') as f:
+        report_file = os.path.join(self.temp_dir, f"{exec_id}.json")
+        with open(report_file, "r", encoding='utf-8') as f:
             report = json.load(f)
 
         df_config, df_exec_data = self.translate_tables(

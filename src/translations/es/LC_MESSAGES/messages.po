@@ -241,7 +241,6 @@ msgstr ""
 "generación."
 
 #: src/templates/ga_form_template.html:34
-#, fuzzy
 msgid "Strategy used to select individuals for reproduction."
 msgstr "La estrategia utilizada para elegir a los individuos para la reproducción."
 
@@ -260,12 +259,10 @@ msgstr ""
 "reproducción."
 
 #: src/templates/ga_form_template.html:61
-#, fuzzy
 msgid "The method used to apply genetic mutations."
 msgstr "El método utilizado para aplicar las mutaciones."
 
 #: src/templates/ga_form_template.html:70
-#, fuzzy
 msgid "Portion of best individuals preserved without modification."
 msgstr ""
 "Porción de los mejores individuos conservada sin cambios para la "

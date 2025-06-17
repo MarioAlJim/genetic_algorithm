@@ -1,6 +1,7 @@
 """This file is for executing the app"""
 import os
 import logging
+import tempfile
 from dotenv import load_dotenv
 
 from flask import Flask, redirect, url_for, request, session, flash
@@ -38,6 +39,10 @@ def create_app() -> Flask:
     new_app.register_blueprint(about_blueprint)
     new_app.register_blueprint(playground_blueprint, url_prefix='/playground')
     babel_app = Babel(new_app, locale_selector=get_locale)
+
+    TEMP_DIR = os.path.join(tempfile.gettempdir(), "temp_reports")
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    new_app.config['TEMP_DIR'] = TEMP_DIR
 
     logger = logging.getLogger(__name__)
 
