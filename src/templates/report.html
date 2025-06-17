@@ -5,19 +5,20 @@
     <title>{{ _('Report') }}</title>
 </head>
 <body>
-    <h2>{{ _('Execution results') }}</h2>
+    <h1>{{ _('Execution results') }}</h1>
 
-    <h3>{{ _('Applied configuration') }}</h3>
-    <div class="output__item">{{ config_html|safe }}</div>
+    <h2>{{ _('Applied configuration') }}</h2>
+    <div class="report__ga-config">{{ config_html|safe }}</div>
 
-    <h3>{{ _('Execution analysis graphs') }}</h3>
+    <h2>{{ _('Execution analysis graphs') }}</h2>
     <img src="data:image/png;base64,{{ content.plot_graph }}" class="output__item-image" alt="plot_graph">
     <img src="data:image/png;base64,{{ content.box_graph }}" class="output__item-image" alt="box_graph">
 
-    <h3>{{ _('Test data generated') }}</h3>
+    <h2>{{ _('Generated test data') }}</h2>
     <div class="output__item {% if algorithm == "ga" %}ga-table{% endif %}">{{ exec_data_html|safe }}</div>
 
-    <h3>{{ _('Test cases') }}</h3>
+    <h2>{{ _('Generated test cases') }}</h2>
+    <h3>{{ _('The following code belongs to the system under testing:') }}</h3>
     <pre>
         <code>
             def classify_triangle(data: list) -> str:
@@ -45,6 +46,7 @@
                 return classification
         </code>
     </pre>
+    <h3>{{ _('The test cases with the highest code coverage in the last generation were:') }}</h3>
     <pre>
         <code>
             {% for idx, inputs in content.test_suite %}

@@ -301,6 +301,13 @@ html * {
     display: table-cell;
 }
 
+.report__ga-config table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-align: center;
+}
+
 @media screen and (max-width: 920px) {
     .navbar {
         flex-direction: column;
