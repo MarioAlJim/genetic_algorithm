@@ -27,10 +27,6 @@ html * {
     text-decoration: none;
 }
 
-.navbar__item--no-padding {
-    padding: 0;
-}
-
 .navbar__item--highlight {
     flex: 60%;
     background-color: #04AA6D;
@@ -38,14 +34,9 @@ html * {
 
 .navbar__item:hover {
     background-color: #111;
-}
-
-.navbar__lang-item {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .lang-item {
+        background-color: #111;
+    }
 }
 
 .lang-item {
@@ -56,15 +47,8 @@ html * {
     border-width: 0;
     text-align: center;
     text-align-last: center;
-    width: 100%;
-    height: 100%;
     cursor: pointer;
     position: relative;
-    padding-right: 30px;
-}
-
-.lang-item:hover {
-    background-color: #111;
 }
 
 .lang-item:focus {
@@ -75,8 +59,10 @@ html * {
     display: flex;
     height: 50px;
     padding: 15px;
+    min-height: fit-content;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color: #474e5d;
     color: #ffffff;
 }
@@ -182,7 +168,6 @@ html * {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 18px 18px 18px;
     width: auto;
     text-align: center;
 }
@@ -261,7 +246,8 @@ html * {
 }
 
 .collapsible__content {
-    padding: 0 30px;
+    margin: 0;
+    padding: 10px 30px 30px 30px;
     font-size: 16px;
     text-align: justify;
 }
@@ -298,15 +284,30 @@ html * {
     background-color: #dc3545;
 }
 
+.code-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .code-container {
     display: flex;
     flex-direction: column;
-    padding: 0 30px;
     width: fit-content;
 }
 
-.code-container .collapsible__content {
-    padding: 0;
+.code-container__title {
+    display: flex;
+    height: 50px;
+    min-height: fit-content;
+    padding: 15px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: #474e5d;
+    color: #ffffff;
+    margin-bottom: -10px;
+    border-radius: 5px 5px 0 0;
 }
 
 .code-container__code {
@@ -322,14 +323,16 @@ html * {
     .navbar {
         flex-direction: column;
     }
-    .navbar__item--no-padding {
-        padding: 20px 0;
-    }
     .playground {
         flex-direction: column;
     }
     .output__item-image {
         padding: 0;
+    }
+    .code-section {
+        display: block;
+        align-items: center;
+        justify-content: center;
     }
     .code-container {
         width: auto;
