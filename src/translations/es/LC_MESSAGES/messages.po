@@ -662,3 +662,9 @@ msgstr "En el siguiente formulario puedes seleccionar un SUT y un algoritmo bioi
 
 msgid "Select the parameters of the algorithm to generate the test data:"
 msgstr "Selecciona los parámetros del algoritmo para generar los datos de prueba:"
+
+msgid "- The Initial population represents is the set of candidate solutions (chromosomes) with which the algorithm begins its process of searching for an optimal or near optimal solution."
+msgstr "- La población inicial representa el conjunto de soluciones candidatas (cromosomas) con el que el algoritmo comienza su proceso de búsqueda de una solución óptima o casi óptima."
+
+msgid "- The Evaluated population is the set of candidate solutions (chromosomes) that the algorithm has after applying the genetic operations (selection, crossover, mutation) and the fitness function."
+msgstr "- La población evaluada es el conjunto de soluciones candidatas (cromosomas) que el algoritmo tiene después de aplicar las operaciones genéticas (selección, cruce, mutación) y la función de aptitud."
