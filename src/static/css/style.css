@@ -1,5 +1,10 @@
 html * {
-    font-family: "Times New Roman", serif !important;
+    font-family: "Chocolate_Classical_Sans", sans-serif !important;
+}
+
+@font-face {
+    font-family: "Chocolate_Classical_Sans";
+    src: url("../fonts/Chocolate_Classical_Sans/ChocolateClassicalSans-Regular.ttf");
 }
 
 .body {
@@ -311,13 +316,6 @@ html * {
 
 .ga-table td, .ga-table th {
     display: table-cell;
-}
-
-.report__ga-config table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    text-align: center;
 }
 
 @media screen and (max-width: 920px) {
