@@ -1,14 +1,5 @@
 {{ config_form.hidden_tag() }}
 
-<label for="{{ config_form.population_size.id }}" class="form__item-label">
-    {{ config_form.population_size.label.text }}
-    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_population-size">
-        <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-        <span class="tooltip__text">{{ _('Number of individuals in each generation of the genetic algorithm.') }}</span>
-    </button>
-</label>
-{{ config_form.population_size(class="form__item-input form__item-input--check") }}
-
 <label for="{{ config_form.generations.id }}" class="form__item-label">
     {{ config_form.generations.label.text }}
     <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_generations">
@@ -18,14 +9,14 @@
 </label>
 {{ config_form.generations(class="form__item-input form__item-input--check") }}
 
-<label for="{{ config_form.selection_rate.id }}" class="form__item-label">
-    {{ config_form.selection_rate.label.text }}
-    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_selection_rate">
+<label for="{{ config_form.population_size.id }}" class="form__item-label">
+    {{ config_form.population_size.label.text }}
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_population-size">
         <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-        <span class="tooltip__text">{{ _('Percentage of individuals selected for reproduction in each generation.') }}</span>
+        <span class="tooltip__text">{{ _('Number of individuals in each generation of the genetic algorithm.') }}</span>
     </button>
 </label>
-{{ config_form.selection_rate(class="form__item-input") }}
+{{ config_form.population_size(class="form__item-input form__item-input--check") }}
 
 <label for="{{ config_form.selection_type.id }}" class="form__item-label">
     {{ config_form.selection_type.label.text }}
@@ -36,6 +27,15 @@
 </label>
 {{ config_form.selection_type(class="form__item-input") }}
 
+<label for="{{ config_form.selection_rate.id }}" class="form__item-label">
+    {{ config_form.selection_rate.label.text }}
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_selection_rate">
+        <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+        <span class="tooltip__text">{{ _('Percentage of individuals selected for reproduction in each generation.') }}</span>
+    </button>
+</label>
+{{ config_form.selection_rate(class="form__item-input") }}
+
 <label for="{{ config_form.crossover_type.id }}" class="form__item-label">
     {{ config_form.crossover_type.label.text }}
     <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_crossover_type">
@@ -45,15 +45,6 @@
 </label>
 {{ config_form.crossover_type(class="form__item-input") }}
 
-<label for="{{ config_form.mutation_rate.id }}" class="form__item-label">
-    {{ config_form.mutation_rate.label.text }}
-    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_mutation_rate">
-        <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-        <span class="tooltip__text">{{ _('Probability that a mutation will occur in a gene during reproduction.') }}</span>
-    </button>
-</label>
-{{ config_form.mutation_rate(class="form__item-input") }}
-
 <label for="{{ config_form.mutation_type.id }}" class="form__item-label">
     {{ config_form.mutation_type.label.text }}
     <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_mutation_type">
@@ -62,6 +53,15 @@
     </button>
 </label>
 {{ config_form.mutation_type(class="form__item-input") }}
+
+<label for="{{ config_form.mutation_rate.id }}" class="form__item-label">
+    {{ config_form.mutation_rate.label.text }}
+    <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_mutation_rate">
+        <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+        <span class="tooltip__text">{{ _('Probability that a mutation will occur in a gene during reproduction.') }}</span>
+    </button>
+</label>
+{{ config_form.mutation_rate(class="form__item-input") }}
 
 <label for="{{ config_form.elite_pop_rate.id }}" class="form__item-label">
     {{ config_form.elite_pop_rate.label.text }}

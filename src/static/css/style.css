@@ -76,34 +76,42 @@ html * {
     color: #ffffff;
 }
 
-.title {
-    font-weight: bold;
-    text-align: center;
-}
-
 .playground {
     display: flex;
     flex-direction: row;
 }
 
-.playground__left-panel {
-    background-color: #f1f1f1;
+.playground__left-panel-section {
     flex: 25%;
+    background-color: #f1f1f1;
 }
 
-.playground__left-panel-form {
+.left-panel {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    width: auto;
+    padding: 30px;
 }
 
-.playground__left-panel-form--no-padding {
-    padding: 0;
+.title {
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+.left-panel-info {
+    text-align: justify;
+    margin: 0 0 10px 0;
+}
+
+.left-panel-form {
+    display: flex;
+    flex-direction: column;
+    width: auto;
 }
 
 .form__item-info {
     font-size: 16px;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
     color: #555;
 }
 
@@ -195,6 +203,10 @@ html * {
     background-color: #f1f1f1;
 }
 
+.team-members-section {
+    margin: 20px 30px;
+}
+
 .cards {
     display: flex;
     flex-direction: row;
@@ -244,7 +256,7 @@ html * {
 }
 
 .collapsible__content {
-    padding: 0 18px;
+    padding: 0 30px;
     font-size: 16px;
     text-align: justify;
 }
@@ -284,7 +296,7 @@ html * {
 .code-container {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0 30px;
     width: fit-content;
 }
 

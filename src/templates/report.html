@@ -14,11 +14,8 @@
     <img src="data:image/png;base64,{{ content.plot_graph }}" class="output__item-image" alt="plot_graph">
     <img src="data:image/png;base64,{{ content.box_graph }}" class="output__item-image" alt="box_graph">
 
-    <h2>{{ _('Generated test data') }}</h2>
-    <div class="output__item {% if algorithm == "ga" %}ga-table{% endif %}">{{ exec_data_html|safe }}</div>
-
     <h2>{{ _('Generated test cases') }}</h2>
-    <h3>{{ _('The following code belongs to the system under testing:') }}</h3>
+    <h3>{{ _('The following code belongs to the System Under Testing:') }}</h3>
     <pre>
         <code>
             def classify_triangle(data: list) -> str:
@@ -46,7 +43,7 @@
                 return classification
         </code>
     </pre>
-    <h3>{{ _('The test cases with the highest code coverage in the last generation were:') }}</h3>
+    <h3>{{ _('The following test cases were generated using the test data with the highest fitness score in the last generation:') }}</h3>
     <pre>
         <code>
             {% for idx, inputs in content.test_suite %}
@@ -59,5 +56,8 @@
             {% endfor %}
         </code>
     </pre>
+
+    <h2>{{ _('Generated test data') }}</h2>
+    <div class="output__item {% if algorithm == "ga" %}ga-table{% endif %}">{{ exec_data_html|safe }}</div>
 </body>
 </html>
