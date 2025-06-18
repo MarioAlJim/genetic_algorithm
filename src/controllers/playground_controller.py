@@ -227,7 +227,7 @@ class PlaygroundController:
             input=rendered_html,
             configuration=pdfkit_conf,
             css=[
-                os.path.join(project_root,"src/static/css/style.css"),
+                os.path.join(project_root,"src/static/css/report_style.css"),
             ],
             output_path=False
         )
