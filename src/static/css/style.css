@@ -109,7 +109,7 @@ html * {
 .form__item-label {
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 5px;
+    margin: 5px 0;
 }
 
 .form__item-icon {
