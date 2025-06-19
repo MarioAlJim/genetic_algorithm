@@ -2,6 +2,8 @@
 import os
 import logging
 import tempfile
+import threading
+import time
 from dotenv import load_dotenv
 
 from flask import Flask, redirect, url_for, request, session, flash
@@ -12,17 +14,36 @@ from routes.playground_routes import playground_blueprint
 
 load_dotenv()
 
-def clean_temp_files(directory, extensions):
-    """Remove residual files from the specified directory with given extensions"""
-    for filename in os.listdir(directory):
-        if any(filename.endswith(ext) for ext in extensions):
-            file_path = os.path.join(directory, filename)
-            try:
-                os.remove(file_path)
-                print(f"Residual file removed: {file_path}")
-            except Exception as e:
-                print(f"Could not be eliminated {file_path}: {e}")
-    return
+
+def start_temp_cleanup(directory, interval=600, max_age=3600, logger=None):
+    """Start a background thread to clean old files from a directory.
+
+    Args:
+        directory (str): Path to the temp directory.
+        interval (int): Time between cleanups in seconds (default 10 min).
+        max_age (int): Max file age in seconds (default 1 hour).
+        logger (Logger): Optional logger to use instead of print.
+    """
+    if logger is None:
+        logger = logging.getLogger("TempCleaner")
+
+    logger.info("Cleaner thread started for directory: %s", directory)
+
+    def cleanup_loop():
+        while True:
+            now = time.time()
+            for filename in os.listdir(directory):
+                path = os.path.join(directory, filename)
+                try:
+                    if os.path.isfile(path) and (now - os.path.getmtime(path)) > max_age:
+                        os.remove(path)
+                        logger.info(f"[TempCleaner] Removed old file: {path}")
+                except Exception as e:
+                    logger.warning(f"[TempCleaner] Error deleting {path}: {e}")
+            time.sleep(interval)
+
+    thread = threading.Thread(target=cleanup_loop, daemon=True)
+    thread.start()
 
 def get_locale():
     """Get the locale from the session or request arguments"""
@@ -45,6 +66,11 @@ def create_app() -> Flask:
     new_app.config['TEMP_DIR'] = TEMP_DIR
 
     logger = logging.getLogger(__name__)
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    start_temp_cleanup(TEMP_DIR, interval=600, max_age=1800, logger=logger)
 
     @new_app.route('/')
     def home():
@@ -81,6 +107,5 @@ def create_app() -> Flask:
     return new_app
 
 if __name__ == '__main__':
-    clean_temp_files("routes", [".json"])
     app = create_app()
     app.run(host='localhost', port=3000, debug=True)

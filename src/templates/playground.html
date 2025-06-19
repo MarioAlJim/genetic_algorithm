@@ -1,35 +1,62 @@
 {% extends 'index.html' %} {% block body %}
     <main>
         <header id="context-section" class="header__title">
-            <h1 class="title">{{ _('Context') }}</h1>
+            <h1>{{ _('Context') }}</h1>
         </header>
 
-    <div class="playground">
-        <div id="configFormContainer" class="playground__left-panel">
-            <h2 class="title">{{ _('Testing environment') }}</h2>
+        <div class="playground">
+            <div id="configFormContainer" class="playground__left-panel-section">
+                <div class="left-panel">
+                    <h2 class="title">{{ _('Testing environment') }}</h2>
 
-                <div class="playground__left-panel-form">
-                    <label class="form__item-info">
-                        {{ _('Hover on') }}
+                    <p class="left-panel-info">{{ _('A System Under Testing (SUT) refers to a system that is being tested for correct operation. The test cases used to test the SUT can be created with bio-inspired algorithms. The bio-inspired algorithms generate suites of data and those suites can be used to create test cases.') }}</p>
+                    <p class="left-panel-info">{{ _('In the following form you can select a SUT and a bio-inspired algorithm to update the context and get the parameters of your selected algorithm:') }}</p>
+
+                    <p class="form__item-info">
+                        {{ _('Click on') }}
                         <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                         {{ _('to get help') }}
-                    </label>
-                    <form action="{{ url_for('playground_blueprint.show_playground') }}#context-section" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
+                    </p>
+
+                    <div id="modal_sut" class="help-modal">
+                        <div class="help-modal__content">
+                            <div class="help-modal__header">
+                                <span class="help-modal__close" data-modal-target="modal_sut"
+                                      data-modal-close="true">&times;</span>
+                                <h2 class="help-modal__title">{{ _('System Under Testing') }}</h2>
+                            </div>
+                            <div class="help-modal__body">
+                                <p class="help-modal__collapsible__content">{{ _('System selected for experimentation of test data generation.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal_algorithm" class="help-modal">
+                        <div class="help-modal__content">
+                            <div class="help-modal__header">
+                                <span class="help-modal__close" data-modal-target="modal_algorithm"
+                                      data-modal-close="true">&times;</span>
+                                <h2 class="help-modal__title">{{ _('Algorithm') }}</h2>
+                            </div>
+                            <div class="help-modal__body">
+                                <p class="help-modal__collapsible__content">{{ _('Algorithm selected for test data generation.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="{{ url_for('playground_blueprint.show_playground') }}#context-section" method="POST" class="left-panel-form">
                         {{ context.hidden_tag() }}
                         <label for="{{ context.problem.id }}" class="form__item-label">
                             {{ context.problem.label.text }}
-                            <span class="tooltip">
-                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-                            <span class="tooltip__text">{{ _('System selected for experimentation of test data generation.') }}</span>
-                        </span>
+                            <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_sut">
+                                <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+                            </button>
                         </label>
                         {{ context.problem(class="form__item-input") }}
                         <label for="{{ context.algorithm.id }}" class="form__item-label">
                             {{ context.algorithm.label.text }}
-                            <span class="tooltip">
-                            <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-                            <span class="tooltip__text">{{ _('Algorithm selected for test data generation.') }}</span>
-                        </span>
+                            <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_algorithm">
+                                <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
+                            </button>
                         </label>
                         {{ context.algorithm(class="form__item-input") }}
                         {{ context.apply_button(class="form__item-button") }}
@@ -41,56 +68,79 @@
                 {% if context.problem.data == "triangle-classification" %}
                     <details id="triangle-classification-collapsible" open class="collapsible">
                         <summary class="collapsible__label">{{ _('Triangle Classification') }}</summary>
-                        <p class="collapsible__content">{{ _('The Triangle Classification problem consists of categorizing the type of triangle that is formed given the inputs (measurements of each side). Depending on the inputs the triangle can be classified into:') }}</p>
-                        <ul>
-                            <li>{{ _('Scalene') }}</li>
-                            <li>{{ _('Equilateral') }}</li>
-                            <li>{{ _('Isosceles') }}</li>
-                            <li>{{ _('Invalid') }}</li>
-                            <li>{{ _('Out of range') }}</li>
-                        </ul>
+                        <div class="collapsible__content">
+                            <p>{{ _('The <b>Triangle Classification</b> problem consists of categorizing the type of triangle that is formed given the inputs (measurements of each side). Depending on the inputs the triangle can be classified into:') }}</p>
+                            <ul>
+                                <li>{{ _('Scalene') }}</li>
+                                <li>{{ _('Equilateral') }}</li>
+                                <li>{{ _('Isosceles') }}</li>
+                                <li>{{ _('Invalid') }}</li>
+                                <li>{{ _('Out of range') }}</li>
+                            </ul>
+                        </div>
                     </details>
                 {%  endif %}
 
                 {% if context.algorithm.data == "ga" %}
                     <details id="ga-collapsible" open class="collapsible">
                         <summary class="collapsible__label">{{ _('Genetic Algorithm') }}</summary>
-                        <p class="collapsible__content">{{ _('The Genetic Algorithm is a population algorithm based on biological evolution. The process followed by the algorithm is:') }}</p>
-                        <ol>
-                            <li>{{ _('Select the type of representation of the solution to be generated (real number, binary, permutation, or mixed).') }}</li>
-                            <li>{{ _('Initialize a population and evaluate it using the fitness function. A fitness function its a function that evaluates how well a potential solution meets its goals given a problem.') }}</li>
-                            <li>{{ _('Apply elitism if indicated. Elitism consists in selecting a defined number of the best individuals in the current population and keep them intact until the next generation.') }}</li>
-                            <li>{{ _('Select some chromosomes (also called individuals) from the current population.') }}</li>
-                            <li>{{ _('Cross the selected individuals to create new individuals (children).') }}</li>
-                            <li>{{ _('Mutate some of the children.') }}</li>
-                            <li>{{ _('Evaluate the new population (children) using the fitness function.') }}</li>
-                            <li>{{ _('Repeat the steps 3 to 7 until a standstill condition is known or a satisfactory solution is reached.') }}</li>
-                        </ol>
+                        <div class="collapsible__content">
+                            <p>{{ _('The <b>Genetic Algorithm</b> is a population algorithm based on biological evolution. The process followed by the algorithm is:') }}</p>
+                            <ol>
+                                <li>{{ _('<b>Representation of the solution:</b> Select the type of representation of the solution to be generated (real number, binary, permutation, or mixed).') }}</li>
+                                <li>{{ _('<b>Initialization of the population:</b> Initialize a population and evaluate it using the fitness function. A fitness function its a function that evaluates how well a potential solution meets its goals given a problem.') }}</li>
+                                <li>{{ _('<b>Elitism:</b> Apply elitism if indicated. Elitism consists in selecting a defined number of the best individuals in the current population and keep them intact until the next generation.') }}</li>
+                                <li>{{ _('<b>Selection:</b> Select some chromosomes (also called individuals) from the current population.') }}</li>
+                                <li>{{ _('<b>Crossover:</b> Cross the selected individuals to create new individuals (children).') }}</li>
+                                <li>{{ _('<b>Mutation:</b> Mutate some of the children.') }}</li>
+                                <li>{{ _('<b>Evaluation of the new population:</b> Evaluate the new population (children) using the fitness function.') }}</li>
+                                <li>{{ _('Repeat the steps 3 to 7 until a standstill condition is known or a satisfactory solution is reached.') }}</li>
+                            </ol>
+                            <p>{{ _('An initial population can contain individuals like these:') }}</p>
+                            <ul>
+                                <li>[[21.06, 79.4, 96.45, 88.25, 40.9, -12.03, 86.88, 17.15, -82.33, -78.64, -55.04, 23.01, 56.66, -82.18, 82.13], 58.82]</li>
+                                <li>[[-56.6, -23.06, -80.5, 11.46, 7.76, 27.38, -47.28, -66.02, 43.12, -93.68, 2.58, 40.8, 58.72, 10.45, -12.79], 52.94]</li>
+                                <li>[[-51.84, 52.34, -5.35, 67.99, -44.35, -45.6, 11.53, 85.06, -89.16, -74.56, 57.78, -48.45, 24.39, 7.63, -84.65], 41.18]</li>
+                                <li>...</li>
+                            </ul>
+                            <p>{{ _('Where the first element of each individual is a list of real numbers that represent the test data and the second element is the fitness score of the individual.') }}</p>
+                            <p>{{ _('A <b>fitness score</b> is a value that is assigned to each potential solution, on how well it satisfies the objectives and constraints of the problem. The higher the value, the better the solution.') }}</p>
+                        </div>
                     </details>
                 {% endif %}
             </div>
         </div>
 
         <header id="execution-results" class="header__title">
-            <h1 class="title">{{ _('Execution results') }}</h1>
+            <h1>{{ _('Execution results') }}</h1>
         </header>
 
         <div class="playground">
-            <div id="configFormContainer" class="playground__left-panel">
+            <div id="configFormContainer" class="playground__left-panel-section">
                 {% if config_form_template %}
-                    <h2 class="title">{{ _('Algorithm settings') }}</h2>
-                    <div class="playground__left-panel-form">
-                        <label class="form__item-info">
-                            {{ _('Click or hover on') }}
+                    <div class="left-panel">
+                        <h2 class="title">{{ _('Algorithm settings') }}</h2>
+
+                        <p class="left-panel-info">{{ _('Select the parameters of the algorithm to generate the test data:') }}</p>
+
+                        <p class="form__item-info">
+                            {{ _('Click on') }}
                             <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             {{ _('to get help') }}
-                        </label>
-                        <form id="config-form" action="{{ url_for('playground_blueprint.show_playground') }}#execution-results" method="POST" class="playground__left-panel-form playground__left-panel-form--no-padding">
+                        </p>
+
+                        <form id="config-form" action="{{ url_for('playground_blueprint.show_playground') }}#execution-results" method="POST" class="left-panel-form">
                             {% include config_form_template %}
                         </form>
-                        <form action="{{ url_for('playground_blueprint.download_report') }}" method="GET" class="playground__left-panel-form playground__left-panel-form--no-padding">
+
+                        <form action="{{ url_for('playground_blueprint.download_report') }}" method="GET" class="left-panel-form">
                             <input id="download-btn" type="submit" value="{{ _('Download report') }}" class="form__item-button" {% if not allow_download %}disabled{% endif %}>
                         </form>
+                    </div>
+                    <div class="left-panel">
+                        <h2 class="title">{{ _('Dear user') }}</h2>
+                        <p class="left-panel-info">{{ _('Help us improve the experience by answering a short form. Thank you!') }}</p>
+                        <a href="https://forms.office.com/r/0JytZQYq4t" target="_blank" rel="noopener noreferrer" class="left-panel_button">{{ _('Go to form') }}</a>
                     </div>
                 {% endif %}
             </div>
@@ -100,120 +150,138 @@
 
                     <details id="successful_execution" open class="collapsible">
                         <summary class="collapsible__label">{{ _('Execution analysis graphs') }}</summary>
-                        <p class="collapsible__content">{{ _('The context and parameters indicated for the algorithm are represented in the following table:') }}</p>
-                        <div class="output__item">{{ content.config_html|safe }}</div>
-                        <p class="collapsible__content">{{ _('The following graphs represent the execution analysis of the algorithm:') }}</p>
-                        <div class="graph-container">
-                            <img src="data:image/png;base64,{{ content.plot_graph }}" class="output__item-image" alt="plot_graph">
-                            <img src="data:image/png;base64, {{ content.box_graph }}" class="output__item-image" alt="box_graph">
+                        <div class="collapsible__content">
+                            <p>{{ _('The following testing environment and algorithm configurations were used to generate the test data and test cases:') }}</p>
+                            <div class="output__item">{{ content.config_html|safe }}</div>
+                            <p>{{ _('In this case, the fitness score is calculated based on the coverage of the test cases generated by the algorithm, which is the percentage of the code that is executed when running the test cases against the System Under Testing.') }}</p>
+                            <p>{{ _('The following graphs are a representation of how well the algorithm performed with the given configurations, using the fitness score as a reference:') }}</p>
+                            <div class="graph-container">
+                                <img src="data:image/png;base64,{{ content.plot_graph }}" class="output__item-image" alt="plot_graph">
+                                <img src="data:image/png;base64, {{ content.box_graph }}" class="output__item-image" alt="box_graph">
+                            </div>
+                        </div>
+                    </details>
+
+                    <details open class="collapsible">
+                        <summary class="collapsible__label">{{ _('Generated test cases') }}</summary>
+                        <div class="collapsible__content">
+                            <p>{{ _('To generate the test cases, the individual from the last generation with the highest fitness score was used.') }}</p>
+                            <p>{{ _('The following code belongs to the System Under Testing and the test cases generated by the algorithm:') }}</p>
+
+                            <div class="code-section">
+                                <div class="code-container">
+                                    {% if context.problem.data == "triangle-classification" %}
+                                        <h3 class="code-container__title">{{ _('System Under Testing code') }}</h3>
+                                        <pre class="line-numbers code-container__code">
+                                            <code class="language-python">
+                                                def classify_triangle(data: list) -> str:
+                                                    """Classifies the triangle based on the given lengths"""
+                                                    classification = None
+                                                    a = data[0]
+                                                    b = data[1]
+                                                    c = data[2]
+
+                                                    if a > 0 and b > 0 and c > 0:
+                                                        if a + b > c and b + c > a and c + a > b:
+                                                            if a != b and b != c and c != a:
+                                                                classification = 'scalene'
+                                                            elif a == b == c:
+                                                                classification = 'equilateral'
+                                                            elif ((a == b != c) or
+                                                                  (a == c != b) or
+                                                                  (b == c != a)):
+                                                                classification = 'isosceles'
+                                                        else:
+                                                            classification = 'invalid'
+                                                    else:
+                                                        classification = 'out of range'
+
+                                                    return classification
+                                            </code>
+                                        </pre>
+                                    {%  endif %}
+
+                                    {% if context.problem.data == "triangle-classification" %}
+                                        <h3 class="code-container__title">{{ _('Test cases code') }}</h3>
+                                        <pre class="line-numbers code-container__code">
+                                            <code class="language-python">
+                                                {% for idx, inputs in content.test_suite %}
+                                                    def test_{{ idx }}():
+                                                    """Test generated automatically by BiTe"""
+                                                    inputs = {{ inputs }}
+                                                    classification = classify_triangle(inputs)
+                                                    # Default assertion
+                                                    assert classification is not None
+                                                {% endfor %}
+                                            </code>
+                                        </pre>
+                                    {%  endif %}
+                                </div>
+                            </div>
                         </div>
                     </details>
 
                     <details open class="collapsible">
                         <summary id="generated-test-data" class="collapsible__label">{{ _('Generated test data') }}</summary>
-                        <p class="collapsible__content">{{ _('The following table shows the execution data generated by the algorithm:') }}</p>
-
-                        <nav aria-label="Pagination">
-                            <ul class="pagination">
-                                {% if content.current_page > 1 %}
-                                    <li class="pagination__item">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
-                                    </li>
-                                {% endif %}
-
-                                {% for p in range(1, content.total_pages + 1) %}
-                                    <li class="pagination__item {% if p == content.current_page %}pagination__item--active{% endif %}">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=p) }}#generated-test-data">{{ p }}</a>
-                                    </li>
-                                {% endfor %}
-
-                                {% if content.current_page < content.total_pages %}
-                                    <li class="pagination__item">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page + 1) }}#generated-test-data">{{ _('Next') }}</a>
-                                    </li>
-                                {% endif %}
+                        <div class="collapsible__content">
+                            <p>{{ _('The following table shows the execution data generated by the algorithm:') }}</p>
+                            <ul>
+                                <li>{{ _('The <b>initial population</b> column shows the individuals with which each generation starts the algorithm process.')}} </li>
+                                <li>{{ _('The <b>evaluated population</b> column shows the individuals that are the product of the selection, crossover, and mutation process of the algorithm, and that are evaluated by the fitness function.') }}</li>
                             </ul>
-                        </nav>
 
-                        <div class="output__item {% if context.algorithm.data == "ga" %}ga-table{% endif %}">{{ content.exec_data_html|safe }}</div>
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+                                    {% if content.current_page > 1 %}
+                                        <li class="pagination__item">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
+                                        </li>
+                                    {% endif %}
 
-                        <nav aria-label="Pagination">
-                            <ul class="pagination">
-                                {% if content.current_page > 1 %}
-                                    <li class="pagination__item">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
-                                    </li>
-                                {% endif %}
+                                    {% for p in range(1, content.total_pages + 1) %}
+                                        <li class="pagination__item {% if p == content.current_page %}pagination__item--active{% endif %}">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=p) }}#generated-test-data">{{ p }}</a>
+                                        </li>
+                                    {% endfor %}
 
-                                {% for p in range(1, content.total_pages + 1) %}
-                                    <li class="pagination__item {% if p == content.current_page %}pagination__item--active{% endif %}">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=p) }}#generated-test-data">{{ p }}</a>
-                                    </li>
-                                {% endfor %}
+                                    {% if content.current_page < content.total_pages %}
+                                        <li class="pagination__item">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page + 1) }}#generated-test-data">{{ _('Next') }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
 
-                                {% if content.current_page < content.total_pages %}
-                                    <li class="pagination__item">
-                                        <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page + 1) }}#generated-test-data">{{ _('Next') }}</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
-                    </details>
+                            <div class="output__item {% if context.algorithm.data == "ga" %}ga-table{% endif %}">{{ content.exec_data_html|safe }}</div>
 
-                    <details open class="collapsible">
-                        <summary class="collapsible__label">{{ _('Generated test cases') }}</summary>
-                        <div class="code-container">
-                            <p class="collapsible__content">{{ _('The following code belongs to the system under testing:') }}</p>
-                            {% if context.problem.data == "triangle-classification" %}
-                                <pre class="line-numbers code-container__code">
-                                    <code class="language-python">
-                                        def classify_triangle(data: list) -> str:
-                                            """Classifies the triangle based on the given lengths"""
-                                            classification = None
-                                            a = data[0]
-                                            b = data[1]
-                                            c = data[2]
+                            <nav aria-label="Pagination">
+                                <ul class="pagination">
+                                    {% if content.current_page > 1 %}
+                                        <li class="pagination__item">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page - 1) }}#generated-test-data">{{ _('Previous') }}</a>
+                                        </li>
+                                    {% endif %}
 
-                                            if a > 0 and b > 0 and c > 0:
-                                                if a + b > c and b + c > a and c + a > b:
-                                                    if a != b and b != c and c != a:
-                                                        classification = 'scalene'
-                                                    elif a == b == c:
-                                                        classification = 'equilateral'
-                                                    elif ((a == b != c) or
-                                                          (a == c != b) or
-                                                          (b == c != a)):
-                                                        classification = 'isosceles'
-                                                else:
-                                                    classification = 'invalid'
-                                            else:
-                                                classification = 'out of range'
+                                    {% for p in range(1, content.total_pages + 1) %}
+                                        <li class="pagination__item {% if p == content.current_page %}pagination__item--active{% endif %}">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=p) }}#generated-test-data">{{ p }}</a>
+                                        </li>
+                                    {% endfor %}
 
-                                            return classification
-                                    </code>
-                                </pre>
-                            {%  endif %}
-
-                            <p class="collapsible__content">{{ _('The test cases with the highest code coverage in the last generation were:') }}</p>
-                            {% if context.problem.data == "triangle-classification" %}
-                                <pre class="line-numbers code-container__code">
-                                    <code class="language-python">
-                                        {% for idx, inputs in content.test_suite %}
-                                            def test_{{ idx }}():
-                                            """Test generated automatically by BiTe"""
-                                            inputs = {{ inputs }}
-                                            classification = classify_triangle(inputs)
-                                            # Default assertion
-                                            assert classification is not None
-                                        {% endfor %}
-                                    </code>
-                                </pre>
-                            {%  endif %}
+                                    {% if content.current_page < content.total_pages %}
+                                        <li class="pagination__item">
+                                            <a class="pagination__link" href="{{ url_for('playground_blueprint.show_playground', page=content.current_page + 1) }}#generated-test-data">{{ _('Next') }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
                         </div>
                     </details>
 
                 {% else %}
-                    <p class="output__item">{{ _('Run the algorithm to be able to visualize the results.') }}</p>
+                    <div class="collapsible__content">
+                        <p class="output__item">{{ _('Run the algorithm to be able to visualize the results.') }}</p>
+                    </div>
                 {% endif %}
             </div>
         </div>

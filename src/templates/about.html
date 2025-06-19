@@ -1,6 +1,6 @@
 {% extends 'index.html' %} {% block body %}
     <div class="header__title">
-        <h1 class="title">{{ _('ABOUT') }}</h1>
+        <h1>{{ _('ABOUT') }}</h1>
     </div>
 
     <div class="about">
@@ -22,32 +22,34 @@
         </p>
     </div>
 
-    <h1 class="title">{{ _('Team members') }}</h1>
-    <div class="cards">
-        <div class="cards__card">
-            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
-            <h3>Joshua Eliud Hernández Suárez</h3>
-            <p>jeliud.hsuarez@gmail.com</p>
-        </div>
-        <div class="cards__card">
-            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
-            <h3>Mario Alberto Jiménez Jiménez</h3>
-            <p>mario.aljim@gmail.com</p>
-        </div>
-        <div class="cards__card">
-            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
-            <h3>Saúl Domínguez Isidro</h3>
-            <p>sauldominguez@uv.mx</p>
-        </div>
-        <div class="cards__card">
-            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
-            <h3>Jorge Octavio Ocharán Hernández</h3>
-            <p>jocharan@uv.mx</p>
-        </div>
-        <div class="cards__card">
-            <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
-            <h3>Héctor Xavier Limón Riaño</h3>
-            <p>hlimon@uv.mx</p>
+    <div class="team-members-section">
+        <h1 class="title">{{ _('Team members') }}</h1>
+        <div class="cards">
+            <div class="cards__card">
+                <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+                <h3>Joshua Eliud Hernández Suárez</h3>
+                <p>jeliud.hsuarez@gmail.com</p>
+            </div>
+            <div class="cards__card">
+                <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+                <h3>Mario Alberto Jiménez Jiménez</h3>
+                <p>mario.aljim@gmail.com</p>
+            </div>
+            <div class="cards__card">
+                <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+                <h3>Saúl Domínguez Isidro</h3>
+                <p>sauldominguez@uv.mx</p>
+            </div>
+            <div class="cards__card">
+                <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+                <h3>Jorge Octavio Ocharán Hernández</h3>
+                <p>jocharan@uv.mx</p>
+            </div>
+            <div class="cards__card">
+                <img src="../static/images/team-member.png" class="card__image" alt="Team member image">
+                <h3>Héctor Xavier Limón Riaño</h3>
+                <p>hlimon@uv.mx</p>
+            </div>
         </div>
     </div>
 {% endblock %}

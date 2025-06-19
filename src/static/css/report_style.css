@@ -1,0 +1,39 @@
+.report__ga-config table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.output__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 18px 18px 18px;
+    width: auto;
+    text-align: center;
+}
+
+.output__item-image {
+    padding: 0 18px 18px 18px;
+    width: 100%;
+    max-width: fit-content;
+}
+
+.ga-table td, .ga-table th {
+    display: table-cell;
+}
+
+@media screen and (max-width: 920px) {
+    .output__item-image {
+        padding: 0;
+    }
+    .ga-table td:nth-child(3),
+    .ga-table th:nth-child(3),
+    .ga-table td:nth-child(4),
+    .ga-table th:nth-child(4),
+    .ga-table td:nth-child(5),
+    .ga-table th:nth-child(5) {
+      display: none;
+    }
+}

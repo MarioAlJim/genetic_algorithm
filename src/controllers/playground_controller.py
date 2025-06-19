@@ -3,9 +3,11 @@ import base64
 import json
 import os
 import pdfkit
+import matplotlib as mpl
 from io import BytesIO, StringIO
 from flask import render_template, current_app
 from flask_babel import gettext
+from matplotlib import font_manager as fm
 from matplotlib import pyplot as plt
 from pandas import DataFrame, read_html
 from src.models.algorithm import Algorithm
@@ -60,6 +62,13 @@ class PlaygroundController:
 
     def _generate_graphics(self, df_exec_data: dict) -> tuple:
         """Generate the graphics for the report"""
+        font_path = os.path.join(
+            current_app.root_path,
+            'static', 'fonts', 'Chocolate_Classical_Sans', 'ChocolateClassicalSans-Regular.ttf')
+        fm.fontManager.addfont(font_path)
+        custom_font = fm.FontProperties(fname=font_path)
+        mpl.rcParams['font.family'] = custom_font.get_name()
+
         num_generations = df_exec_data["Generation"]
         eval_pop = df_exec_data["Evaluated population"]
 
@@ -80,6 +89,8 @@ class PlaygroundController:
             num_generations = [num_generations[i] for i in selected_indices]
 
         avg_fitness, best_fitness, fitness_by_generation = self._get_fitness_values(eval_pop)
+
+
 
         # Generate the graphic 1
         plt.axhline(
@@ -227,7 +238,7 @@ class PlaygroundController:
             input=rendered_html,
             configuration=pdfkit_conf,
             css=[
-                os.path.join(project_root,"src/static/css/style.css"),
+                os.path.join(project_root,"src/static/css/report_style.css"),
             ],
             output_path=False
         )

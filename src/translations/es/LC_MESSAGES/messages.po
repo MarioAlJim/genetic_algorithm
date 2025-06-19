@@ -226,47 +226,11 @@ msgstr ""
 msgid "Team members"
 msgstr "Miembros del equipo"
 
-#: src/templates/ga_form_template.html:7
-msgid "Number of individuals in each generation of the genetic algorithm."
-msgstr "Número de individuos en cada generación del algoritmo genético."
-
-#: src/templates/ga_form_template.html:16
-msgid "Number of iterations the genetic algorithm will run."
-msgstr "Número de iteraciones que ejecutará el algoritmo genético."
-
-#: src/templates/ga_form_template.html:25
-msgid "Percentage of individuals selected for reproduction in each generation."
-msgstr ""
-"Porcentaje de individuos seleccionados para la reproducción en cada "
-"generación."
-
-#: src/templates/ga_form_template.html:34
-msgid "Strategy used to select individuals for reproduction."
-msgstr "La estrategia utilizada para elegir a los individuos para la reproducción."
-
-#: src/templates/ga_form_template.html:43
-msgid ""
-"Method used to combine genetic information from parents to produce "
-"offspring."
-msgstr ""
-"Método utilizado para combinar la información genética de los padres para"
-" producir descendencia."
-
 #: src/templates/ga_form_template.html:52
 msgid "Probability that a mutation will occur in a gene during reproduction."
 msgstr ""
 "Probabilidad de que se produzca una mutación en un gen durante la "
 "reproducción."
-
-#: src/templates/ga_form_template.html:61
-msgid "The method used to apply genetic mutations."
-msgstr "El método utilizado para aplicar las mutaciones."
-
-#: src/templates/ga_form_template.html:70
-msgid "Portion of best individuals preserved without modification."
-msgstr ""
-"Porción de los mejores individuos conservada sin cambios para la "
-"siguiente generación."
 
 #: src/templates/index.html:17
 msgid "PLAYGROUND"
@@ -287,12 +251,9 @@ msgstr "Ejecutando el experimento, por favor espere..."
 msgid "Context"
 msgstr "Contexto"
 
-msgid "Hover on"
-msgstr "Pase el cursor sobre"
-
 #: src/templates/playground.html:10
-msgid "Click or hover on"
-msgstr "Haga clic o pase el cursor sobre"
+msgid "Click on"
+msgstr "Haga clic en"
 
 #: src/templates/playground.html:10
 msgid "to get help"
@@ -322,11 +283,11 @@ msgstr "Descargar reporte"
 
 #: src/templates/playground.html:53
 msgid ""
-"The Triangle Classification problem consists of categorizing the type of "
+"The <b>Triangle Classification</b> problem consists of categorizing the type of "
 "triangle that is formed given the inputs (measurements of each side). "
 "Depending on the inputs the triangle can be classified into:"
 msgstr ""
-"El problema de Clasificación de Triángulos consiste en categorizar el "
+"El problema de <b>Clasificación de Triángulos</b> consiste en categorizar el "
 "tipo de triángulo que se forma según las entradas (medidas de cada lado)."
 " Dependiendo de las entradas, el triángulo puede clasificarse en:"
 
@@ -352,59 +313,65 @@ msgstr "Fuera de rango"
 
 #: src/templates/playground.html:67
 msgid ""
-"The Genetic Algorithm is a population algorithm based on biological "
+"The <b>Genetic Algorithm</b> is a population algorithm based on biological "
 "evolution. The process followed by the algorithm is:"
 msgstr ""
-"El Algoritmo Genético es un algoritmo poblacional basado en la evolución "
+"El <b>Algoritmo Genético</b> es un algoritmo poblacional basado en la evolución "
 "biológica. El proceso seguido por el algoritmo es:"
 
 #: src/templates/playground.html:69
-msgid ""
-"Select the type of representation of the solution to be generated (real "
-"number, binary, permutation, or mixed)."
-msgstr ""
-"Selecciona el tipo de representación de la solución a generar (número "
-"real, binario, permutación o mixto)."
+msgid "<b>Representation of the solution:</b> "
+"Select the type of representation of the solution to be generated "
+"(real number, binary, permutation, or mixed)."
+msgstr "<b>Representación de la solución:</b> "
+"Selecciona el tipo de representación de la solución a generar "
+"(número real, binario, permutación o mixto)."
 
 #: src/templates/playground.html:70
-msgid ""
+msgid "<b>Initialization of the population:</b> "
 "Initialize a population and evaluate it using the fitness function. A "
 "fitness function its a function that evaluates how well a potential "
 "solution meets its goals given a problem."
-msgstr ""
+msgstr "<b>Inicialización de la población:</b> "
 "Inicializa una población y evalúala usando la función de aptitud. La "
 "función de aptitud evalúa qué tan bien una solución potencial cumple con "
 "los objetivos dados de un problema."
 
 #: src/templates/playground.html:71
-msgid ""
+msgid "<b>Elitism:</b> "
 "Apply elitism if indicated. Elitism consists in selecting a defined "
 "number of the best individuals in the current population and keep them "
 "intact until the next generation."
-msgstr ""
+msgstr "<b>Elitismo:</b> "
 "Aplica elitismo si se indica. El elitismo consiste en seleccionar un "
 "número definido de los mejores individuos de la población actual y "
 "conservarlos intactos hasta la siguiente generación."
 
 #: src/templates/playground.html:72
-msgid ""
+msgid "<b>Selection:</b> "
 "Select some chromosomes (also called individuals) from the current "
 "population."
-msgstr ""
+msgstr "<b>Selección:</b> "
 "Selecciona algunos cromosomas (también llamados individuos) de la "
 "población actual."
 
 #: src/templates/playground.html:73
-msgid "Cross the selected individuals to create new individuals (children)."
-msgstr "Cruza los individuos seleccionados para crear nuevos individuos (hijos)."
+msgid "<b>Crossover:</b> "
+"Cross the selected individuals to create new individuals (children)."
+msgstr "<b>Cruza:</b> "
+"Cruza los individuos seleccionados para crear nuevos individuos (hijos)."
 
 #: src/templates/playground.html:74
-msgid "Mutate some of the children."
-msgstr "Muta algunos de los hijos."
+msgid "<b>Mutation:</b> "
+"Mutate some of the children."
+msgstr "<b>Mutación:</b> "
+"Muta algunos de los hijos."
 
 #: src/templates/playground.html:75
-msgid "Evaluate the new population (children) using the fitness function."
-msgstr "Evalúa la nueva población (hijos) usando la función de aptitud."
+msgid "<b>Evaluation of the new population:</b> "
+"Evaluate the new population (children) using the fitness function."
+msgstr "<b>Evaluación de la nueva población:</b> "
+"Evalúa la nueva población (hijos) usando la función de aptitud."
 
 #: src/templates/playground.html:76
 msgid ""
@@ -419,18 +386,15 @@ msgid "Execution analysis graphs"
 msgstr "Gráficos de análisis de ejecución"
 
 #: src/templates/playground.html:88
-msgid ""
-"The context and parameters indicated for the algorithm are represented in"
-" the following table:"
-msgstr ""
-"El contexto y los parámetros indicados para el algoritmo se representan "
-"en la siguiente tabla:"
+msgid "The following testing environment and algorithm configurations were used to generate the test data and test cases:"
+msgstr "Las siguientes configuraciones del entorno de prueba y del algoritmo se utilizaron para generar los datos de prueba y los casos de prueba:"
+
+msgid "In this case, the fitness score is calculated based on the coverage of the test cases generated by the algorithm, which is the percentage of the code that is executed when running the test cases against the System Under Testing."
+msgstr "En este caso, el valor de aptitud se calcula en base a la cobertura de los casos de prueba generados por el algoritmo, que es el porcentaje del código que se ejecuta al ejecutar los casos de prueba contra el Sistema Bajo Prueba."
 
 #: src/templates/playground.html:90
-msgid "The following graphs represent the execution analysis of the algorithm:"
-msgstr ""
-"Las siguientes gráficas representan el análisis de ejecución del "
-"algoritmo:"
+msgid "The following graphs are a representation of how well the algorithm performed with the given configurations, using the fitness score as a reference:"
+msgstr "Los siguientes gráficos son una representación de qué tan bien se desempeñó el algoritmo con las configuraciones dadas, usando el valor de aptitud como referencia:"
 
 #: src/templates/playground.html:96 src/templates/report.html:17
 msgid "Generated test data"
@@ -454,15 +418,6 @@ msgstr "Siguiente"
 msgid "Generated test cases"
 msgstr "Casos de prueba generados"
 
-msgid "The following code belongs to the system under testing:"
-msgstr "El siguiente código pertenece al sistema bajo prueba:"
-
-#: src/templates/playground.html:148
-msgid "The test cases with the highest code coverage in the last generation were:"
-msgstr ""
-"Los casos de prueba con mayor cobertura de código en la última generación"
-" fueron:"
-
 #: src/templates/playground.html:202
 msgid "Run the algorithm to be able to visualize the results."
 msgstr "Ejecuta el algoritmo para poder visualizar los resultados."
@@ -479,7 +434,7 @@ msgstr "Configuración aplicada"
 #~ msgstr "Pagina"
 
 msgid "System Under Testing"
-msgstr "Sistema bajo prueba"
+msgstr "Sistema Bajo Prueba"
 
 #~ msgid "Number of generations"
 #~ msgstr "Número de generaciones"
@@ -636,10 +591,6 @@ msgstr "Cambia el valor de uno o más genes a un valor aleatorio dentro de su do
 msgid "Mutation rate"
 msgstr "Tasa de mutación"
 
-#: src/templates/ga_form_template.html:181
-msgid "Probability of applying mutation to individuals."
-msgstr "Probabilidad de aplicar mutación a los individuos."
-
 #: src/templates/ga_form_template.html:183
 msgid "Higher rates explore more, but can destabilize the population."
 msgstr "Tasas más altas exploran más, pero pueden desestabilizar la población."
@@ -658,3 +609,48 @@ msgstr "Ayuda a conservar soluciones fuertes, pero un valor demasiado alto puede
 
 msgid "An unexpected error occurred. Please try again later."
 msgstr "Un error inesperado ocurrió. Por favor, inténtalo de nuevo más tarde."
+
+msgid "A System Under Testing (SUT) refers to a system that is being tested for correct operation. The test cases used to test the SUT can be created with bio-inspired algorithms. The bio-inspired algorithms generate suites of data and those suites can be used to create test cases."
+msgstr "Un Sistema Bajo Prueba (SUT por sus siglas en inglés) se refiere a un sistema que está siendo probado para verificar su correcto funcionamiento. Los casos de prueba utilizados para probar el SUT pueden ser creados con algoritmos bioinspirados. Los algoritmos bioinspirados generan conjuntos de datos y esos conjuntos pueden ser utilizados para crear casos de prueba."
+
+msgid "In the following form you can select a SUT and a bio-inspired algorithm to update the context and get the parameters of your selected algorithm:"
+msgstr "En el siguiente formulario puedes seleccionar un SUT y un algoritmo bioinspirado para actualizar el contexto y obtener los parámetros de tu algoritmo seleccionado:"
+
+msgid "Select the parameters of the algorithm to generate the test data:"
+msgstr "Selecciona los parámetros del algoritmo para generar los datos de prueba:"
+
+msgid "The <b>initial population</b> column shows the individuals with which each generation starts the algorithm process."
+msgstr "La columna de <b>población inicial</b> muestra los individuos con los que cada generación inicia el proceso del algoritmo."
+
+msgid "The <b>evaluated population</b> column shows the individuals that are the product of the selection, crossover, and mutation process of the algorithm, and that are evaluated by the fitness function."
+msgstr "La columna de <b>población evaluada</b> muestra los individuos que son producto del proceso de selección, cruce y mutación del algoritmo, y que son evaluados por la función de aptitud."
+
+msgid "An initial population can contain individuals like these:"
+msgstr "Una población inicial puede contener individuos como estos:"
+
+msgid "Where the first element of each individual is a list of real numbers that represent the test data and the second element is the fitness score of the individual."
+msgstr "Donde el primer elemento de cada individuo es una lista de números reales que representan los datos de prueba y el segundo elemento es el valor de aptitud del individuo."
+
+msgid "A <b>fitness score</b> is a value that is assigned to each potential solution, on how well it satisfies the objectives and constraints of the problem. The higher the value, the better the solution."
+msgstr "Un <b>valor de aptitud</b> es un valor que se asigna a cada solución potencial, sobre qué tan bien satisface los objetivos y restricciones del problema. Cuanto mayor es el valor, mejor es la solución."
+
+msgid "To generate the test cases, the individual from the last generation with the highest fitness score was used."
+msgstr "Para generar los casos de prueba, se utilizó el individuo de la última generación con el valor de aptitud más alto."
+
+msgid "The following code belongs to the System Under Testing and the test cases generated by the algorithm:"
+msgstr "El siguiente código pertenece al Sistema Bajo Prueba y a los casos de prueba generados por el algoritmo:"
+
+msgid "System Under Testing code"
+msgstr "Código del Sistema Bajo Prueba"
+
+msgid "Test cases code"
+msgstr "Código de los casos de prueba"
+
+msgid "Dear user"
+msgstr "Estimado usuario"
+
+msgid "Help us improve the experience by answering a short form. Thank you!"
+msgstr "Ayúdanos a mejorar la experiencia respondiendo un breve formulario. ¡Gracias!"
+
+msgid "Go to form"
+msgstr "Ir al formulario"

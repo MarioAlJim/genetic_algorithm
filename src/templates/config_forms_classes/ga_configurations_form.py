@@ -178,7 +178,7 @@ class GAConfigurationsForm(FlaskForm):
                 "modal_title": lazy_gettext('Mutation rate'),
                 "help_items": [
                     {"title": lazy_gettext('Definition'),
-                     "description": lazy_gettext('Probability of applying mutation to individuals.')},
+                     "description": lazy_gettext('Probability that a mutation will occur in a gene during reproduction.')},
                     {"title": lazy_gettext('Impact'),
                      "description": lazy_gettext('Higher rates explore more, but can destabilize the population.')}
                 ]
