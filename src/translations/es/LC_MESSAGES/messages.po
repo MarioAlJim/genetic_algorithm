@@ -226,47 +226,11 @@ msgstr ""
 msgid "Team members"
 msgstr "Miembros del equipo"
 
-#: src/templates/ga_form_template.html:7
-msgid "Number of individuals in each generation of the genetic algorithm."
-msgstr "Número de individuos en cada generación del algoritmo genético."
-
-#: src/templates/ga_form_template.html:16
-msgid "Number of iterations the genetic algorithm will run."
-msgstr "Número de iteraciones que ejecutará el algoritmo genético."
-
-#: src/templates/ga_form_template.html:25
-msgid "Percentage of individuals selected for reproduction in each generation."
-msgstr ""
-"Porcentaje de individuos seleccionados para la reproducción en cada "
-"generación."
-
-#: src/templates/ga_form_template.html:34
-msgid "Strategy used to select individuals for reproduction."
-msgstr "La estrategia utilizada para elegir a los individuos para la reproducción."
-
-#: src/templates/ga_form_template.html:43
-msgid ""
-"Method used to combine genetic information from parents to produce "
-"offspring."
-msgstr ""
-"Método utilizado para combinar la información genética de los padres para"
-" producir descendencia."
-
 #: src/templates/ga_form_template.html:52
 msgid "Probability that a mutation will occur in a gene during reproduction."
 msgstr ""
 "Probabilidad de que se produzca una mutación en un gen durante la "
 "reproducción."
-
-#: src/templates/ga_form_template.html:61
-msgid "The method used to apply genetic mutations."
-msgstr "El método utilizado para aplicar las mutaciones."
-
-#: src/templates/ga_form_template.html:70
-msgid "Portion of best individuals preserved without modification."
-msgstr ""
-"Porción de los mejores individuos conservada sin cambios para la "
-"siguiente generación."
 
 #: src/templates/index.html:17
 msgid "PLAYGROUND"
@@ -287,12 +251,9 @@ msgstr "Ejecutando el experimento, por favor espere..."
 msgid "Context"
 msgstr "Contexto"
 
-msgid "Hover on"
-msgstr "Pase el cursor sobre"
-
 #: src/templates/playground.html:10
-msgid "Click or hover on"
-msgstr "Haga clic o pase el cursor sobre"
+msgid "Click on"
+msgstr "Haga clic en"
 
 #: src/templates/playground.html:10
 msgid "to get help"
@@ -629,10 +590,6 @@ msgstr "Cambia el valor de uno o más genes a un valor aleatorio dentro de su do
 #: src/templates/ga_form_template.html:178
 msgid "Mutation rate"
 msgstr "Tasa de mutación"
-
-#: src/templates/ga_form_template.html:181
-msgid "Probability of applying mutation to individuals."
-msgstr "Probabilidad de aplicar mutación a los individuos."
 
 #: src/templates/ga_form_template.html:183
 msgid "Higher rates explore more, but can destabilize the population."

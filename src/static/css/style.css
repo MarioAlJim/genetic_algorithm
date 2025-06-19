@@ -9,6 +9,7 @@ html * {
 
 .body {
     margin: 0;
+    width: 100%;
 }
 
 .navbar {
@@ -29,7 +30,6 @@ html * {
 
 .navbar__item--highlight {
     flex: 60%;
-    background-color: #04AA6D;
 }
 
 .navbar__item:hover {
@@ -63,7 +63,7 @@ html * {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #474e5d;
+    background-color: #18529D;
     color: #ffffff;
 }
 
@@ -74,7 +74,7 @@ html * {
 
 .playground__left-panel-section {
     flex: 25%;
-    background-color: #f1f1f1;
+    background-color: #E3F2FD;
 }
 
 .left-panel {
@@ -129,18 +129,18 @@ html * {
 }
 
 .form__item-input--check:valid {
-    border-color: #04AA6D;
+    border-color: #28AD56;
 }
 
 .form__item-input--check:invalid {
-    border-color: #f44336;
+    border-color: red;
 }
 
 .form__item-button {
     font-size: 18px;
     margin-top: 15px;
     padding: 5px;
-    background-color: #04AA6D;
+    background-color: #28AD56;
     color: white;
     border: none;
     border-radius: 4px;
@@ -149,7 +149,7 @@ html * {
 }
 
 .form__item-button:hover {
-    background-color: #45a049;
+    background-color: #555;
 }
 
 .form__item-button:disabled {
@@ -227,7 +227,7 @@ html * {
 }
 
 .collapsible__label {
-    background-color: #777;
+    background-color: #04AA6D;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -281,7 +281,7 @@ html * {
 }
 
 .notification--error {
-    background-color: #dc3545;
+    background-color: red;
 }
 
 .code-section {
@@ -317,34 +317,6 @@ html * {
 
 .ga-table td, .ga-table th {
     display: table-cell;
-}
-
-@media screen and (max-width: 920px) {
-    .navbar {
-        flex-direction: column;
-    }
-    .playground {
-        flex-direction: column;
-    }
-    .output__item-image {
-        padding: 0;
-    }
-    .code-section {
-        display: block;
-        align-items: center;
-        justify-content: center;
-    }
-    .code-container {
-        width: auto;
-    }
-    .ga-table td:nth-child(3),
-    .ga-table th:nth-child(3),
-    .ga-table td:nth-child(4),
-    .ga-table th:nth-child(4),
-    .ga-table td:nth-child(5),
-    .ga-table th:nth-child(5) {
-      display: none;
-    }
 }
 
 .loader-modal {
@@ -395,7 +367,7 @@ body.loading {
     position: relative;
     display: inline-block;
     cursor: help;
-    color: #04AA6D;
+    color: #28AD56;
 }
 
 .tooltip .tooltip__text {
@@ -413,7 +385,6 @@ body.loading {
     transition: opacity 0.5s;
     transform: translateX(-54%);
 }
-
 
 .tooltip:hover .tooltip__text {
   visibility: visible;
@@ -445,15 +416,20 @@ body.loading {
 }
 
 .pagination__link:hover {
-    background-color: #04AA6D;
+    background-color: #555;
     color: white;
 }
 
 .pagination__item--active .pagination__link {
-    background-color: #04AA6D;
+    background-color: #28AD56;
     color: white;
     font-weight: bold;
-    border-color: #04AA6D;
+}
+
+.pagination__item--active .pagination__link:hover {
+    background-color: #555;
+    color: white;
+    font-weight: bold;
 }
 
 .help-button {
@@ -515,7 +491,7 @@ body.loading {
 
 .help-modal__header {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: #18529D;
     color: white;
 }
 
@@ -579,13 +555,18 @@ body.loading {
 
 
 .help-modal__collapsible {
-    background-color: #777;
+    background-color: #04AA6D;
     color: white;
     cursor: pointer;
     padding: 18px;
     text-align: left;
+    font-weight: bold;
+    user-select: none;
 }
 
+.help-modal__collapsible:hover {
+    background-color: #555;
+}
 
 .help-modal__collapsible__content {
     padding: 10px;
@@ -594,5 +575,33 @@ body.loading {
     color: #1e1e1e;
 }
 
-
-
+@media screen and (max-width: 920px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .playground {
+        flex-direction: column;
+    }
+    .output__item-image {
+        padding: 0;
+    }
+    .code-section {
+        display: block;
+        align-items: center;
+        justify-content: center;
+    }
+    .code-container {
+        width: auto;
+    }
+    .ga-table td:nth-child(3),
+    .ga-table th:nth-child(3),
+    .ga-table td:nth-child(4),
+    .ga-table th:nth-child(4),
+    .ga-table td:nth-child(5),
+    .ga-table th:nth-child(5) {
+      display: none;
+    }
+    .tooltip .tooltip__text {
+        width: fit-content;
+    }
+}

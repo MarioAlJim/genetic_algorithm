@@ -12,28 +12,51 @@
                     <p class="left-panel-info">{{ _('A System Under Testing (SUT) refers to a system that is being tested for correct operation. The test cases used to test the SUT can be created with bio-inspired algorithms. The bio-inspired algorithms generate suites of data and those suites can be used to create test cases.') }}</p>
                     <p class="left-panel-info">{{ _('In the following form you can select a SUT and a bio-inspired algorithm to update the context and get the parameters of your selected algorithm:') }}</p>
 
-                    <label class="form__item-info">
-                        {{ _('Hover on') }}
+                    <p class="form__item-info">
+                        {{ _('Click on') }}
                         <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                         {{ _('to get help') }}
-                    </label>
+                    </p>
+
+                    <div id="modal_sut" class="help-modal">
+                        <div class="help-modal__content">
+                            <div class="help-modal__header">
+                                <span class="help-modal__close" data-modal-target="modal_sut"
+                                      data-modal-close="true">&times;</span>
+                                <h2 class="help-modal__title">{{ _('System Under Testing') }}</h2>
+                            </div>
+                            <div class="help-modal__body">
+                                <p class="help-modal__collapsible__content">{{ _('System selected for experimentation of test data generation.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal_algorithm" class="help-modal">
+                        <div class="help-modal__content">
+                            <div class="help-modal__header">
+                                <span class="help-modal__close" data-modal-target="modal_algorithm"
+                                      data-modal-close="true">&times;</span>
+                                <h2 class="help-modal__title">{{ _('Algorithm') }}</h2>
+                            </div>
+                            <div class="help-modal__body">
+                                <p class="help-modal__collapsible__content">{{ _('Algorithm selected for test data generation.') }}</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <form action="{{ url_for('playground_blueprint.show_playground') }}#context-section" method="POST" class="left-panel-form">
                         {{ context.hidden_tag() }}
                         <label for="{{ context.problem.id }}" class="form__item-label">
                             {{ context.problem.label.text }}
-                            <span class="tooltip">
+                            <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_sut">
                                 <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-                                <span class="tooltip__text">{{ _('System selected for experimentation of test data generation.') }}</span>
-                            </span>
+                            </button>
                         </label>
                         {{ context.problem(class="form__item-input") }}
                         <label for="{{ context.algorithm.id }}" class="form__item-label">
                             {{ context.algorithm.label.text }}
-                            <span class="tooltip">
+                            <button type="button" class="form__item-label tooltip help-button" data-modal-target="modal_algorithm">
                                 <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
-                                <span class="tooltip__text">{{ _('Algorithm selected for test data generation.') }}</span>
-                            </span>
+                            </button>
                         </label>
                         {{ context.algorithm(class="form__item-input") }}
                         {{ context.apply_button(class="form__item-button") }}
@@ -100,11 +123,11 @@
 
                         <p class="left-panel-info">{{ _('Select the parameters of the algorithm to generate the test data:') }}</p>
 
-                        <label class="form__item-info">
-                            {{ _('Click or hover on') }}
+                        <p class="form__item-info">
+                            {{ _('Click on') }}
                             <img src="{{ url_for('static', filename='images/help-icon.png') }}" class="form__item-icon" alt="help">
                             {{ _('to get help') }}
-                        </label>
+                        </p>
 
                         <form id="config-form" action="{{ url_for('playground_blueprint.show_playground') }}#execution-results" method="POST" class="left-panel-form">
                             {% include config_form_template %}
