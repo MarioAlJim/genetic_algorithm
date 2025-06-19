@@ -137,6 +137,11 @@
                             <input id="download-btn" type="submit" value="{{ _('Download report') }}" class="form__item-button" {% if not allow_download %}disabled{% endif %}>
                         </form>
                     </div>
+                    <div class="left-panel">
+                        <h2 class="title">{{ _('Dear user') }}</h2>
+                        <p class="left-panel-info">{{ _('Help us improve the experience by answering a short form. Thank you!') }}</p>
+                        <a href="https://forms.office.com/r/0JytZQYq4t" target="_blank" rel="noopener noreferrer" class="left-panel_button">{{ _('Go to form') }}</a>
+                    </div>
                 {% endif %}
             </div>
 

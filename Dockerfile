@@ -39,3 +39,4 @@ EXPOSE 5000
 
 # Command to start the app with Gunicorn
 CMD ["gunicorn", "--chdir", "src", "--bind", "0.0.0.0:5000", "wsgi:app"]
+#CMD ["gunicorn", "--config", "gunicorn.conf.py", "--chdir", "src", "--bind", "0.0.0.0:5000", "wsgi:app"]

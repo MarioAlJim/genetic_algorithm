@@ -645,3 +645,12 @@ msgstr "Código del Sistema Bajo Prueba"
 
 msgid "Test cases code"
 msgstr "Código de los casos de prueba"
+
+msgid "Dear user"
+msgstr "Estimado usuario"
+
+msgid "Help us improve the experience by answering a short form. Thank you!"
+msgstr "Ayúdanos a mejorar la experiencia respondiendo un breve formulario. ¡Gracias!"
+
+msgid "Go to form"
+msgstr "Ir al formulario"

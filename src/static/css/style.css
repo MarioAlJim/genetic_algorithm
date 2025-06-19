@@ -94,6 +94,20 @@ html * {
     margin: 0 0 10px 0;
 }
 
+.left-panel_button {
+    display: inline-block;
+    padding: 0.5rem;
+    background-color: #28AD56;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+.left-panel_button:hover {
+  background-color: #18529D;
+}
+
 .left-panel-form {
     display: flex;
     flex-direction: column;
