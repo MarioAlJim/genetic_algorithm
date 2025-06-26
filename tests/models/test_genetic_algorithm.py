@@ -6,12 +6,11 @@ class TestGeneticAlgorithm:
     """Test class for the GeneticAlgorithm class."""
     def test_evaluation_1(self):
         """Valid input: Implemented evaluation"""
-        evaluation = 'triangle-classification'
         ga = GeneticAlgorithm()
-        ga.evaluation = evaluation
+        ga.evaluation = 'triangle-classification'
         assert (
-            ga.evaluation == evaluation
-            and ga.gen_type == 'real-number'
+            ga.evaluation == 'Triangle Classification'
+            and ga.gen_type == 'Real number'
             and ga.chromo_len == 15
         )
 
@@ -30,30 +29,30 @@ class TestGeneticAlgorithm:
             ga.evaluation = evaluation
 
     def test_pop_size_1(self):
-        """Valid input: Integer greater or equal to 1"""
+        """Valid input: Integer greater or equal to min pop size"""
         pop_size = 1
         ga = GeneticAlgorithm()
         ga.pop_size = pop_size
         assert ga.pop_size == pop_size
 
     def test_pop_size_2(self):
-        """Valid input: Integer less or equal to 10"""
+        """Valid input: Integer less or equal to max pop size"""
         pop_size = 10
         ga = GeneticAlgorithm()
         ga.pop_size = pop_size
         assert ga.pop_size == pop_size
 
     def test_pop_size_3(self):
-        """Invalid input: Integer less than 1"""
+        """Invalid input: Integer less than min pop size"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
             ga.pop_size = 0
 
     def test_pop_size_4(self):
-        """Invalid input: Integer greater than 10"""
+        """Invalid input: Integer greater than max pop size"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.pop_size = 11
+            ga.pop_size = 1000
 
     def test_pop_size_5(self):
         """Invalid input: Not an integer"""
@@ -62,30 +61,30 @@ class TestGeneticAlgorithm:
             ga.pop_size = 1.15
 
     def test_num_generations_1(self):
-        """Valid input: Integer greater or equal to 1"""
+        """Valid input: Integer greater or equal to min num generations"""
         num_generations = 1
         ga = GeneticAlgorithm()
         ga.num_generations = num_generations
         assert ga.num_generations == num_generations
 
     def test_num_generations_2(self):
-        """Valid input: Integer less or equal to 100"""
+        """Valid input: Integer less or equal to max num generations"""
         num_generations = 10
         ga = GeneticAlgorithm()
         ga.num_generations = num_generations
         assert ga.num_generations == num_generations
 
     def test_num_generations_3(self):
-        """Invalid input: Integer less than 1"""
+        """Invalid input: Integer less than min num generations"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
             ga.num_generations = 0
 
     def test_num_generations_4(self):
-        """Invalid input: Integer greater than 10"""
+        """Invalid input: Integer greater than max num generations"""
         ga = GeneticAlgorithm()
         with pytest.raises(ValueError):
-            ga.num_generations = 11
+            ga.num_generations = 1000
 
     def test_num_generations_5(self):
         """Invalid input: Not an integer"""
@@ -127,10 +126,9 @@ class TestGeneticAlgorithm:
 
     def test_selection_type_1(self):
         """Valid input: Implemented selection type"""
-        selection_type = 'random'
         ga = GeneticAlgorithm()
-        ga.selection_type = selection_type
-        assert ga.selection_type == selection_type
+        ga.selection_type = 'random'
+        assert ga.selection_type == "Random"
 
     def test_selection_type_2(self):
         """Invalid input: Not implemented selection type"""
@@ -146,10 +144,9 @@ class TestGeneticAlgorithm:
 
     def test_crossover_type_1(self):
         """Valid input: Implemented crossover type"""
-        crossover_type = 'uniform'
         ga = GeneticAlgorithm()
-        ga.crossover_type = crossover_type
-        assert ga.crossover_type == crossover_type
+        ga.crossover_type = 'uniform'
+        assert ga.crossover_type == "Uniform"
 
     def test_crossover_type_2(self):
         """Invalid input: Not implemented crossover type"""
@@ -197,10 +194,9 @@ class TestGeneticAlgorithm:
 
     def test_mutation_type_1(self):
         """Valid input: Implemented mutation type"""
-        mutation_type = 'random-resetting'
         ga = GeneticAlgorithm()
-        ga.mutation_type = mutation_type
-        assert ga.mutation_type == mutation_type
+        ga.mutation_type = 'random-resetting'
+        assert ga.mutation_type == 'Random resetting'
 
     def test_mutation_type_2(self):
         """Invalid input: Not implemented mutation type"""
@@ -275,10 +271,10 @@ class TestGeneticAlgorithm:
         assert (
             config["Generations"] == [num_generations]
             and config["Population size"] == [pop_size]
-            and config["Selection type"] == [selection_type]
+            and config["Selection type"] == ["Random"]
             and config["Selection rate"] == [f"{int(selection_rate * 100)}%"]
-            and config["Crossover type"] == [crossover_type]
-            and config["Mutation type"] == [mutation_type]
+            and config["Crossover type"] == ["Uniform"]
+            and config["Mutation type"] == ["Random resetting"]
             and config["Mutation rate"] == [f"{int(mutation_rate * 100)}%"]
             and config["Elite population rate"] == [f"{int(elite_pop_rate * 100)}%"]
         )
@@ -306,10 +302,10 @@ class TestGeneticAlgorithm:
         assert (
             config["Generations"] == [ga.num_generations]
             and config["Population size"] == [pop_size]
-            and config["Selection type"] == [selection_type]
+            and config["Selection type"] == ["Random"]
             and config["Selection rate"] == [f"{int(ga.selection_rate * 100)}%"]
-            and config["Crossover type"] == [crossover_type]
-            and config["Mutation type"] == [mutation_type]
+            and config["Crossover type"] == ["Uniform"]
+            and config["Mutation type"] == ["Random resetting"]
             and config["Mutation rate"] == [f"{int(ga.mutation_rate * 100)}%"]
             and config["Elite population rate"] == [f"{int(elite_pop_rate * 100)}%"]
         )

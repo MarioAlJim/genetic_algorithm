@@ -6,10 +6,9 @@ class TestAlgorithm:
     """Test class for Algorithm"""
     def test_evaluation_1(self):
         """Valid input: Implemented evaluation"""
-        evaluation = 'triangle-classification'
         algorithm = Algorithm()
-        algorithm.evaluation = evaluation
-        assert algorithm.evaluation == evaluation
+        algorithm.evaluation = 'triangle-classification'
+        assert algorithm.evaluation == 'Triangle Classification'
 
     def test_evaluation_2(self):
         """Invalid input: Not implemented evaluation"""
