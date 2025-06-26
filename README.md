@@ -120,7 +120,7 @@ pytest tests/
 
 - Las pruebas se encuentran en la carpeta `tests/`.
 - Asegúrate de que tienes las dependencias de `requirements.txt`.
-
+- Asegúrate de que los drivers de Selenium acceden a la URL en la cual se está ejecutando el sistema. 
 ---
 
 ## 🐳 Ejecución con Docker

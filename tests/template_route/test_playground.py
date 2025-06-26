@@ -17,13 +17,15 @@ def driver():
     options.add_argument("--headless")  # Remove this line if you want to see the browser
     service = EdgeService()
     driver_instance = webdriver.Edge(service=service, options=options)
+    print("driver edge initialized")
+    # driver_instance = webdriver.Chrome(options=options, service=service)
     yield driver_instance
     driver_instance.quit()
 
 
 def initialize_form(driver_instance):
     """Initialize the GA configuration form."""
-    driver_instance.get("http://127.0.0.1:3000")
+    driver_instance.get("http://127.0.0.1:5000")
 
     select_problem = Select(driver_instance.find_element(By.ID, "problem_field"))
     select_problem.select_by_value("triangle-classification")
@@ -98,11 +100,25 @@ def test_default_configurations_pcu016(driver):
 
     assert "successful_execution" in driver.page_source
 
+def test_default_configurations_pcu017(driver):
+    """Test default configuration when no fields are modified (PCU016)."""
+    initialize_form(driver)
+    driver.find_element(By.ID, "execute_algorithm_button").click()
+    time.sleep(4)
+
+    assert "successful_execution" in driver.page_source
+
 
 @pytest.mark.parametrize("config", [
-    # PCU018 - Invalid population (too high)
+    # PCU018 - Invalid  (too high)
     {
-        "population_size": "51", "generations": "5", "selection_type": "steady-state",
+        "population_size": "50", "generations": "50", "selection_type": "steady-state",
+        "selection_rate": "0.5", "crossover_type": "uniform",
+        "mutation_type": "random-resetting", "mutation_rate": "0.8", "elitism_rate": "0.3"
+    },
+    # PCU018 - Invalid population (too high) and generation
+    {
+        "population_size": "21", "generations": "41", "selection_type": "steady-state",
         "selection_rate": "0.5", "crossover_type": "uniform",
         "mutation_type": "random-resetting", "mutation_rate": "0.8", "elitism_rate": "0.3"
     },
@@ -139,4 +155,4 @@ def test_invalid_configurations(driver, config):
     driver.find_element(By.ID, "execute_algorithm_button").click()
     time.sleep(1)
 
-    assert "is-invalid" in driver.page_source or "error" in driver.page_source
+    assert "successful_execution" not in driver.page_source

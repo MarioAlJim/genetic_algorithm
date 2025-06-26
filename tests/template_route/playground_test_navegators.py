@@ -38,7 +38,7 @@ def run_tests(browser_name):
         print(f"Browser {browser_name} is not supported.")
         return
 
-    driver.get("http://127.0.0.1:3000")
+    driver.get("http://127.0.0.1:5000")
 
     print(f"[{browser_name}] Initializing form...")
     select_problem = Select(driver.find_element(By.ID, "problem_field"))
@@ -88,14 +88,17 @@ def run_tests(browser_name):
 
 
 def main():
-    # Crear hilos para Edge y Chrome
+    """
+    Test Concurrent petitions with different browsers.
+    """
+    # Create threads
     threads = []
     for browser in ["edge", "chrome"]:
         t = threading.Thread(target=run_tests, args=(browser,))
         t.start()
         threads.append(t)
 
-    # Esperar a que terminen ambos hilos
+    # Wait bot threads
     for t in threads:
         t.join()
 

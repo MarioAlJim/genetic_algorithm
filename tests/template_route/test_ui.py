@@ -12,7 +12,7 @@ configurations = [
 ]
 
 driver = webdriver.Edge()
-driver.get("http://127.0.0.1:3000")
+driver.get("http://127.0.0.1:5000")
 
 #initial config form
 select_problem = Select(driver.find_element(By.ID, "problem_field"))
@@ -41,7 +41,7 @@ for config in configurations:
     time.sleep(3)
 
     # validate results
-    assert "div-results" in driver.page_source
+    assert "successful_execution" in driver.page_source
     time.sleep(2)
 
 # close the navigator

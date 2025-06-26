@@ -44,7 +44,7 @@ def execute_test(config, test_id):
     try:
         barrier.wait()
 
-        driver.get("http://127.0.0.1:3000")
+        driver.get("http://127.0.0.1:5000")
         select_problem = Select(driver.find_element(By.ID, "problem_field"))
         select_problem.select_by_value("triangle-classification")
 
